@@ -58,6 +58,10 @@ namespace NNNES.Emulator.Forms.Proxy
                 return _chrRom;
             }
             GetChrRom(_iNesHandle, out var byteArray, out var size);
+            if (size == 0)
+            {
+                return null;
+            }
             var data = new byte[size];
             Marshal.Copy(byteArray, data, 0, size);
             _chrRom = data;
