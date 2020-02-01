@@ -121,7 +121,8 @@ namespace NNNES.Emulator.Forms
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 _currentSection = ChrRom.None;
-                var filePath = openFileDialog.FileName;
+                comboBank.Items.Clear();
+
                 using (var stream = openFileDialog.OpenFile())
                 using (var memoryStream = new MemoryStream())
                 {
@@ -130,6 +131,17 @@ namespace NNNES.Emulator.Forms
                     _nesCartridge = new NesCartridge(bytes);
 
                     CurrentSection = ChrRom.Left;
+                    var chrRomSize = _nesCartridge.GetChrRom()?.Length;
+                    for (var i = 0; i < chrRomSize / 0x2000; ++i)
+                    {
+                        comboBank.Items.Insert(i, $"Bank {i}");
+                    }
+
+                    if (comboBank.Items.Count > 0)
+                    {
+                        comboBank.SelectedIndex = 0;
+                    }
+
                     RepaintChrRom();
                 }
             }
@@ -137,8 +149,7 @@ namespace NNNES.Emulator.Forms
 
         private void RepaintChrRom()
         {
-            var chrRomSize = _nesCartridge.GetChrRom().Length;
-            if (chrRomSize >= 0x2000)
+            if (_nesCartridge.GetChrRom() != null)
             {
                 glChrRom.Invalidate();
             }
@@ -159,11 +170,10 @@ namespace NNNES.Emulator.Forms
 
             var chrRom = _nesCartridge?.GetChrRom();
 
-            
-
             if (chrRom != null && chrRom.Length >= 0x2000)
             {
-                var bytes = chrRom.Take(0x2000).ToArray();
+                var currentBank = comboBank.SelectedIndex;
+                var bytes = chrRom.Skip(currentBank * 0x2000).Take(0x2000).ToArray();
                 var offset = CurrentSection == ChrRom.Left ? 0 : 256;
 
                 for (var i = 0; i < 16; ++i)
@@ -254,6 +264,11 @@ namespace NNNES.Emulator.Forms
             {
                 GlChrRomPaint(glChrRomControl);
             }
+        }
+
+        private void comboBank_SelectedValueChanged(object sender, EventArgs e)
+        {
+            glChrRom.Invalidate();
         }
     }
 }
