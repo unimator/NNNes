@@ -155,7 +155,7 @@ namespace NNNES.Emulator.Forms
             {
                 glControl.SwapBuffers();
                 return;
-            } 
+            }  
 
             var chrRom = _nesCartridge?.GetChrRom();
 
