@@ -68,6 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChrRomControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ChrRomControl.Designer.cs">
+      <DependentUpon>ChrRomControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Proxy\NesCartridge.cs" />
     <Compile Include="Proxy\Nes.cs" />
     <Compile Include="NESEmulator.cs">
@@ -78,6 +84,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ChrRomControl.resx">
+      <DependentUpon>ChrRomControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NESEmulator.resx">
       <DependentUpon>NESEmulator.cs</DependentUpon>
     </EmbeddedResource>

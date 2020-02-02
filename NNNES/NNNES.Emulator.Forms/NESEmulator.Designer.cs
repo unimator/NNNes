@@ -35,17 +35,12 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.glChrRom = new OpenTK.GLControl();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnChrRomLeft = new System.Windows.Forms.Button();
-            this.btnChrRomRight = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.comboBank = new System.Windows.Forms.ComboBox();
+            this.chrRomControl = new NNNES.Emulator.Forms.ChrRomControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -132,96 +127,30 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.glChrRom, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 1);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.chrRomControl, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.78212F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.217877F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 255F));
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 289F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(256, 614);
             this.tableLayoutPanel2.TabIndex = 4;
-            // 
-            // glChrRom
-            // 
-            this.glChrRom.BackColor = System.Drawing.Color.Black;
-            this.glChrRom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.glChrRom.Location = new System.Drawing.Point(0, 358);
-            this.glChrRom.Margin = new System.Windows.Forms.Padding(0);
-            this.glChrRom.Name = "glChrRom";
-            this.glChrRom.Size = new System.Drawing.Size(256, 256);
-            this.glChrRom.TabIndex = 3;
-            this.glChrRom.VSync = false;
-            this.glChrRom.Load += new System.EventHandler(this.glChrRom_Load);
-            this.glChrRom.Paint += new System.Windows.Forms.PaintEventHandler(this.glChrRom_Paint);
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 3;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.Controls.Add(this.btnChrRomLeft, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.btnChrRomRight, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.comboBank, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 328);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(250, 27);
-            this.tableLayoutPanel3.TabIndex = 4;
-            // 
-            // btnChrRomLeft
-            // 
-            this.btnChrRomLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnChrRomLeft.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnChrRomLeft.FlatAppearance.BorderSize = 0;
-            this.btnChrRomLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChrRomLeft.Font = new System.Drawing.Font("Malgun Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChrRomLeft.ForeColor = System.Drawing.Color.LawnGreen;
-            this.btnChrRomLeft.Location = new System.Drawing.Point(3, 3);
-            this.btnChrRomLeft.Name = "btnChrRomLeft";
-            this.btnChrRomLeft.Size = new System.Drawing.Size(77, 21);
-            this.btnChrRomLeft.TabIndex = 0;
-            this.btnChrRomLeft.Text = "LEFT";
-            this.btnChrRomLeft.UseVisualStyleBackColor = false;
-            this.btnChrRomLeft.Click += new System.EventHandler(this.btnSwitchChrRom);
-            // 
-            // btnChrRomRight
-            // 
-            this.btnChrRomRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnChrRomRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnChrRomRight.FlatAppearance.BorderSize = 0;
-            this.btnChrRomRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChrRomRight.Font = new System.Drawing.Font("Malgun Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChrRomRight.ForeColor = System.Drawing.Color.LawnGreen;
-            this.btnChrRomRight.Location = new System.Drawing.Point(169, 3);
-            this.btnChrRomRight.Name = "btnChrRomRight";
-            this.btnChrRomRight.Size = new System.Drawing.Size(78, 21);
-            this.btnChrRomRight.TabIndex = 0;
-            this.btnChrRomRight.Text = "RIGHT";
-            this.btnChrRomRight.UseVisualStyleBackColor = false;
-            this.btnChrRomRight.Click += new System.EventHandler(this.btnSwitchChrRom);
             // 
             // openFileDialog
             // 
             this.openFileDialog.Filter = "NES ROMs|*.nes";
             // 
-            // comboBank
+            // chrRomControl
             // 
-            this.comboBank.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBank.FormattingEnabled = true;
-            this.comboBank.Location = new System.Drawing.Point(86, 3);
-            this.comboBank.Name = "comboBank";
-            this.comboBank.Size = new System.Drawing.Size(77, 21);
-            this.comboBank.TabIndex = 1;
-            this.comboBank.SelectedValueChanged += new System.EventHandler(this.comboBank_SelectedValueChanged);
+            this.chrRomControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chrRomControl.Location = new System.Drawing.Point(0, 325);
+            this.chrRomControl.Margin = new System.Windows.Forms.Padding(0);
+            this.chrRomControl.Name = "chrRomControl";
+            this.chrRomControl.NesCartridge = null;
+            this.chrRomControl.Size = new System.Drawing.Size(256, 289);
+            this.chrRomControl.TabIndex = 0;
             // 
             // NesEmulator
             // 
@@ -242,7 +171,6 @@
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -255,13 +183,9 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnLoadRom;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private OpenTK.GLControl glChrRom;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Button btnChrRomLeft;
-        private System.Windows.Forms.Button btnChrRomRight;
-        private System.Windows.Forms.ComboBox comboBank;
+        private ChrRomControl chrRomControl;
     }
 }
 
