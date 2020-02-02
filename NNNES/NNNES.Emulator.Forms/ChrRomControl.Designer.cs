@@ -55,7 +55,7 @@
             // 
             // tlpControls
             // 
-            this.tlpControls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(83)))), ((int)(((byte)(83)))));
+            this.tlpControls.BackColor = System.Drawing.Color.Transparent;
             this.tlpControls.ColumnCount = 3;
             this.tlpControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tlpControls.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));

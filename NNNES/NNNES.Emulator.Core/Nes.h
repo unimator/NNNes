@@ -14,7 +14,8 @@ public:
 	~Nes();
 
 	void Run();
-	uint8_t* GetMemoryHandle() const;
+	uint8_t* GetRam() const;
+	auto GetCpu() const -> const Cpu* { return cpu_; }
 };
 
 typedef Nes* NesHandle;

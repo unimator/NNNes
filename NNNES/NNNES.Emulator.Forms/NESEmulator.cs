@@ -15,6 +15,7 @@ namespace NNNES.Emulator.Forms
 
 
         private NesCartridge _nesCartridge;
+        private Nes _nes;
 
         public NesEmulator()
         {
@@ -70,6 +71,8 @@ namespace NNNES.Emulator.Forms
                     var bytes = memoryStream.ToArray();
                     _nesCartridge = new NesCartridge(bytes);
                     chrRomControl.NesCartridge = _nesCartridge;
+                    _nes = new Nes();
+                    cpuControl.Nes = _nes;
                 }
             }
         }

@@ -50,9 +50,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="api.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -82,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="CartridgeApi.cpp">
       <Filter>Source Files\Cartridge</Filter>
+    </ClCompile>
+    <ClCompile Include="NesApi.cpp">
+      <Filter>Source Files\Emulator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

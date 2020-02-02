@@ -37,6 +37,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.chrRomControl = new NNNES.Emulator.Forms.ChrRomControl();
+            this.cpuControl = new NNNES.Emulator.Forms.CpuControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -129,6 +130,7 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.chrRomControl, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.cpuControl, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -151,6 +153,16 @@
             this.chrRomControl.NesCartridge = null;
             this.chrRomControl.Size = new System.Drawing.Size(256, 289);
             this.chrRomControl.TabIndex = 0;
+            // 
+            // cpuControl
+            // 
+            this.cpuControl.BackColor = System.Drawing.Color.Transparent;
+            this.cpuControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cpuControl.ForeColor = System.Drawing.Color.LawnGreen;
+            this.cpuControl.Location = new System.Drawing.Point(3, 3);
+            this.cpuControl.Name = "cpuControl";
+            this.cpuControl.Size = new System.Drawing.Size(250, 319);
+            this.cpuControl.TabIndex = 1;
             // 
             // NesEmulator
             // 
@@ -186,6 +198,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private ChrRomControl chrRomControl;
+        private CpuControl cpuControl;
     }
 }
 

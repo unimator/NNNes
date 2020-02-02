@@ -18,6 +18,6 @@ public:
 
 	void Clear() const;
 
-	uint8_t* GetRamAddress() const;
+	uint8_t* GetRam() const;
 };
 

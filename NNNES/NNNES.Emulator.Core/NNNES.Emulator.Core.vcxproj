@@ -163,7 +163,6 @@
     <ClInclude Include="Ram.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="api.cpp" />
     <ClCompile Include="Bus.cpp" />
     <ClCompile Include="CartridgeApi.cpp" />
     <ClCompile Include="Cpu.cpp" />
@@ -172,6 +171,7 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="INes.cpp" />
     <ClCompile Include="Nes.cpp" />
+    <ClCompile Include="NesApi.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Ram.cpp" />
   </ItemGroup>

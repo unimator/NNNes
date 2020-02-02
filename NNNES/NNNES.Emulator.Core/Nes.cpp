@@ -24,8 +24,8 @@ void Nes::Run()
 {
 }
 
-uint8_t* Nes::GetMemoryHandle() const
+uint8_t* Nes::GetRam() const
 {
-	return ram_->GetRamAddress();
+	return ram_->GetRam();
 }
 

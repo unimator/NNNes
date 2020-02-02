@@ -39,7 +39,7 @@ void Ram::Clear() const
 	}
 }
 
-uint8_t* Ram::GetRamAddress() const
+uint8_t* Ram::GetRam() const
 {
 	return ram_;
 }
