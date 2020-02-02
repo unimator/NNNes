@@ -36,12 +36,17 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.chrRomControl = new NNNES.Emulator.Forms.ChrRomControl();
             this.cpuControl = new NNNES.Emulator.Forms.CpuControl();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.txtRomTitle = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -74,8 +79,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btnLoadRom);
-            this.panel1.Controls.Add(this.btnExit);
+            this.panel1.Controls.Add(this.tableLayoutPanel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 489);
             this.panel1.Name = "panel1";
@@ -86,11 +90,10 @@
             // 
             this.btnLoadRom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLoadRom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnLoadRom.FlatAppearance.BorderSize = 0;
             this.btnLoadRom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadRom.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLoadRom.ForeColor = System.Drawing.Color.LawnGreen;
-            this.btnLoadRom.Location = new System.Drawing.Point(315, 96);
+            this.btnLoadRom.Location = new System.Drawing.Point(3, 90);
             this.btnLoadRom.Name = "btnLoadRom";
             this.btnLoadRom.Size = new System.Drawing.Size(94, 35);
             this.btnLoadRom.TabIndex = 0;
@@ -102,11 +105,10 @@
             // 
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnExit.FlatAppearance.BorderSize = 0;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.LawnGreen;
-            this.btnExit.Location = new System.Drawing.Point(415, 96);
+            this.btnExit.Location = new System.Drawing.Point(102, 90);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(94, 35);
             this.btnExit.TabIndex = 0;
@@ -144,6 +146,20 @@
             // 
             this.openFileDialog.Filter = "NES ROMs|*.nes";
             // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel3.Controls.Add(this.panel3, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(512, 134);
+            this.tableLayoutPanel3.TabIndex = 1;
+            // 
             // chrRomControl
             // 
             this.chrRomControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -161,8 +177,35 @@
             this.cpuControl.ForeColor = System.Drawing.Color.LawnGreen;
             this.cpuControl.Location = new System.Drawing.Point(3, 3);
             this.cpuControl.Name = "cpuControl";
+            this.cpuControl.Nes = null;
             this.cpuControl.Size = new System.Drawing.Size(250, 319);
             this.cpuControl.TabIndex = 1;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.txtRomTitle);
+            this.panel3.Controls.Add(this.btnLoadRom);
+            this.panel3.Controls.Add(this.btnExit);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(310, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.panel3.Size = new System.Drawing.Size(199, 128);
+            this.panel3.TabIndex = 0;
+            // 
+            // txtRomTitle
+            // 
+            this.txtRomTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtRomTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtRomTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.txtRomTitle.Font = new System.Drawing.Font("Malgun Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRomTitle.ForeColor = System.Drawing.Color.LawnGreen;
+            this.txtRomTitle.Location = new System.Drawing.Point(3, 69);
+            this.txtRomTitle.MaxLength = 32768;
+            this.txtRomTitle.Name = "txtRomTitle";
+            this.txtRomTitle.ReadOnly = true;
+            this.txtRomTitle.Size = new System.Drawing.Size(193, 15);
+            this.txtRomTitle.TabIndex = 1;
             // 
             // NesEmulator
             // 
@@ -183,6 +226,9 @@
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -199,6 +245,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private ChrRomControl chrRomControl;
         private CpuControl cpuControl;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TextBox txtRomTitle;
     }
 }
 

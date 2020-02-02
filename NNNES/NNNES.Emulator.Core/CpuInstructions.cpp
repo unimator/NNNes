@@ -17,7 +17,7 @@ void Cpu::SaveResult(uint8_t result)
 {
 	if (instructions_set_[current_opcode_].address_mode == &Cpu::Implicit)
 	{
-		accumulator_ = result & 0x00FF;
+		Accumulator() = result & 0x00FF;
 	}
 	else
 	{
@@ -29,14 +29,14 @@ void Cpu::SaveResult(uint8_t result)
 void Cpu::DoBranch()
 {
 	cycles_++;
-	absolute_address_ = program_counter_ + offset_;
+	absolute_address_ = ProgramCounter() + offset_;
 
-	if ((absolute_address_ & 0xFF00) != (program_counter_ & 0xFF00))
+	if ((absolute_address_ & 0xFF00) != (ProgramCounter() & 0xFF00))
 	{
 		cycles_++;
 	}
 
-	program_counter_ = absolute_address_;
+	ProgramCounter() = absolute_address_;
 }
 
 uint8_t Cpu::BCC()
@@ -116,48 +116,48 @@ uint8_t Cpu::BVS()
 
 uint8_t Cpu::TAX()
 {
-	x_ = accumulator_;
-	SetFlag(Z, x_ == 0x00);
-	SetFlag(N, x_ & 0x80);
+	X() = Accumulator();
+	SetFlag(Z, X() == 0x00);
+	SetFlag(N, X() & 0x80);
 	return 0;
 }
 
 uint8_t Cpu::TAY()
 {
-	y_ = accumulator_;
-	SetFlag(Z, y_ == 0x00);
-	SetFlag(N, y_ & 0x80);
+	Y() = Accumulator();
+	SetFlag(Z, Y() == 0x00);
+	SetFlag(N, Y() & 0x80);
 	return 0;
 }
 
 uint8_t Cpu::TSX()
 {
-	x_ = stack_pointer_;
-	SetFlag(Z, x_ == 0x00);
-	SetFlag(N, x_ & 0x80);
+	X() = StackPointer();
+	SetFlag(Z, X() == 0x00);
+	SetFlag(N, X() & 0x80);
 	return 0;
 }
 
 
 uint8_t Cpu::TXA()
 {
-	accumulator_ = x_;
-	SetFlag(Z, accumulator_ == 0x00);
-	SetFlag(N, accumulator_ & 0x80);
+	Accumulator() = X();
+	SetFlag(Z, Accumulator() == 0x00);
+	SetFlag(N, Accumulator() & 0x80);
 	return 0;
 }
 
 uint8_t Cpu::TXS()
 {
-	accumulator_ = stack_pointer_;
+	Accumulator() = StackPointer();
 	return 0;
 }
 
 uint8_t Cpu::TYA()
 {
-	accumulator_ = y_;
-	SetFlag(Z, accumulator_ == 0x00);
-	SetFlag(N, accumulator_ & 0x80);
+	Accumulator() = Y();
+	SetFlag(Z, Accumulator() == 0x00);
+	SetFlag(N, Accumulator() & 0x80);
 	return 0;
 }
 #pragma endregion
@@ -212,12 +212,12 @@ uint8_t Cpu::ADC()
 {
 	const auto argument = Fetch();
 
-	const auto temp = static_cast<uint16_t>(accumulator_) + static_cast<uint16_t>(argument) + static_cast<uint16_t>(GetFlag(C));
+	const auto temp = static_cast<uint16_t>(Accumulator()) + static_cast<uint16_t>(argument) + static_cast<uint16_t>(GetFlag(C));
 	SetFlag(C, temp > 255);
 	SetFlag(Z, (temp & 0x00FF) == 0);
-	SetFlag(V, (~(static_cast<uint16_t>(accumulator_) ^ static_cast<uint16_t>(argument))& (static_cast<uint16_t>(argument) ^ static_cast<uint16_t>(temp))) & 0x0080);
+	SetFlag(V, (~(static_cast<uint16_t>(Accumulator()) ^ static_cast<uint16_t>(argument))& (static_cast<uint16_t>(argument) ^ static_cast<uint16_t>(temp))) & 0x0080);
 	SetFlag(N, temp & 0x80);
-	accumulator_ = temp & 0x00FF;
+	Accumulator() = temp & 0x00FF;
 	return 1;
 }
 
@@ -227,12 +227,12 @@ uint8_t Cpu::SBC()
 	const auto argument = Fetch();
 
 	const uint16_t value = static_cast<uint16_t>(argument) ^ 0x00FF;
-	const auto temp = static_cast<uint16_t>(accumulator_) + value + static_cast<uint16_t>(GetFlag(C));
+	const auto temp = static_cast<uint16_t>(Accumulator()) + value + static_cast<uint16_t>(GetFlag(C));
 	SetFlag(C, temp & 0xFF00);
 	SetFlag(Z, ((temp & 0x00FF) == 0));
-	SetFlag(V, (temp ^ static_cast<uint16_t>(accumulator_))& (temp ^ value) & 0x0080);
+	SetFlag(V, (temp ^ static_cast<uint16_t>(Accumulator()))& (temp ^ value) & 0x0080);
 	SetFlag(N, temp & 0x0080);
-	accumulator_ = temp & 0x00FF;
+	Accumulator() = temp & 0x00FF;
 	return 1;
 }
 
@@ -249,17 +249,17 @@ uint8_t Cpu::INC()
 
 uint8_t Cpu::INX()
 {
-	x_++;
-	SetFlag(Z, x_ == 0x00);
-	SetFlag(N, x_ & 0x80);
+	X()++;
+	SetFlag(Z, X() == 0x00);
+	SetFlag(N, X() & 0x80);
 	return 0;
 }
 
 uint8_t Cpu::INY()
 {
-	y_++;
-	SetFlag(Z, y_ == 0x00);
-	SetFlag(N, y_ & 0x80);
+	Y()++;
+	SetFlag(Z, Y() == 0x00);
+	SetFlag(N, Y() & 0x80);
 	return 0;
 }
 
@@ -275,17 +275,17 @@ uint8_t Cpu::DEC()
 
 uint8_t Cpu::DEX()
 {
-	x_--;
-	SetFlag(Z, x_ == 0x00);
-	SetFlag(N, x_ & 0x80);
+	X()--;
+	SetFlag(Z, X() == 0x00);
+	SetFlag(N, X() & 0x80);
 	return 0;
 }
 
 uint8_t Cpu::DEY()
 {
-	y_--;
-	SetFlag(Z, y_ == 0x00);
-	SetFlag(N, y_ & 0x80);
+	Y()--;
+	SetFlag(Z, Y() == 0x00);
+	SetFlag(N, Y() & 0x80);
 	return 0;
 }
 #pragma endregion
@@ -293,16 +293,16 @@ uint8_t Cpu::DEY()
 #pragma region Logic
 uint8_t Cpu::AND()
 {
-	accumulator_ = accumulator_ & Fetch();
-	SetFlag(Z, accumulator_ == 0x00);
-	SetFlag(Z, accumulator_ & 0x80);
+	Accumulator() = Accumulator() & Fetch();
+	SetFlag(Z, Accumulator() == 0x00);
+	SetFlag(Z, Accumulator() & 0x80);
 	return 1;
 }
 
 uint8_t Cpu::BIT()
 {
 	const auto argument = Fetch();
-	const auto temp = accumulator_ & argument;
+	const auto temp = Accumulator() & argument;
 	SetFlag(Z, (temp & 0x00FF) == 0x00);
 	SetFlag(N, argument & (1 << 7));
 	SetFlag(V, argument & (1 << 6));
@@ -312,18 +312,18 @@ uint8_t Cpu::BIT()
 uint8_t Cpu::EOR()
 {
 	const auto argument = Fetch();
-	accumulator_ = accumulator_ ^ argument;
-	SetFlag(Z, accumulator_ == 0x00);
-	SetFlag(N, accumulator_ & 0x80);
+	Accumulator() = Accumulator() ^ argument;
+	SetFlag(Z, Accumulator() == 0x00);
+	SetFlag(N, Accumulator() & 0x80);
 	return 1;
 }
 
 uint8_t Cpu::ORA()
 {
 	const auto argument = Fetch();
-	accumulator_ = accumulator_ | argument;
-	SetFlag(Z, accumulator_ == 0x00);
-	SetFlag(N, accumulator_ & 0x80);
+	Accumulator() = Accumulator() | argument;
+	SetFlag(Z, Accumulator() == 0x00);
+	SetFlag(N, Accumulator() & 0x80);
 	return 1;
 }
 #pragma endregion
@@ -332,8 +332,8 @@ uint8_t Cpu::ORA()
 uint8_t Cpu::CMP()
 {
 	const auto argument = Fetch();
-	const auto temp = static_cast<uint16_t>(accumulator_) - static_cast<uint16_t>(argument);
-	SetFlag(C, accumulator_ >= temp);
+	const auto temp = static_cast<uint16_t>(Accumulator()) - static_cast<uint16_t>(argument);
+	SetFlag(C, Accumulator() >= temp);
 	SetFlag(Z, (temp & 0x00FF) == 0x0000);
 	SetFlag(N, temp & 0x0080);
 	return 1;
@@ -342,8 +342,8 @@ uint8_t Cpu::CMP()
 uint8_t Cpu::CPX()
 {
 	const auto argument = Fetch();
-	const auto temp = static_cast<uint16_t>(x_) - static_cast<uint16_t>(argument);
-	SetFlag(C, x_ >= argument);
+	const auto temp = static_cast<uint16_t>(X()) - static_cast<uint16_t>(argument);
+	SetFlag(C, X() >= argument);
 	SetFlag(Z, (temp & 0x00FF) == 0x0000);
 	SetFlag(N, temp & 0x0080);
 	return 0;
@@ -352,8 +352,8 @@ uint8_t Cpu::CPX()
 uint8_t Cpu::CPY()
 {
 	const auto argument = Fetch();
-	const auto temp = static_cast<uint16_t>(y_) - static_cast<uint16_t>(argument);
-	SetFlag(C, y_ >= argument);
+	const auto temp = static_cast<uint16_t>(Y()) - static_cast<uint16_t>(argument);
+	SetFlag(C, Y() >= argument);
 	SetFlag(Z, (temp & 0x00FF) == 0x0000);
 	SetFlag(N, temp & 0x0080);
 	return 0;
@@ -410,60 +410,60 @@ uint8_t Cpu::ROR()
 #pragma region Interruptions&Subroutines
 uint8_t Cpu::BRK()
 {
-	program_counter_++;
+	ProgramCounter()++;
 
 	SetFlag(I, true);
-	Write(0x0100 + stack_pointer_, (program_counter_ >> 8) & 0x00FF);
-	stack_pointer_--;
-	Write(0x0100 + stack_pointer_, program_counter_ & 0x00FF);
-	stack_pointer_--;
+	Write(0x0100 + StackPointer(), (ProgramCounter() >> 8) & 0x00FF);
+	StackPointer()--;
+	Write(0x0100 + StackPointer(), ProgramCounter() & 0x00FF);
+	StackPointer()--;
 
 	SetFlag(B, 1);
-	Write(0x0100 + stack_pointer_, status_);
-	stack_pointer_--;
+	Write(0x0100 + StackPointer(), Status());
+	StackPointer()--;
 	SetFlag(B, 0);
 
-	program_counter_ = static_cast<uint16_t>(Read(0xFFFE)) | static_cast<uint16_t>(Read(0xFFFF)) << 8;
+	ProgramCounter() = static_cast<uint16_t>(Read(0xFFFE)) | static_cast<uint16_t>(Read(0xFFFF)) << 8;
 	return 0;
 }
 
 uint8_t Cpu::JMP()
 {
-	program_counter_ = absolute_address_;
+	ProgramCounter() = absolute_address_;
 	return 0;
 }
 
 uint8_t Cpu::JSR()
 {
-	program_counter_--;
+	ProgramCounter()--;
 
-	const auto higher = (program_counter_ >> 8) & 0x00FF;
-	const auto lower = program_counter_ & 0x00FF;
+	const auto higher = (ProgramCounter() >> 8) & 0x00FF;
+	const auto lower = ProgramCounter() & 0x00FF;
 	Push(higher);
 	Push(lower);
 
-	program_counter_ = absolute_address_;
+	ProgramCounter() = absolute_address_;
 	return 0;
 }
 
 
 uint8_t Cpu::RTI()
 {
-	status_ = Pop();
-	status_ &= ~B;
-	status_ &= ~U;
+	Status() = Pop();
+	Status() &= ~B;
+	Status() &= ~U;
 
-	program_counter_ = Pop();
-	program_counter_ |= Pop() << 8;
+	ProgramCounter() = Pop();
+	ProgramCounter() |= Pop() << 8;
 	return 0;
 }
 
 uint8_t Cpu::RTS()
 {
-	program_counter_ = Pop();
-	program_counter_ |= Pop() << 8;
+	ProgramCounter() = Pop();
+	ProgramCounter() |= Pop() << 8;
 
-	program_counter_++;
+	ProgramCounter()++;
 	return 0;
 }
 
@@ -473,18 +473,18 @@ uint8_t Cpu::RTS()
 uint8_t Cpu::LDA()
 {
 	const auto argument = Fetch();
-	accumulator_ = argument;
-	SetFlag(Z, accumulator_ == 0x00);
-	SetFlag(N, accumulator_ & 0x80);
+	Accumulator() = argument;
+	SetFlag(Z, Accumulator() == 0x00);
+	SetFlag(N, Accumulator() & 0x80);
 	return 1;
 }
 
 uint8_t Cpu::LDX()
 {
 	const auto argument = Fetch();
-	x_ = argument;
-	SetFlag(Z, x_ == 0x00);
-	SetFlag(N, x_ & 0x80);
+	X() = argument;
+	SetFlag(Z, X() == 0x00);
+	SetFlag(N, X() & 0x80);
 	return 1;
 }
 
@@ -492,39 +492,39 @@ uint8_t Cpu::LDX()
 uint8_t Cpu::LDY()
 {
 	const auto argument = Fetch();
-	y_ = argument;
-	SetFlag(Z, y_ == 0x00);
-	SetFlag(N, y_ & 0x80);
+	Y() = argument;
+	SetFlag(Z, Y() == 0x00);
+	SetFlag(N, Y() & 0x80);
 	return 1;
 }
 
 uint8_t Cpu::STA()
 {
-	Write(absolute_address_, accumulator_);
+	Write(absolute_address_, Accumulator());
 	return 0;
 }
 
 uint8_t Cpu::STX()
 {
-	Write(absolute_address_, x_);
+	Write(absolute_address_, X());
 	return 0;
 }
 
 uint8_t Cpu::STY()
 {
-	Write(absolute_address_, y_);
+	Write(absolute_address_, Y());
 	return 0;
 }
 
 uint8_t Cpu::PHA()
 {
-	Push(accumulator_);
+	Push(Accumulator());
 	return 0;
 }
 
 uint8_t Cpu::PHP()
 {
-	Push(status_ | B | U);
+	Push(Status() | B | U);
 	SetFlag(B, 0);
 	SetFlag(U, 0);
 	return 0;
@@ -532,15 +532,15 @@ uint8_t Cpu::PHP()
 
 uint8_t Cpu::PLA()
 {
-	accumulator_ = Pop();
-	SetFlag(Z, accumulator_ == 0x00);
-	SetFlag(N, accumulator_ & 0x80);
+	Accumulator() = Pop();
+	SetFlag(Z, Accumulator() == 0x00);
+	SetFlag(N, Accumulator() & 0x80);
 	return 0;
 }
 
 uint8_t Cpu::PLP()
 {
-	status_ = Pop();
+	Status() = Pop();
 	SetFlag(U, true);
 	return 0;
 }

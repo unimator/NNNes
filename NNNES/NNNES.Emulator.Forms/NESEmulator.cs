@@ -73,6 +73,7 @@ namespace NNNES.Emulator.Forms
                     chrRomControl.NesCartridge = _nesCartridge;
                     _nes = new Nes();
                     cpuControl.Nes = _nes;
+                    txtRomTitle.Text = openFileDialog.SafeFileName;
                 }
             }
         }

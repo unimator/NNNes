@@ -50,7 +50,7 @@
             this.tlpChrRom.RowCount = 2;
             this.tlpChrRom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpChrRom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 256F));
-            this.tlpChrRom.Size = new System.Drawing.Size(256, 290);
+            this.tlpChrRom.Size = new System.Drawing.Size(256, 298);
             this.tlpChrRom.TabIndex = 0;
             // 
             // tlpControls
@@ -69,20 +69,21 @@
             this.tlpControls.Name = "tlpControls";
             this.tlpControls.RowCount = 1;
             this.tlpControls.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpControls.Size = new System.Drawing.Size(256, 34);
+            this.tlpControls.Size = new System.Drawing.Size(256, 42);
             this.tlpControls.TabIndex = 5;
             // 
             // btnChrRomRight
             // 
+            this.btnChrRomRight.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChrRomRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnChrRomRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnChrRomRight.FlatAppearance.BorderSize = 0;
             this.btnChrRomRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChrRomRight.Font = new System.Drawing.Font("Malgun Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChrRomRight.ForeColor = System.Drawing.Color.LawnGreen;
             this.btnChrRomRight.Location = new System.Drawing.Point(173, 3);
             this.btnChrRomRight.Name = "btnChrRomRight";
-            this.btnChrRomRight.Size = new System.Drawing.Size(80, 28);
+            this.btnChrRomRight.Size = new System.Drawing.Size(80, 36);
             this.btnChrRomRight.TabIndex = 3;
             this.btnChrRomRight.Text = "RIGHT";
             this.btnChrRomRight.UseVisualStyleBackColor = false;
@@ -102,15 +103,16 @@
             // 
             // btnChrRomLeft
             // 
+            this.btnChrRomLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChrRomLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnChrRomLeft.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnChrRomLeft.FlatAppearance.BorderSize = 0;
             this.btnChrRomLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChrRomLeft.Font = new System.Drawing.Font("Malgun Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChrRomLeft.ForeColor = System.Drawing.Color.LawnGreen;
             this.btnChrRomLeft.Location = new System.Drawing.Point(3, 3);
             this.btnChrRomLeft.Name = "btnChrRomLeft";
-            this.btnChrRomLeft.Size = new System.Drawing.Size(79, 28);
+            this.btnChrRomLeft.Size = new System.Drawing.Size(79, 36);
             this.btnChrRomLeft.TabIndex = 1;
             this.btnChrRomLeft.Text = "LEFT";
             this.btnChrRomLeft.UseVisualStyleBackColor = false;
@@ -120,7 +122,7 @@
             // 
             this.glChrRom.BackColor = System.Drawing.Color.Black;
             this.glChrRom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.glChrRom.Location = new System.Drawing.Point(0, 34);
+            this.glChrRom.Location = new System.Drawing.Point(0, 42);
             this.glChrRom.Margin = new System.Windows.Forms.Padding(0);
             this.glChrRom.Name = "glChrRom";
             this.glChrRom.Size = new System.Drawing.Size(256, 256);
@@ -135,7 +137,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tlpChrRom);
             this.Name = "ChrRomControl";
-            this.Size = new System.Drawing.Size(256, 290);
+            this.Size = new System.Drawing.Size(256, 298);
             this.tlpChrRom.ResumeLayout(false);
             this.tlpControls.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -3,12 +3,7 @@
 #include "Bus.h"
 
 Cpu::Cpu()
-	: accumulator_(0x00),
-	  x_(0x00),
-	  y_(0x00),
-	  stack_pointer_(0x00),
-	  program_counter_(0x0000),
-	  status_(0x00)
+	: registers_(CpuRegisters {0x00, 0x00, 0x00, 0x0000, 0x00, 0x00})
 {
 	instructions_set_ =
 	{
@@ -206,8 +201,8 @@ void Cpu::Clock()
 {
 	if (cycles_ == 0)
 	{
-		current_opcode_ = Read(program_counter_);
-		program_counter_++;
+		current_opcode_ = Read(ProgramCounter());
+		ProgramCounter()++;
 
 		cycles_ = instructions_set_[current_opcode_].cycles;
 
@@ -224,39 +219,39 @@ void Cpu::SetFlag(const Flags flag, const bool value)
 {
 	if (value)
 	{
-		status_ |= flag;
+		Status() |= flag;
 	}
 	else
 	{
-		status_ &= ~flag;
+		Status() &= ~flag;
 	}
 }
 
 bool Cpu::GetFlag(const Flags flag)
 {
-	return status_ & flag;
+	return Status() & flag;
 }
 
 void Cpu::Push(uint8_t arg)
 {
-	Write(0x100 + stack_pointer_--, arg);
+	Write(0x100 + StackPointer()--, arg);
 }
 
 uint8_t Cpu::Pop()
 {
-	return Read(0x100 + ++stack_pointer_);
+	return Read(0x100 + ++StackPointer());
 }
 
 void Cpu::Reset()
 {
-	accumulator_ = 0x00;
-	x_ = 0x00;
-	y_ = 0x00;
-	stack_pointer_ = 0xFD;
-	status_ = 0x00 | U;
+	Accumulator() = 0x00;
+	X() = 0x00;
+	Y() = 0x00;
+	StackPointer() = 0xFD;
+	Status() = 0x00 | U;
 
 	const auto start_address = 0xFFFC;
-	program_counter_ = (Read(start_address + 1) << 8) | Read(start_address);
+	ProgramCounter() = (Read(start_address + 1) << 8) | Read(start_address);
 
 	absolute_address_ = 0x00;
 	offset_ = 0x00;
@@ -266,17 +261,17 @@ void Cpu::Reset()
 
 void Cpu::Interrupt(uint16_t address)
 {
-	Push((program_counter_ >> 8) & 0x00FF);
-	Push(program_counter_ & 0x00FF);
+	Push((ProgramCounter() >> 8) & 0x00FF);
+	Push(ProgramCounter() & 0x00FF);
 
 	SetFlag(B, false);
 	SetFlag(U, true);
 	SetFlag(I, true);
 
-	Push(status_);
+	Push(Status());
 
 	const auto interrupt_handler = address;
-	program_counter_ = Read(interrupt_handler << 8) | Read(interrupt_handler);
+	ProgramCounter() = Read(interrupt_handler << 8) | Read(interrupt_handler);
 
 	cycles_ = 7;
 }

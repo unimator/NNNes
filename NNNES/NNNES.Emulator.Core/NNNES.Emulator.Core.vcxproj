@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="Bus.h" />
     <ClInclude Include="Cpu.h" />
+    <ClInclude Include="CpuRegisters.h" />
     <ClInclude Include="INes.h" />
     <ClInclude Include="Nes.h" />
     <ClInclude Include="pch.h" />

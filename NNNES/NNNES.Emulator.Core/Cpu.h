@@ -2,37 +2,37 @@
 #include <cstdint>
 #include <string>
 #include <map>
+#include "CpuRegisters.h"
 
 class Bus;
 
 class Cpu
 {
 private:
-	uint8_t accumulator_;
-	uint8_t x_;
-	uint8_t y_;
-	uint8_t stack_pointer_;
-	uint16_t program_counter_;
-	uint8_t status_;
+	CpuRegisters registers_;
 
 public:
-	auto Accumulator() -> uint8_t& { return accumulator_; }
-	auto Accumulator() const -> const uint8_t& { return accumulator_; }
+	auto Accumulator() -> uint8_t& { return registers_.accumulator; }
+	auto Accumulator() const -> const uint8_t& { return registers_.accumulator; }
 
-	auto X() -> uint8_t& { return x_; }
-	auto X() const -> const uint8_t& { return x_; }
+	auto X() -> uint8_t& { return registers_.x;
+	}
+	auto X() const -> const uint8_t& { return registers_.x; }
 
-	auto Y() -> uint8_t& { return y_; }
-	auto Y() const -> const uint8_t& { return y_; }
+	auto Y() -> uint8_t& { return registers_.y; }
+	auto Y() const -> const uint8_t& { return registers_.y; }
 
-	auto StackPointer() -> uint8_t& { return stack_pointer_; }
-	auto StackPointer() const -> const uint8_t& { return stack_pointer_; }
+	auto StackPointer() -> uint8_t& { return registers_.stack_pointer; }
+	auto StackPointer() const -> const uint8_t& { return registers_.stack_pointer; }
 
-	auto ProgramCounter() -> uint16_t& { return program_counter_; }
-	auto ProgramCounter() const -> const uint16_t& { return program_counter_; }
+	auto ProgramCounter() -> uint16_t& { return registers_.program_counter; }
+	auto ProgramCounter() const -> const uint16_t& { return registers_.program_counter; }
 
-	auto Status() -> uint8_t& { return status_; }
-	auto Status() const -> const uint8_t& { return status_; }
+	auto Status() -> uint8_t& { return registers_.status; }
+	auto Status() const -> const uint8_t& { return registers_.status; }
+
+	auto Registers() -> CpuRegisters& { return registers_; }
+	auto Registers() const -> const CpuRegisters& { return registers_; }
 
 private:
 	// Addressing

@@ -26,29 +26,10 @@ extern "C" {
 	{
 		return nes->GetRam();
 	}
-
-	struct CpuRegisters
-	{
-		char accumulator;
-		char x, y;
-		short program_counter;
-		char status;
-		char stack;
-	};
 	
 	__declspec(dllexport) CpuRegisters* GetCpuRegisters(const NesHandle nes)
 	{
-		const auto cpu = nes->GetCpu();
-		/*return CpuRegisters{
-			cpu->Accumulator(),
-			cpu->X(), cpu->Y(),
-			cpu->ProgramCounter(),
-			cpu->Status(),
-			cpu->StackPointer()
-		};*/
-
-		return new CpuRegisters{
-			1,2,3,4,5,6
-		};
+		auto cpuRegisters = nes->GetCpu()->Registers();
+		return &cpuRegisters;
 	}
 }

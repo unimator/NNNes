@@ -48,6 +48,9 @@
     <ClInclude Include="INes.h">
       <Filter>Header Files\Cartridge</Filter>
     </ClInclude>
+    <ClInclude Include="CpuRegisters.h">
+      <Filter>Header Files\Emulator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
