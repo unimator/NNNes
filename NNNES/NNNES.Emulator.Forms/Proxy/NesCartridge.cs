@@ -25,6 +25,8 @@ namespace NNNES.Emulator.Forms.Proxy
 
 
         private readonly IntPtr _iNesHandle;
+        public IntPtr INesHandle => _iNesHandle;
+        
         private byte[] _prgRom;
         private byte[] _chrRom;
         

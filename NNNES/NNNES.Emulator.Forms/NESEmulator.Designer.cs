@@ -31,22 +31,22 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.glNesWindow = new OpenTK.GLControl();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.txtRomTitle = new System.Windows.Forms.TextBox();
             this.btnLoadRom = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.chrRomControl = new NNNES.Emulator.Forms.ChrRomControl();
             this.cpuControl = new NNNES.Emulator.Forms.CpuControl();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.txtRomTitle = new System.Windows.Forms.TextBox();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -85,6 +85,46 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(512, 134);
             this.panel1.TabIndex = 2;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel3.Controls.Add(this.panel3, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(512, 134);
+            this.tableLayoutPanel3.TabIndex = 1;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.txtRomTitle);
+            this.panel3.Controls.Add(this.btnLoadRom);
+            this.panel3.Controls.Add(this.btnExit);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(310, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.panel3.Size = new System.Drawing.Size(199, 128);
+            this.panel3.TabIndex = 0;
+            // 
+            // txtRomTitle
+            // 
+            this.txtRomTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtRomTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtRomTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.txtRomTitle.Font = new System.Drawing.Font("Malgun Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRomTitle.ForeColor = System.Drawing.Color.LawnGreen;
+            this.txtRomTitle.Location = new System.Drawing.Point(3, 69);
+            this.txtRomTitle.MaxLength = 32768;
+            this.txtRomTitle.Name = "txtRomTitle";
+            this.txtRomTitle.ReadOnly = true;
+            this.txtRomTitle.Size = new System.Drawing.Size(193, 15);
+            this.txtRomTitle.TabIndex = 1;
             // 
             // btnLoadRom
             // 
@@ -142,24 +182,6 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(256, 614);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
-            // openFileDialog
-            // 
-            this.openFileDialog.Filter = "NES ROMs|*.nes";
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel3.Controls.Add(this.panel3, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(512, 134);
-            this.tableLayoutPanel3.TabIndex = 1;
-            // 
             // chrRomControl
             // 
             this.chrRomControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -181,31 +203,9 @@
             this.cpuControl.Size = new System.Drawing.Size(250, 319);
             this.cpuControl.TabIndex = 1;
             // 
-            // panel3
+            // openFileDialog
             // 
-            this.panel3.Controls.Add(this.txtRomTitle);
-            this.panel3.Controls.Add(this.btnLoadRom);
-            this.panel3.Controls.Add(this.btnExit);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(310, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.panel3.Size = new System.Drawing.Size(199, 128);
-            this.panel3.TabIndex = 0;
-            // 
-            // txtRomTitle
-            // 
-            this.txtRomTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txtRomTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtRomTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.txtRomTitle.Font = new System.Drawing.Font("Malgun Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRomTitle.ForeColor = System.Drawing.Color.LawnGreen;
-            this.txtRomTitle.Location = new System.Drawing.Point(3, 69);
-            this.txtRomTitle.MaxLength = 32768;
-            this.txtRomTitle.Name = "txtRomTitle";
-            this.txtRomTitle.ReadOnly = true;
-            this.txtRomTitle.Size = new System.Drawing.Size(193, 15);
-            this.txtRomTitle.TabIndex = 1;
+            this.openFileDialog.Filter = "NES ROMs|*.nes";
             // 
             // NesEmulator
             // 
@@ -215,20 +215,18 @@
             this.ClientSize = new System.Drawing.Size(814, 654);
             this.Controls.Add(this.tableLayoutPanel1);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
             this.Name = "NesEmulator";
             this.Padding = new System.Windows.Forms.Padding(14);
             this.Text = "NES Emulator";
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NesEmulator_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.NesEmulator_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.NesEmulator_MouseUp);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

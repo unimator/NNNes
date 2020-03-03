@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace NNNES.Emulator.Forms.Proxy
 {
@@ -11,23 +12,40 @@ namespace NNNES.Emulator.Forms.Proxy
         [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "DestroyInstance")]
         private static extern void DestroyInstance(IntPtr nesInstance);
 
-        [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "Run")]
-        private static extern int Run(IntPtr nesInstance);
+        [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "Clock")]
+        private static extern int Clock(IntPtr nesInstance);
+        
+        [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "ResetState")]
+        private static extern void ResetState(IntPtr nesInstance);
 
         [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "GetCpuRegisters")]
-        private static extern IntPtr GetRegisters(IntPtr nesInstance);
+        private static extern void GetRegisters(IntPtr nesInstance, ref CpuRegisters registers);
 
+        [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "SetCartridge")]
+        private static extern void SetCartridge(IntPtr nesInstance, IntPtr nesCartridge);
+        
         private readonly IntPtr _instance;
 
         [StructLayout(LayoutKind.Sequential)]
         public struct CpuRegisters
         {
-            public byte Accumulator { get; set; }
-            public byte X { get; set; }
-            public byte Y { get; set; }
-            public short ProgramCounter { get; set; }
-            public byte Status { get; set; }
-            public byte Stack { get; set; }
+            [MarshalAs(UnmanagedType.U1)]
+            public byte Accumulator;
+
+            [MarshalAs(UnmanagedType.U1)]
+            public byte X;
+
+            [MarshalAs(UnmanagedType.U1)]
+            public byte Y;
+
+            [MarshalAs(UnmanagedType.U2)]
+            public ushort ProgramCounter;
+
+            [MarshalAs(UnmanagedType.U1)]
+            public byte Status;
+
+            [MarshalAs(UnmanagedType.U1)]
+            public byte Stack;
         }
 
         private CpuRegisters? _registers;
@@ -40,10 +58,11 @@ namespace NNNES.Emulator.Forms.Proxy
                 {
                     return _registers.Value;
                 }
-
-                var cpuRegistersHandle = GetRegisters(_instance);
-                _registers = Marshal.PtrToStructure<CpuRegisters>(cpuRegistersHandle);
-                //Marshal.FreeHGlobal(cpuRegistersHandle);
+                
+                var cpuRegisters = new CpuRegisters();
+                GetRegisters(_instance, ref cpuRegisters);
+                _registers = cpuRegisters;
+                
                 return _registers.Value;
             }
         }
@@ -56,6 +75,11 @@ namespace NNNES.Emulator.Forms.Proxy
         ~Nes()
         {
             DestroyInstance(_instance);
+        }
+
+        public void SetCartridge(NesCartridge cartridge)
+        {
+            SetCartridge(_instance, cartridge.INesHandle);
         }
     }
 }

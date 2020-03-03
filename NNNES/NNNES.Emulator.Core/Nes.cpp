@@ -20,12 +20,19 @@ Nes::~Nes()
 	delete cpu_;
 }
 
-void Nes::Run()
+void Nes::Clock() const
 {
+	cpu_->Clock();
 }
+
 
 uint8_t* Nes::GetRam() const
 {
 	return ram_->GetRam();
+}
+
+void Nes::Reset()
+{
+	cpu_->Reset();
 }
 

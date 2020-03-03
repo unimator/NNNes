@@ -6,8 +6,6 @@ namespace NNNES.Emulator.Forms
 {
     public partial class CpuControl : UserControl
     {
-
-
         private Nes _nes;
         public Nes Nes
         {
