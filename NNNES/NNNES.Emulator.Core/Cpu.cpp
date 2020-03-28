@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
-#include "Cpu.h"
-#include "Bus.h"
+#include "Nes.h"
 
 Cpu::Cpu()
 	: registers_(CpuRegisters {0x00, 0x00, 0x00, 0x0000, 0x00, 0x00})
@@ -183,18 +182,12 @@ Cpu::~Cpu()
 
 void Cpu::Write(const uint16_t address, const uint8_t data) const
 {
-	if (bus_)
-	{
-		bus_->ram.Write(address, data);
-	}
+	bus_->Write(address, data);
 }
 
 uint8_t Cpu::Read(const uint16_t address)
 {
-	if (bus_)
-	{
-		return bus_->ram.Read(address);
-	}
+	return bus_->Read(address);
 }
 
 void Cpu::Clock()

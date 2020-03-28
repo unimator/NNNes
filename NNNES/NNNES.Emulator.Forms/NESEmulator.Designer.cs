@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.glNesWindow = new OpenTK.GLControl();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtRomTitle = new System.Windows.Forms.TextBox();
+            this.btnPause = new System.Windows.Forms.Button();
+            this.btnRun = new System.Windows.Forms.Button();
             this.btnLoadRom = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -41,6 +44,8 @@
             this.chrRomControl = new NNNES.Emulator.Forms.ChrRomControl();
             this.cpuControl = new NNNES.Emulator.Forms.CpuControl();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.bwEmulator = new System.ComponentModel.BackgroundWorker();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -103,6 +108,8 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.txtRomTitle);
+            this.panel3.Controls.Add(this.btnPause);
+            this.panel3.Controls.Add(this.btnRun);
             this.panel3.Controls.Add(this.btnLoadRom);
             this.panel3.Controls.Add(this.btnExit);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -125,6 +132,36 @@
             this.txtRomTitle.ReadOnly = true;
             this.txtRomTitle.Size = new System.Drawing.Size(193, 15);
             this.txtRomTitle.TabIndex = 1;
+            // 
+            // btnPause
+            // 
+            this.btnPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPause.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPause.Font = new System.Drawing.Font("Malgun Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPause.ForeColor = System.Drawing.Color.LawnGreen;
+            this.btnPause.Location = new System.Drawing.Point(44, 28);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(35, 35);
+            this.btnPause.TabIndex = 0;
+            this.btnPause.Text = "║║";
+            this.btnPause.UseVisualStyleBackColor = false;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
+            // 
+            // btnRun
+            // 
+            this.btnRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRun.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRun.Font = new System.Drawing.Font("Malgun Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRun.ForeColor = System.Drawing.Color.LawnGreen;
+            this.btnRun.Location = new System.Drawing.Point(3, 28);
+            this.btnRun.Name = "btnRun";
+            this.btnRun.Size = new System.Drawing.Size(35, 35);
+            this.btnRun.TabIndex = 0;
+            this.btnRun.Text = "▶";
+            this.btnRun.UseVisualStyleBackColor = false;
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
             // btnLoadRom
             // 
@@ -207,6 +244,17 @@
             // 
             this.openFileDialog.Filter = "NES ROMs|*.nes";
             // 
+            // bwEmulator
+            // 
+            this.bwEmulator.WorkerReportsProgress = true;
+            this.bwEmulator.WorkerSupportsCancellation = true;
+            this.bwEmulator.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwEmulator_DoWork);
+            this.bwEmulator.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwEmulator_ProgressChanged);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            // 
             // NesEmulator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -246,6 +294,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox txtRomTitle;
+        private System.Windows.Forms.Button btnRun;
+        private System.Windows.Forms.Button btnPause;
+        private System.ComponentModel.BackgroundWorker bwEmulator;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

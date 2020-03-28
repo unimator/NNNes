@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 namespace NNNES.Emulator.Forms.Proxy
 {
@@ -13,7 +12,7 @@ namespace NNNES.Emulator.Forms.Proxy
         private static extern void DestroyInstance(IntPtr nesInstance);
 
         [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "Clock")]
-        private static extern int Clock(IntPtr nesInstance);
+        private static extern void Clock(IntPtr nesInstance);
         
         [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "ResetState")]
         private static extern void ResetState(IntPtr nesInstance);
@@ -48,25 +47,6 @@ namespace NNNES.Emulator.Forms.Proxy
             public byte Stack;
         }
 
-        private CpuRegisters? _registers;
-
-        public CpuRegisters Registers
-        {
-            get
-            {
-                if (_registers.HasValue)
-                {
-                    return _registers.Value;
-                }
-                
-                var cpuRegisters = new CpuRegisters();
-                GetRegisters(_instance, ref cpuRegisters);
-                _registers = cpuRegisters;
-                
-                return _registers.Value;
-            }
-        }
-
         public Nes()
         {
             _instance = CreateInstance();
@@ -80,6 +60,18 @@ namespace NNNES.Emulator.Forms.Proxy
         public void SetCartridge(NesCartridge cartridge)
         {
             SetCartridge(_instance, cartridge.INesHandle);
+        }
+
+        public void Clock()
+        {
+            Clock(_instance);
+        }
+
+        public CpuRegisters GetRegisters()
+        {
+            var cpuRegisters = new CpuRegisters();
+            GetRegisters(_instance, ref cpuRegisters);
+            return cpuRegisters;
         }
     }
 }

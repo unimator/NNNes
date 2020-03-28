@@ -155,25 +155,37 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bus.h" />
+    <ClInclude Include="CodeDisassembler.h" />
     <ClInclude Include="Cpu.h" />
+    <ClInclude Include="CpuRam.h" />
     <ClInclude Include="CpuRegisters.h" />
+    <ClInclude Include="Device.h" />
     <ClInclude Include="INes.h" />
+    <ClInclude Include="Instruction.h" />
     <ClInclude Include="Nes.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Ppu.h" />
+    <ClInclude Include="PpuRam.h" />
     <ClInclude Include="Ram.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bus.cpp" />
     <ClCompile Include="CartridgeApi.cpp" />
+    <ClCompile Include="CodeDisassembler.cpp" />
     <ClCompile Include="Cpu.cpp" />
     <ClCompile Include="CpuAddressing.cpp" />
     <ClCompile Include="CpuInstructions.cpp" />
+    <ClCompile Include="CpuRam.cpp" />
+    <ClCompile Include="Device.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="INes.cpp" />
+    <ClCompile Include="Instruction.cpp" />
     <ClCompile Include="Nes.cpp" />
     <ClCompile Include="NesApi.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Ppu.cpp" />
+    <ClCompile Include="PpuRam.cpp" />
     <ClCompile Include="Ram.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

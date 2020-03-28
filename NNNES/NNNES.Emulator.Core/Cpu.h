@@ -2,9 +2,8 @@
 #include <cstdint>
 #include <string>
 #include <map>
+#include "Bus.h"
 #include "CpuRegisters.h"
-
-class Bus;
 
 class Cpu
 {
@@ -15,8 +14,7 @@ public:
 	auto Accumulator() -> uint8_t& { return registers_.accumulator; }
 	auto Accumulator() const -> const uint8_t& { return registers_.accumulator; }
 
-	auto X() -> uint8_t& { return registers_.x;
-	}
+	auto X() -> uint8_t& { return registers_.x; }
 	auto X() const -> const uint8_t& { return registers_.x; }
 
 	auto Y() -> uint8_t& { return registers_.y; }

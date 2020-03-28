@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Cartridge">
       <UniqueIdentifier>{82a15e47-d48f-4241-8734-8b5794512d2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{4363fc3d-93ca-41d8-b2ca-d16ccceaa13d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{35c498f7-1bcd-48f7-a2f8-d7eaa852e1a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -49,6 +55,24 @@
       <Filter>Header Files\Cartridge</Filter>
     </ClInclude>
     <ClInclude Include="CpuRegisters.h">
+      <Filter>Header Files\Emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="CodeDisassembler.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Instruction.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Ppu.h">
+      <Filter>Header Files\Emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="Device.h">
+      <Filter>Header Files\Emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="PpuRam.h">
+      <Filter>Header Files\Emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="CpuRam.h">
       <Filter>Header Files\Emulator</Filter>
     </ClInclude>
   </ItemGroup>
@@ -84,6 +108,24 @@
       <Filter>Source Files\Cartridge</Filter>
     </ClCompile>
     <ClCompile Include="NesApi.cpp">
+      <Filter>Source Files\Emulator</Filter>
+    </ClCompile>
+    <ClCompile Include="CodeDisassembler.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CpuRam.cpp">
+      <Filter>Source Files\Emulator</Filter>
+    </ClCompile>
+    <ClCompile Include="PpuRam.cpp">
+      <Filter>Source Files\Emulator</Filter>
+    </ClCompile>
+    <ClCompile Include="Ppu.cpp">
+      <Filter>Source Files\Emulator</Filter>
+    </ClCompile>
+    <ClCompile Include="Instruction.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
       <Filter>Source Files\Emulator</Filter>
     </ClCompile>
   </ItemGroup>
