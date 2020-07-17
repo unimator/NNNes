@@ -1,4 +1,17 @@
 ﻿#include "pch.h"
 #include "PpuRam.h"
 
-PpuRam::PpuRam(): Ram(0x4000, 0x4000) {}
+PpuRam::PpuRam()
+{
+	primaryNameTable = new uint8_t[TABLE_NAME_SIZE];
+	secondaryNameTable = new uint8_t[TABLE_NAME_SIZE];
+	paletteTable = new uint8_t[PALETTE_SIZE];
+}
+
+PpuRam::~PpuRam()
+{
+	if (primaryNameTable) delete [] primaryNameTable;
+	if (secondaryNameTable) delete [] secondaryNameTable;
+	if (paletteTable) delete [] paletteTable;
+}
+

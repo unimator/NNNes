@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "Nes.h"
+#include <vector>
 
 Cpu::Cpu()
 	: registers_(CpuRegisters {0x00, 0x00, 0x00, 0x0000, 0x00, 0x00})
@@ -173,6 +174,15 @@ Cpu::Cpu()
 		{0xfd, {"SBC", &Cpu::SBC, &Cpu::AbsoluteX, 4}},
 		{0xfe, {"INC", &Cpu::INC, &Cpu::AbsoluteX, 7}}
 	};
+
+	for(auto i = 0x00; i <= 0xFF; ++i)
+	{
+		if(instructions_set_.count(i) == 0)
+		{
+			auto instruction = Instruction{ "XXX", &Cpu::XXX, &Cpu::Implicit, 0 };
+			instructions_set_.insert({ i, instruction });
+		}
+	}
 }
 
 Cpu::~Cpu()
@@ -206,6 +216,14 @@ void Cpu::Clock()
 	}
 
 	cycles_--;
+}
+
+void Cpu::NextInstruction()
+{
+	do
+	{
+		Clock();
+	} while (cycles_ > 0);
 }
 
 void Cpu::SetFlag(const Flags flag, const bool value)
@@ -283,4 +301,119 @@ void Cpu::NonMaskedInterruptRequest()
 {
 	const auto interrupt_handler = 0xFFFA;
 	Interrupt(interrupt_handler);
+}
+
+
+InstructionInfo Cpu::DisassembleInstruction(uint16_t& address)
+{
+	const auto opcode = Read(address);
+
+	auto get_addressing_mode = [](auto address_mode)
+	{
+		if (address_mode == &Cpu::Implicit)
+		{
+			return AddressingMode::Implicit;
+		}
+		else if (address_mode == &Cpu::Immediate)
+		{
+			return AddressingMode::Immediate;
+		}
+		else if (address_mode == &Cpu::Absolute)
+		{
+			return AddressingMode::Absolute;
+		}
+		else if (address_mode == &Cpu::AbsoluteX)
+		{
+			return AddressingMode::AbsoluteX;
+		}
+		else if (address_mode == &Cpu::AbsoluteY)
+		{
+			return AddressingMode::AbsoluteY;
+		}
+		else if (address_mode == &Cpu::Indirect)
+		{
+			return AddressingMode::Indirect;
+		}
+		else if (address_mode == &Cpu::IndirectX)
+		{
+			return AddressingMode::IndirectX;
+		}
+		else if (address_mode == &Cpu::IndirectY)
+		{
+			return AddressingMode::IndirectY;
+		}
+		else if (address_mode == &Cpu::ZeroPage)
+		{
+			return AddressingMode::ZeroPage;
+		}
+		else if (address_mode == &Cpu::ZeroPageX)
+		{
+			return AddressingMode::ZeroPageX;
+		}
+		else if (address_mode == &Cpu::ZeroPageY)
+		{
+			return AddressingMode::ZeroPageY;
+		}
+		else if (address_mode == &Cpu::Relative)
+		{
+			return AddressingMode::Relative;
+		}
+	};
+
+	if (instructions_set_.count(opcode) == 0)
+	{
+		const auto empty_instruction = InstructionInfo
+		{
+			address,
+			"---",
+			AddressingMode::Implicit,
+			0,0, 0
+		};
+		++address;
+		return empty_instruction;
+	}
+
+	auto instruction_info = InstructionInfo();
+	const auto instruction = instructions_set_[opcode];
+	instruction_info.address = address;
+	memcpy(instruction_info.mnemonic, instruction.name.c_str(), 4);
+	const auto address_mode = instruction.address_mode;
+
+	if (address_mode == &Cpu::Implicit)
+	{
+		instruction_info.args_num = 0;
+	}
+	else if (address_mode == &Cpu::Immediate
+		|| address_mode == &Cpu::ZeroPage
+		|| address_mode == &Cpu::ZeroPageX
+		|| address_mode == &Cpu::ZeroPageY
+		|| address_mode == &Cpu::Relative)
+	{
+		if(static_cast<uint32_t>(address + 1) > 0xFFFF)
+		{
+			return instruction_info;
+		}
+		instruction_info.args_num = 1;
+		instruction_info.arg1 = Read(++address);
+	}
+	else if (address_mode == &Cpu::Absolute
+		|| address_mode == &Cpu::AbsoluteX
+		|| address_mode == &Cpu::AbsoluteY
+		|| address_mode == &Cpu::Indirect
+		|| address_mode == &Cpu::IndirectX
+		|| address_mode == &Cpu::IndirectY)
+	{
+		if(static_cast<uint32_t>(address + 2) > 0xFFFF)
+		{
+			return instruction_info;
+		}
+		instruction_info.args_num = 2;
+		instruction_info.arg1 = Read(++address);
+		instruction_info.arg2 = Read(++address);
+	}
+
+	instruction_info.addressing_mode = get_addressing_mode(address_mode);
+
+	++address;
+	return instruction_info;
 }

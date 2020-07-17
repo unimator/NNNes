@@ -1,14 +1,14 @@
 ﻿#pragma once
 #include <cstdint>
-#include <string>
 
 enum AddressingMode;
 
-struct Instruction
+struct InstructionInfo
 {
 	uint16_t address;
-	std::string mnemonic;
+	char mnemonic[4];
 	AddressingMode addressing_mode;
+	uint8_t args_num;
 	uint8_t arg1, arg2;
 };
 

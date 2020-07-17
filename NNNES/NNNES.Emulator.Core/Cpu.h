@@ -82,6 +82,7 @@ public:
 	uint8_t Read(uint16_t address);
 	
 	void Clock();
+	void NextInstruction();
 
 	void Reset();
 	void Interrupt(uint16_t address);
@@ -175,6 +176,10 @@ private:
 	uint8_t TXA();
 	uint8_t TXS();
 	uint8_t TYA();
+	uint8_t XXX();
 
 	uint8_t Fetch();
+
+public:
+	InstructionInfo DisassembleInstruction(uint16_t& address);
 };

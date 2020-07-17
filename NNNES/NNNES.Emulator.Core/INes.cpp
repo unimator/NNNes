@@ -1,14 +1,15 @@
 ﻿#include "pch.h"
 #include "INes.h"
+#include "Nrom.h"
 
-INes::INes(const uint8_t* bytes, const uint32_t length)
+INes::INes(const uint8_t* bytes, const uint32_t length) : Device(0x4020, 0xBFE0)
 {
-	if(memcmp(bytes, "NES\x001a", 4) != 0)
+	if (memcmp(bytes, "NES\x001a", 4) != 0)
 	{
 		throw "Invalid iNES header";
 	}
 
-	if((bytes[7]&0x0C) == 0x08)
+	if ((bytes[7] & 0x0C) == 0x08)
 	{
 		is_nes20_ = true;
 		LoadNes20Format(bytes, length);
@@ -17,7 +18,7 @@ INes::INes(const uint8_t* bytes, const uint32_t length)
 	{
 		LoadNesFormat(bytes, length);
 	}
-} 
+}
 
 INes::~INes()
 {
@@ -33,6 +34,11 @@ INes::~INes()
 	try_delete(prg_rom_);
 	try_delete(chr_rom_);
 	try_delete(prom_);
+
+	if(mapper_)
+	{
+		delete mapper_;
+	}
 }
 
 void INes::LoadNesFormat(const uint8_t* bytes, const uint32_t length)
@@ -80,8 +86,38 @@ void INes::LoadNesFormat(const uint8_t* bytes, const uint32_t length)
 	{
 		title_ = std::string(reinterpret_cast<const char*>(bytes + offset), length - offset);
 	}
+
+	switch(MapperNumber())
+	{
+	case 0:
+		mapper_ = new Nrom(prg_rom_size_, chr_rom_size_);
+	}
 }
 
 void INes::LoadNes20Format(const uint8_t* bytes, const uint32_t length)
 {
+}
+
+void INes::CpuWrite(uint16_t address, uint8_t data)
+{
+	const auto real_address = mapper_->CpuWriteAddress(address);
+	prg_rom_[real_address] = data;
+}
+
+uint8_t INes::CpuRead(uint16_t address)
+{
+	const auto real_address = mapper_->CpuReadAddress(address);
+	return prg_rom_[real_address];
+}
+
+void INes::PpuWrite(uint16_t address, uint8_t data) const
+{
+	const auto real_address = mapper_->PpuWriteAddress(address);
+	chr_rom_[real_address] = data;
+}
+
+uint8_t INes::PpuRead(uint16_t address) const
+{
+	const auto real_address = mapper_->PpuReadAddress(address);
+	return chr_rom_[real_address];
 }

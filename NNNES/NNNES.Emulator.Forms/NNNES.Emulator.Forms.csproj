@@ -81,7 +81,6 @@
       <DependentUpon>CpuControl.cs</DependentUpon>
     </Compile>
     <Compile Include="CpuFlags.cs" />
-    <Compile Include="Disassembler\Instruction.cs" />
     <Compile Include="Proxy\NesCartridge.cs" />
     <Compile Include="Proxy\Nes.cs" />
     <Compile Include="NESEmulator.cs">

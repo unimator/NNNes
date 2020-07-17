@@ -154,15 +154,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Apu.h" />
     <ClInclude Include="Bus.h" />
-    <ClInclude Include="CodeDisassembler.h" />
     <ClInclude Include="Cpu.h" />
     <ClInclude Include="CpuRam.h" />
     <ClInclude Include="CpuRegisters.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="INes.h" />
-    <ClInclude Include="Instruction.h" />
+    <ClInclude Include="InstructionInfo.h" />
+    <ClInclude Include="Mapper.h" />
     <ClInclude Include="Nes.h" />
+    <ClInclude Include="Nrom.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Ppu.h" />
@@ -170,9 +172,9 @@
     <ClInclude Include="Ram.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Apu.cpp" />
     <ClCompile Include="Bus.cpp" />
     <ClCompile Include="CartridgeApi.cpp" />
-    <ClCompile Include="CodeDisassembler.cpp" />
     <ClCompile Include="Cpu.cpp" />
     <ClCompile Include="CpuAddressing.cpp" />
     <ClCompile Include="CpuInstructions.cpp" />
@@ -180,9 +182,11 @@
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="INes.cpp" />
-    <ClCompile Include="Instruction.cpp" />
+    <ClCompile Include="InstructionInfo.cpp" />
+    <ClCompile Include="Mapper.cpp" />
     <ClCompile Include="Nes.cpp" />
     <ClCompile Include="NesApi.cpp" />
+    <ClCompile Include="Nrom.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Ppu.cpp" />
     <ClCompile Include="PpuRam.cpp" />

@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Utils">
       <UniqueIdentifier>{35c498f7-1bcd-48f7-a2f8-d7eaa852e1a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Cartridge\Mappers">
+      <UniqueIdentifier>{c7f3df76-31b3-406c-acbe-9cef90cf4c84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Cartridge\Mappers">
+      <UniqueIdentifier>{542b6d85-c8ca-4b59-b01d-916c7ccfb8a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -57,12 +63,6 @@
     <ClInclude Include="CpuRegisters.h">
       <Filter>Header Files\Emulator</Filter>
     </ClInclude>
-    <ClInclude Include="CodeDisassembler.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Instruction.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Ppu.h">
       <Filter>Header Files\Emulator</Filter>
     </ClInclude>
@@ -73,6 +73,18 @@
       <Filter>Header Files\Emulator</Filter>
     </ClInclude>
     <ClInclude Include="CpuRam.h">
+      <Filter>Header Files\Emulator</Filter>
+    </ClInclude>
+    <ClInclude Include="Nrom.h">
+      <Filter>Header Files\Cartridge\Mappers</Filter>
+    </ClInclude>
+    <ClInclude Include="Mapper.h">
+      <Filter>Header Files\Cartridge\Mappers</Filter>
+    </ClInclude>
+    <ClInclude Include="InstructionInfo.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Apu.h">
       <Filter>Header Files\Emulator</Filter>
     </ClInclude>
   </ItemGroup>
@@ -110,9 +122,6 @@
     <ClCompile Include="NesApi.cpp">
       <Filter>Source Files\Emulator</Filter>
     </ClCompile>
-    <ClCompile Include="CodeDisassembler.cpp">
-      <Filter>Source Files\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="CpuRam.cpp">
       <Filter>Source Files\Emulator</Filter>
     </ClCompile>
@@ -122,10 +131,19 @@
     <ClCompile Include="Ppu.cpp">
       <Filter>Source Files\Emulator</Filter>
     </ClCompile>
-    <ClCompile Include="Instruction.cpp">
+    <ClCompile Include="Device.cpp">
+      <Filter>Source Files\Emulator</Filter>
+    </ClCompile>
+    <ClCompile Include="Nrom.cpp">
+      <Filter>Source Files\Cartridge\Mappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Mapper.cpp">
+      <Filter>Source Files\Cartridge\Mappers</Filter>
+    </ClCompile>
+    <ClCompile Include="InstructionInfo.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Device.cpp">
+    <ClCompile Include="Apu.cpp">
       <Filter>Source Files\Emulator</Filter>
     </ClCompile>
   </ItemGroup>

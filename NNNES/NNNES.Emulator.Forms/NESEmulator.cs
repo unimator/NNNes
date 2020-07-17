@@ -11,13 +11,14 @@ namespace NNNES.Emulator.Forms
     public partial class NesEmulator : Form
     {
         private NesCartridge _nesCartridge;
-        private Nes _nes;
-
+        private readonly Nes _nes;
+        
         public NesEmulator()
         {
             InitializeComponent();
             _nes = new Nes();
             cpuControl.Nes = _nes;
+            cpuControl.Enabled = false;
         }
 
         private void glNesWindow_Load(object sender, EventArgs e)
@@ -38,19 +39,26 @@ namespace NNNES.Emulator.Forms
 
         private void btnLoadRom_Click(object sender, EventArgs e)
         {
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (openFileDialog.ShowDialog() != DialogResult.OK)
             {
-                using (var stream = openFileDialog.OpenFile())
-                using (var memoryStream = new MemoryStream())
-                {
-                    stream.CopyTo(memoryStream);
-                    var bytes = memoryStream.ToArray();
-                    _nesCartridge = new NesCartridge(bytes);
-                    chrRomControl.NesCartridge = _nesCartridge;
-                    txtRomTitle.Text = openFileDialog.SafeFileName;
-                    _nes.SetCartridge(_nesCartridge);
-                }
+                return;
             }
+
+            using (var stream = openFileDialog.OpenFile())
+            using (var memoryStream = new MemoryStream())
+            {
+                stream.CopyTo(memoryStream);
+                var bytes = memoryStream.ToArray();
+                _nesCartridge = new NesCartridge(bytes);
+                chrRomControl.NesCartridge = _nesCartridge;
+                txtRomTitle.Text = openFileDialog.SafeFileName;
+                _nes.SetCartridge(_nesCartridge);
+            }
+
+            _nes.Reset();
+            cpuControl.Enabled = true;
+            cpuControl.Disassemble();
+            cpuControl.UpdateState();
         }
 
         private void btnRun_Click(object sender, EventArgs e)
@@ -63,7 +71,7 @@ namespace NNNES.Emulator.Forms
 
         private void btnPause_Click(object sender, EventArgs e)
         {
-            cpuControl.UpdateRegisters();
+            cpuControl.UpdateState();
             bwEmulator.CancelAsync();
         }
 
@@ -85,9 +93,16 @@ namespace NNNES.Emulator.Forms
             }
         }
 
-        private void bwEmulator_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void btnSingleStep_Click(object sender, EventArgs e)
         {
-            
+            _nes.NextInstruction();
+            cpuControl.UpdateState();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _nes.Reset();
+            cpuControl.UpdateState();
         }
     }
 }

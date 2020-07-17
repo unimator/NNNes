@@ -10,13 +10,14 @@ private:
 	
 protected:
 	Ram(uint16_t virtual_size, uint16_t physical_size);
-
+	virtual ~Ram();
+	
 public:
 
 	void Clear() const;
 	
-	void Write(uint16_t address, uint8_t data) const override;
-	uint8_t Read(uint16_t address) override;
+	void CpuWrite(uint16_t address, uint8_t data) override;
+	uint8_t CpuRead(uint16_t address) override;
 
 	uint8_t* GetMemory() const;
 };

@@ -561,5 +561,7 @@ uint8_t Cpu::NOP()
 	return 0;
 }
 
-
-
+uint8_t Cpu::XXX()
+{
+	return 0;
+}

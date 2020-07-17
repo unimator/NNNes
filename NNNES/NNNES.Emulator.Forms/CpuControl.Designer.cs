@@ -41,19 +41,23 @@
             this.lblN = new System.Windows.Forms.Label();
             this.tblRegisters = new System.Windows.Forms.TableLayoutPanel();
             this.panelRegisters1 = new System.Windows.Forms.Panel();
+            this.cbFollowPC = new System.Windows.Forms.CheckBox();
             this.lblProgramCounter = new System.Windows.Forms.Label();
             this.lblStackPointer = new System.Windows.Forms.Label();
             this.lblAccumulator = new System.Windows.Forms.Label();
             this.panelRegisters2 = new System.Windows.Forms.Panel();
+            this.lblProgramCounterValue = new System.Windows.Forms.Label();
+            this.lblStackPointerValue = new System.Windows.Forms.Label();
+            this.lblAccumulatorValue = new System.Windows.Forms.Label();
             this.panelRegisters3 = new System.Windows.Forms.Panel();
             this.lblY = new System.Windows.Forms.Label();
             this.lblX = new System.Windows.Forms.Label();
             this.panelRegisters4 = new System.Windows.Forms.Panel();
-            this.lblAccumulatorValue = new System.Windows.Forms.Label();
-            this.lblStackPointerValue = new System.Windows.Forms.Label();
-            this.lblProgramCounterValue = new System.Windows.Forms.Label();
-            this.lblXValue = new System.Windows.Forms.Label();
             this.lblYValue = new System.Windows.Forms.Label();
+            this.lblXValue = new System.Windows.Forms.Label();
+            this.panelDisassembled = new System.Windows.Forms.Panel();
+            this.vsbDisassembledScroll = new System.Windows.Forms.VScrollBar();
+            this.lblDisassembled = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tblFlagRegisters.SuspendLayout();
@@ -62,6 +66,7 @@
             this.panelRegisters2.SuspendLayout();
             this.panelRegisters3.SuspendLayout();
             this.panelRegisters4.SuspendLayout();
+            this.panelDisassembled.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -71,12 +76,13 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tblRegisters, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panelDisassembled, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(296, 388);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -238,19 +244,31 @@
             this.tblRegisters.Name = "tblRegisters";
             this.tblRegisters.RowCount = 1;
             this.tblRegisters.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblRegisters.Size = new System.Drawing.Size(290, 50);
+            this.tblRegisters.Size = new System.Drawing.Size(290, 69);
             this.tblRegisters.TabIndex = 2;
             // 
             // panelRegisters1
             // 
+            this.panelRegisters1.Controls.Add(this.cbFollowPC);
             this.panelRegisters1.Controls.Add(this.lblProgramCounter);
             this.panelRegisters1.Controls.Add(this.lblStackPointer);
             this.panelRegisters1.Controls.Add(this.lblAccumulator);
             this.panelRegisters1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelRegisters1.Location = new System.Drawing.Point(3, 3);
             this.panelRegisters1.Name = "panelRegisters1";
-            this.panelRegisters1.Size = new System.Drawing.Size(139, 44);
+            this.panelRegisters1.Size = new System.Drawing.Size(139, 63);
             this.panelRegisters1.TabIndex = 1;
+            // 
+            // cbFollowPC
+            // 
+            this.cbFollowPC.AutoSize = true;
+            this.cbFollowPC.Location = new System.Drawing.Point(6, 43);
+            this.cbFollowPC.Name = "cbFollowPC";
+            this.cbFollowPC.Size = new System.Drawing.Size(73, 17);
+            this.cbFollowPC.TabIndex = 1;
+            this.cbFollowPC.Text = "Follow PC";
+            this.cbFollowPC.UseVisualStyleBackColor = true;
+            this.cbFollowPC.CheckedChanged += new System.EventHandler(this.cbFollowPC_CheckedChanged);
             // 
             // lblProgramCounter
             // 
@@ -287,8 +305,38 @@
             this.panelRegisters2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelRegisters2.Location = new System.Drawing.Point(148, 3);
             this.panelRegisters2.Name = "panelRegisters2";
-            this.panelRegisters2.Size = new System.Drawing.Size(52, 44);
+            this.panelRegisters2.Size = new System.Drawing.Size(52, 63);
             this.panelRegisters2.TabIndex = 2;
+            // 
+            // lblProgramCounterValue
+            // 
+            this.lblProgramCounterValue.AutoSize = true;
+            this.lblProgramCounterValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProgramCounterValue.ForeColor = System.Drawing.Color.White;
+            this.lblProgramCounterValue.Location = new System.Drawing.Point(3, 26);
+            this.lblProgramCounterValue.Name = "lblProgramCounterValue";
+            this.lblProgramCounterValue.Size = new System.Drawing.Size(0, 13);
+            this.lblProgramCounterValue.TabIndex = 0;
+            // 
+            // lblStackPointerValue
+            // 
+            this.lblStackPointerValue.AutoSize = true;
+            this.lblStackPointerValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStackPointerValue.ForeColor = System.Drawing.Color.White;
+            this.lblStackPointerValue.Location = new System.Drawing.Point(3, 13);
+            this.lblStackPointerValue.Name = "lblStackPointerValue";
+            this.lblStackPointerValue.Size = new System.Drawing.Size(0, 13);
+            this.lblStackPointerValue.TabIndex = 0;
+            // 
+            // lblAccumulatorValue
+            // 
+            this.lblAccumulatorValue.AutoSize = true;
+            this.lblAccumulatorValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAccumulatorValue.ForeColor = System.Drawing.Color.White;
+            this.lblAccumulatorValue.Location = new System.Drawing.Point(3, 0);
+            this.lblAccumulatorValue.Name = "lblAccumulatorValue";
+            this.lblAccumulatorValue.Size = new System.Drawing.Size(0, 13);
+            this.lblAccumulatorValue.TabIndex = 0;
             // 
             // panelRegisters3
             // 
@@ -297,7 +345,7 @@
             this.panelRegisters3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelRegisters3.Location = new System.Drawing.Point(206, 3);
             this.panelRegisters3.Name = "panelRegisters3";
-            this.panelRegisters3.Size = new System.Drawing.Size(23, 44);
+            this.panelRegisters3.Size = new System.Drawing.Size(23, 63);
             this.panelRegisters3.TabIndex = 2;
             // 
             // lblY
@@ -325,38 +373,18 @@
             this.panelRegisters4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelRegisters4.Location = new System.Drawing.Point(235, 3);
             this.panelRegisters4.Name = "panelRegisters4";
-            this.panelRegisters4.Size = new System.Drawing.Size(52, 44);
+            this.panelRegisters4.Size = new System.Drawing.Size(52, 63);
             this.panelRegisters4.TabIndex = 2;
             // 
-            // lblAccumulatorValue
+            // lblYValue
             // 
-            this.lblAccumulatorValue.AutoSize = true;
-            this.lblAccumulatorValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAccumulatorValue.ForeColor = System.Drawing.Color.White;
-            this.lblAccumulatorValue.Location = new System.Drawing.Point(3, 0);
-            this.lblAccumulatorValue.Name = "lblAccumulatorValue";
-            this.lblAccumulatorValue.Size = new System.Drawing.Size(0, 13);
-            this.lblAccumulatorValue.TabIndex = 0;
-            // 
-            // lblStackPointerValue
-            // 
-            this.lblStackPointerValue.AutoSize = true;
-            this.lblStackPointerValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStackPointerValue.ForeColor = System.Drawing.Color.White;
-            this.lblStackPointerValue.Location = new System.Drawing.Point(3, 13);
-            this.lblStackPointerValue.Name = "lblStackPointerValue";
-            this.lblStackPointerValue.Size = new System.Drawing.Size(0, 13);
-            this.lblStackPointerValue.TabIndex = 0;
-            // 
-            // lblProgramCounterValue
-            // 
-            this.lblProgramCounterValue.AutoSize = true;
-            this.lblProgramCounterValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProgramCounterValue.ForeColor = System.Drawing.Color.White;
-            this.lblProgramCounterValue.Location = new System.Drawing.Point(3, 26);
-            this.lblProgramCounterValue.Name = "lblProgramCounterValue";
-            this.lblProgramCounterValue.Size = new System.Drawing.Size(0, 13);
-            this.lblProgramCounterValue.TabIndex = 0;
+            this.lblYValue.AutoSize = true;
+            this.lblYValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblYValue.ForeColor = System.Drawing.Color.White;
+            this.lblYValue.Location = new System.Drawing.Point(3, 13);
+            this.lblYValue.Name = "lblYValue";
+            this.lblYValue.Size = new System.Drawing.Size(0, 13);
+            this.lblYValue.TabIndex = 0;
             // 
             // lblXValue
             // 
@@ -368,15 +396,40 @@
             this.lblXValue.Size = new System.Drawing.Size(0, 13);
             this.lblXValue.TabIndex = 0;
             // 
-            // lblYValue
+            // panelDisassembled
             // 
-            this.lblYValue.AutoSize = true;
-            this.lblYValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblYValue.ForeColor = System.Drawing.Color.White;
-            this.lblYValue.Location = new System.Drawing.Point(3, 13);
-            this.lblYValue.Name = "lblYValue";
-            this.lblYValue.Size = new System.Drawing.Size(0, 13);
-            this.lblYValue.TabIndex = 0;
+            this.panelDisassembled.AutoScroll = true;
+            this.panelDisassembled.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelDisassembled.Controls.Add(this.vsbDisassembledScroll);
+            this.panelDisassembled.Controls.Add(this.lblDisassembled);
+            this.panelDisassembled.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDisassembled.Location = new System.Drawing.Point(3, 108);
+            this.panelDisassembled.Name = "panelDisassembled";
+            this.panelDisassembled.Size = new System.Drawing.Size(290, 277);
+            this.panelDisassembled.TabIndex = 3;
+            // 
+            // vsbDisassembledScroll
+            // 
+            this.vsbDisassembledScroll.Dock = System.Windows.Forms.DockStyle.Right;
+            this.vsbDisassembledScroll.LargeChange = 3;
+            this.vsbDisassembledScroll.Location = new System.Drawing.Point(271, 0);
+            this.vsbDisassembledScroll.Maximum = 65535;
+            this.vsbDisassembledScroll.Name = "vsbDisassembledScroll";
+            this.vsbDisassembledScroll.Size = new System.Drawing.Size(17, 275);
+            this.vsbDisassembledScroll.SmallChange = 3;
+            this.vsbDisassembledScroll.TabIndex = 4;
+            this.vsbDisassembledScroll.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vsbDisassembledScroll_Scroll);
+            // 
+            // lblDisassembled
+            // 
+            this.lblDisassembled.AutoSize = true;
+            this.lblDisassembled.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDisassembled.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDisassembled.Location = new System.Drawing.Point(0, 0);
+            this.lblDisassembled.Name = "lblDisassembled";
+            this.lblDisassembled.Size = new System.Drawing.Size(0, 11);
+            this.lblDisassembled.TabIndex = 3;
+            this.lblDisassembled.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.lblDisassembled_MouseWheel);
             // 
             // CpuControl
             // 
@@ -399,6 +452,8 @@
             this.panelRegisters3.PerformLayout();
             this.panelRegisters4.ResumeLayout(false);
             this.panelRegisters4.PerformLayout();
+            this.panelDisassembled.ResumeLayout(false);
+            this.panelDisassembled.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -431,5 +486,9 @@
         private System.Windows.Forms.Label lblAccumulatorValue;
         private System.Windows.Forms.Label lblYValue;
         private System.Windows.Forms.Label lblXValue;
+        private System.Windows.Forms.Label lblDisassembled;
+        private System.Windows.Forms.Panel panelDisassembled;
+        private System.Windows.Forms.VScrollBar vsbDisassembledScroll;
+        private System.Windows.Forms.CheckBox cbFollowPC;
     }
 }

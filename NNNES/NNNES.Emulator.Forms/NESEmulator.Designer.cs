@@ -35,6 +35,7 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtRomTitle = new System.Windows.Forms.TextBox();
+            this.btnSingleStep = new System.Windows.Forms.Button();
             this.btnPause = new System.Windows.Forms.Button();
             this.btnRun = new System.Windows.Forms.Button();
             this.btnLoadRom = new System.Windows.Forms.Button();
@@ -46,6 +47,7 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.bwEmulator = new System.ComponentModel.BackgroundWorker();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -108,6 +110,8 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.txtRomTitle);
+            this.panel3.Controls.Add(this.button1);
+            this.panel3.Controls.Add(this.btnSingleStep);
             this.panel3.Controls.Add(this.btnPause);
             this.panel3.Controls.Add(this.btnRun);
             this.panel3.Controls.Add(this.btnLoadRom);
@@ -132,6 +136,22 @@
             this.txtRomTitle.ReadOnly = true;
             this.txtRomTitle.Size = new System.Drawing.Size(193, 15);
             this.txtRomTitle.TabIndex = 1;
+            // 
+            // btnSingleStep
+            // 
+            this.btnSingleStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSingleStep.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnSingleStep.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSingleStep.Font = new System.Drawing.Font("Malgun Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSingleStep.ForeColor = System.Drawing.Color.LawnGreen;
+            this.btnSingleStep.Location = new System.Drawing.Point(85, 28);
+            this.btnSingleStep.Name = "btnSingleStep";
+            this.btnSingleStep.Size = new System.Drawing.Size(35, 35);
+            this.btnSingleStep.TabIndex = 0;
+            this.btnSingleStep.Text = "⤓";
+            this.btnSingleStep.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSingleStep.UseVisualStyleBackColor = true;
+            this.btnSingleStep.Click += new System.EventHandler(this.btnSingleStep_Click);
             // 
             // btnPause
             // 
@@ -249,11 +269,26 @@
             this.bwEmulator.WorkerReportsProgress = true;
             this.bwEmulator.WorkerSupportsCancellation = true;
             this.bwEmulator.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwEmulator_DoWork);
-            this.bwEmulator.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwEmulator_ProgressChanged);
             // 
             // timer1
             // 
             this.timer1.Interval = 1000;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Malgun Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.LawnGreen;
+            this.button1.Location = new System.Drawing.Point(126, 28);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(35, 35);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "R";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // NesEmulator
             // 
@@ -298,6 +333,8 @@
         private System.Windows.Forms.Button btnPause;
         private System.ComponentModel.BackgroundWorker bwEmulator;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btnSingleStep;
+        private System.Windows.Forms.Button button1;
     }
 }
 
