@@ -111,6 +111,7 @@ private:
 		uint8_t (Cpu::*operate)(void) = nullptr;
 		uint8_t (Cpu::*address_mode)(void) = nullptr;
 		uint8_t cycles = 0;
+		bool extra_cycle_on_page_cross = false;
 	};
 
 	std::map<uint16_t, Instruction> instructions_set_;

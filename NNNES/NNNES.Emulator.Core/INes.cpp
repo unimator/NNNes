@@ -82,7 +82,7 @@ void INes::LoadNesFormat(const uint8_t* bytes, const uint32_t length)
 		offset += 0x10 * 2;
 	}
 
-	if(offset < length)
+	if(static_cast<uint32_t>(offset) < length)
 	{
 		title_ = std::string(reinterpret_cast<const char*>(bytes + offset), length - offset);
 	}

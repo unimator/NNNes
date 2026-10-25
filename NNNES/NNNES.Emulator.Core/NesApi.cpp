@@ -20,10 +20,15 @@ extern "C" {
 	{
 		nes->Reset();
 	}
-	
+		
 	__declspec(dllexport) const uint8_t* GetCpuRam(const NesHandle nes)
 	{
 		return nes->GetCpuRam();
+	}
+
+	__declspec(dllexport) void SetCpuRegisters(const NesHandle nes, const CpuRegisters& registers)
+	{
+		nes->GetCpu()->Registers() = registers;
 	}
 	
 	__declspec(dllexport) void GetCpuRegisters(const NesHandle nes, CpuRegisters& registers)
@@ -71,5 +76,10 @@ extern "C" {
 			memcpy(data, disassembled.data(), instructions_length * sizeof(InstructionInfo));
 		}
 		return static_cast<const InstructionInfo*>(data);
+	}
+
+	__declspec(dllexport) void DirectBusWrite(const NesHandle nes, const uint16_t address, const uint8_t data)
+	{
+		nes->GetCpu()->Write(address, data);
 	}
 }

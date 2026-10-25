@@ -22,6 +22,9 @@ namespace NNNES.Emulator.Forms.Proxy
         [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "ResetState")]
         private static extern void ResetState(IntPtr nesInstance);
 
+        [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "SetCpuRegisters")]
+        private static extern void SetCpuRegisters(IntPtr nesInstance, ref CpuRegisters registers);
+
         [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "GetCpuRegisters")]
         private static extern void GetRegisters(IntPtr nesInstance, ref CpuRegisters registers);
 
@@ -32,7 +35,7 @@ namespace NNNES.Emulator.Forms.Proxy
         private static extern IntPtr DisassembleByCount(IntPtr nesInstance, ushort addressStart, uint count,
             out uint instructionsLength);
 
-        private readonly IntPtr _instance;
+        protected readonly IntPtr _instance;
 
         [StructLayout(LayoutKind.Sequential)]
         public struct CpuRegisters
@@ -143,6 +146,11 @@ namespace NNNES.Emulator.Forms.Proxy
         public void NextInstruction()
         {
             NextInstruction(_instance);
+        }
+
+        public void SetRegisters(CpuRegisters registers)
+        {
+            SetCpuRegisters(_instance, ref registers);
         }
 
         public CpuRegisters GetRegisters()

@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>NNNES.Emulator.Forms</RootNamespace>
     <AssemblyName>NNNES.Emulator.Forms</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -27,6 +27,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -81,8 +82,6 @@
       <DependentUpon>CpuControl.cs</DependentUpon>
     </Compile>
     <Compile Include="CpuFlags.cs" />
-    <Compile Include="Proxy\NesCartridge.cs" />
-    <Compile Include="Proxy\Nes.cs" />
     <Compile Include="NESEmulator.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +107,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
@@ -141,7 +141,10 @@
       <Project>{ce3d8c73-917e-49b9-827c-f46c1f6602d6}</Project>
       <Name>NNNES.Emulator.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NNNES.Emulator.Proxy\NNNES.Emulator.Proxy.csproj">
+      <Project>{34c1cc68-e1c3-476f-9bff-f8c2738cc68e}</Project>
+      <Name>NNNES.Emulator.Proxy</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

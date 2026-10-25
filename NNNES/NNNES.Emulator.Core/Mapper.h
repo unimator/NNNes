@@ -4,7 +4,7 @@
 enum Mirroring
 {
 	Vertical = 0,
-	Horizontal =1
+	Horizontal = 1
 };
 
 class Mapper
@@ -25,5 +25,5 @@ public:
 	virtual uint16_t PpuReadAddress(uint16_t address) = 0;
 	virtual uint16_t PpuWriteAddress(uint16_t address) = 0;
 
-	virtual Mirroring GetMirroring();
+	virtual Mirroring GetMirroring() = 0;
 };
