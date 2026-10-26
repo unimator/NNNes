@@ -2,7 +2,7 @@
 #include "INes.h"
 #include "Nrom.h"
 
-INes::INes(const uint8_t* bytes, const uint32_t length) : Device(0x4020, 0xBFE0)
+INes::INes(const uint8_t* bytes, const uint32_t length) : AddressableDevice(0x4020, 0xBFE0)
 {
 	if (memcmp(bytes, "NES\x001a", 4) != 0)
 	{
@@ -98,13 +98,13 @@ void INes::LoadNes20Format(const uint8_t* bytes, const uint32_t length)
 {
 }
 
-void INes::CpuWrite(uint16_t address, uint8_t data)
+void INes::Write(uint16_t address, uint8_t data)
 {
 	const auto real_address = mapper_->CpuWriteAddress(address);
 	prg_rom_[real_address] = data;
 }
 
-uint8_t INes::CpuRead(uint16_t address)
+uint8_t INes::Read(uint16_t address)
 {
 	const auto real_address = mapper_->CpuReadAddress(address);
 	return prg_rom_[real_address];

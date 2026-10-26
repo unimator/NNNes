@@ -1,13 +1,13 @@
 ﻿#pragma once
 #include <cstdint>
 #include <string>
-#include "Device.h"
+#include "AddressableDevice.h"
 #include "Mapper.h"
 
 #define PRG_ROM_BANK_SIZE 0x4000
 #define CHR_ROM_BANK_SIZE 0x2000
 
-class INes : public Device
+class INes : public AddressableDevice
 {
 private:
 	bool is_nes20_;
@@ -58,8 +58,8 @@ private:
 	void LoadNesFormat(const uint8_t* bytes, const uint32_t length);
 	void LoadNes20Format(const uint8_t* bytes, const uint32_t length);
 public:
-	void CpuWrite(uint16_t address, uint8_t data) override;
-	uint8_t CpuRead(uint16_t address) override;
+	void Write(uint16_t address, uint8_t data) override;
+	uint8_t Read(uint16_t address) override;
 
 	void PpuWrite(uint16_t address, uint8_t data) const;
 	uint8_t PpuRead(uint16_t address) const;

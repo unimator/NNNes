@@ -204,7 +204,8 @@ void Cpu::Clock()
 {
 	if (cycles_ == 0)
 	{
-		current_opcode_ = Read(ProgramCounter());
+		auto program_counter = ProgramCounter();
+		current_opcode_ = Read(program_counter);
 		ProgramCounter()++;
 
 		auto instruction = instructions_set_[current_opcode_];

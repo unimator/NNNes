@@ -1,10 +1,5 @@
-﻿using NNNES.Emulator.Forms.Proxy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using NNNES.Emulator.Proxy;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NNNES.Emulator.Core.Tests.Proxy
 {

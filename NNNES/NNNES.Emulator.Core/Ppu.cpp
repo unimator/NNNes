@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "Ppu.h"
 
-Ppu::Ppu() : Device(0x2000, 0x2000)
+Ppu::Ppu() : AddressableDevice(0x2000, 0x2000)
 {
 }
 
@@ -22,7 +22,7 @@ void Ppu::Clock()
 {
 }
 
-void Ppu::CpuWrite(uint16_t address, uint8_t data)
+void Ppu::Write(uint16_t address, uint8_t data)
 {
 	if (address >= 0x2000 && address < 0x4000)
 	{
@@ -59,7 +59,7 @@ void Ppu::CpuWrite(uint16_t address, uint8_t data)
 	}
 }
 
-uint8_t Ppu::CpuRead(uint16_t address)
+uint8_t Ppu::Read(uint16_t address)
 {
 	if (address >= 0x2000 && address < 0x4000)
 	{

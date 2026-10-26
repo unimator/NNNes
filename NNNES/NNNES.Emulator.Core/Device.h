@@ -1,21 +1,17 @@
 ﻿#pragma once
 #include <cstdint>
 
+class Bus;
+
 class Device
 {
 protected:
-	uint16_t base_address_;
-	uint16_t virtual_size_;
+	Bus* bus_ = nullptr;
 
-	Device(uint16_t base_address, uint16_t virtual_size);
+	Device() = default;
 	
 public:
 	virtual ~Device() = default;
 
-	virtual void CpuWrite(uint16_t address, uint8_t data) = 0;
-	virtual uint8_t CpuRead(uint16_t address) = 0;
-
+	void SetBus(Bus* bus);
 };
-
-
-

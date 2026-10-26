@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-namespace NNNES.Emulator.Forms.Proxy
+namespace NNNES.Emulator.Proxy
 {
     public class Nes
     {
@@ -112,7 +109,7 @@ namespace NNNES.Emulator.Forms.Proxy
                             return "INX";
                         case 11:
                             return "INY";
-;                   }
+                    }
                     throw new ArgumentOutOfRangeException(nameof(AddressingModeInternal));
                 }
             }

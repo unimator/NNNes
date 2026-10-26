@@ -8,7 +8,7 @@ class Cpu;
 class Ppu;
 class Bus;
 class Apu;
-class CpuRam;
+class Ram;
 
 class Nes
 {
@@ -16,7 +16,7 @@ private:
 	Cpu* cpu_;
 	Ppu* ppu_;
 	Apu* apu_;
-	CpuRam* cpu_ram_;
+	Ram* ram_;
 	Bus* bus_;
 	INes* i_nes_ = nullptr;
 

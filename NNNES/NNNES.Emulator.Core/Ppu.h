@@ -3,10 +3,9 @@
 
 class INes;
 
-class Ppu : public Device
+class Ppu : public AddressableDevice
 {
 private:
-	Bus* bus_ = nullptr;
 
 	uint8_t oam_address, oam_data, ppu_scroll, ppu_address, ppu_data, oam_dma;
 
@@ -67,8 +66,8 @@ public:
 		bus_ = bus;
 	}
 
-	void CpuWrite(uint16_t address, uint8_t data) override;
-	uint8_t CpuRead(uint16_t address) override;
+	void Write(uint16_t address, uint8_t data) override;
+	uint8_t Read(uint16_t address) override;
 
 	void PpuWrite(uint16_t address, uint8_t data);
 	uint8_t PpuRead(uint16_t address, uint8_t data);

@@ -7,18 +7,22 @@
 Nes::Nes()
 {
 	cpu_ = new Cpu();
-	cpu_ram_ = new CpuRam();
+	ram_ = new Ram();
 	ppu_ = new Ppu();
 	apu_ = new Apu();
-	bus_ = new Bus(*cpu_, *ppu_, *apu_, *cpu_ram_);
+	bus_ = new Bus();
 
-	cpu_->SetBus(bus_);
+	bus_->AddDevice(cpu_);
+	bus_->AddDevice(ram_);
+	bus_->AddDevice(ppu_);
+	bus_->AddDevice(apu_);
+
 }
 
 Nes::~Nes()
 {
 	delete bus_;
-	delete cpu_ram_;
+	delete ram_;
 	delete cpu_;
 	delete ppu_;
 }
@@ -41,12 +45,17 @@ void Nes::NextInstruction() const
 
 uint8_t* Nes::GetCpuRam() const
 {
-	return cpu_ram_->GetMemory();
+	return ram_->GetMemory();
 }
 
 void Nes::SetINesHandle(INes* i_nes)
 {
+	if (this->i_nes_ != nullptr)
+	{
+		this->bus_->RemoveDevice(this->i_nes_);
+	}
 	this->i_nes_ = i_nes;
+	this->bus_->AddDevice(this->i_nes_);
 	this->bus_->SetINesHandle(i_nes);
 }
 

@@ -1,10 +1,10 @@
 #include "pch.h"
 #include "Ram.h"
 
-Ram::Ram(uint16_t virtual_size, uint16_t physical_size)
-: Device(0, virtual_size), physical_size_(physical_size)
+Ram::Ram()
+: AddressableDevice(0, 0x2000), physical_size_(0x800)
 {
-	memory_ = new uint8_t[physical_size];
+	memory_ = new uint8_t[physical_size_];
 	Clear();
 }
 
@@ -24,7 +24,7 @@ void Ram::Clear() const
 	}
 }
 
-void Ram::CpuWrite(uint16_t address, uint8_t data)
+void Ram::Write(uint16_t address, uint8_t data)
 {
 	if(address >= 0 && address < virtual_size_)
 	{
@@ -32,7 +32,7 @@ void Ram::CpuWrite(uint16_t address, uint8_t data)
 	}
 }
 
-uint8_t Ram::CpuRead(uint16_t address)
+uint8_t Ram::Read(uint16_t address)
 {
 	if (address >= 0 && address < virtual_size_)
 	{

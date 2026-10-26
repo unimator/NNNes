@@ -1,4 +1,6 @@
-﻿namespace NNNES.Emulator.Forms
+﻿using OpenTK.GLControl;
+
+namespace NNNES.Emulator.Forms
 {
     partial class ChrRomControl
     {
@@ -33,7 +35,7 @@
             this.btnChrRomRight = new System.Windows.Forms.Button();
             this.comboBank = new System.Windows.Forms.ComboBox();
             this.btnChrRomLeft = new System.Windows.Forms.Button();
-            this.glChrRom = new OpenTK.GLControl();
+            this.glChrRom = new GLControl();
             this.tlpChrRom.SuspendLayout();
             this.tlpControls.SuspendLayout();
             this.SuspendLayout();
@@ -127,7 +129,6 @@
             this.glChrRom.Name = "glChrRom";
             this.glChrRom.Size = new System.Drawing.Size(256, 256);
             this.glChrRom.TabIndex = 6;
-            this.glChrRom.VSync = false;
             this.glChrRom.Load += new System.EventHandler(this.glChrRom_Load);
             this.glChrRom.Paint += new System.Windows.Forms.PaintEventHandler(this.glChrRom_Paint);
             // 
@@ -151,6 +152,6 @@
         private System.Windows.Forms.Button btnChrRomLeft;
         private System.Windows.Forms.ComboBox comboBank;
         private System.Windows.Forms.Button btnChrRomRight;
-        private OpenTK.GLControl glChrRom;
+        private GLControl glChrRom;
     }
 }

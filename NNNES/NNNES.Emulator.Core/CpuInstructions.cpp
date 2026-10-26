@@ -412,7 +412,7 @@ uint8_t Cpu::BRK()
 {
 	ProgramCounter()++;
 
-	SetFlag(I, true);
+	//SetFlag(I, true);
 	Write(0x0100 + StackPointer(), (ProgramCounter() >> 8) & 0x00FF);
 	StackPointer()--;
 	Write(0x0100 + StackPointer(), ProgramCounter() & 0x00FF);

@@ -2,16 +2,13 @@
 #include "Nes.h"
 
 
-Bus::Bus(Cpu& cpu, Ppu& ppu, Apu& apu, CpuRam& cpu_ram)
-	: cpu_(cpu), ppu_(ppu), apu_(apu), cpu_ram_(cpu_ram)
+Bus::Bus()
 {
-	cpu.SetBus(this);
-	apu.SetBus(this);
-	ppu.SetBus(this);
 }
 
 Bus::~Bus()
 {
+
 }
 
 void Bus::SetINesHandle(INes* i_nes)
@@ -26,45 +23,46 @@ INes* Bus::GetINesHandle() const
 
 void Bus::Write(uint16_t address, uint8_t data) const
 {
-	auto& device = GetDevice(address);
-	device.CpuWrite(address, data);
+	auto device = GetAddressableDevice(address);
+	device->Write(address, data);
 }
 
 uint8_t Bus::Read(uint16_t address) const
 {
-	auto& device = GetDevice(address);
-	return device.CpuRead(address);
+	auto device = GetAddressableDevice(address);
+	return device->Read(address);
 }
 
-void Bus::Clock()
+void Bus::AddDevice(Device* device)
 {
-	this->cpu_.Clock();
-	++clock_counter_;
+	devices_.push_back(device);
+	device->SetBus(this);
 }
 
-void Bus::Reset()
+void Bus::RemoveDevice(Device* device)
 {
-	this->cpu_.Reset();
-	clock_counter_ = 0;
+	auto it = std::find(devices_.begin(), devices_.end(), device);
+	if (it != devices_.end())
+	{
+		devices_.erase(it);
+	}
 }
 
-Device& Bus::GetDevice(uint16_t address) const
+AddressableDevice* Bus::GetAddressableDevice(uint16_t address) const
 {
-	if (address <= 0x1fff)
+	for (size_t i = 0; i < devices_.size(); ++i)
 	{
-		return this->cpu_ram_;
-	}
-	else if (address >= 0x2000 && address <= 0x3fff)
-	{
-		return this->ppu_;
-	}
-	else if(address >= 0x4000 && address <= 0x4020)
-	{
-		return this->apu_;
-	}
-	else if (address >= 0x4020 && address <= 0xFFFF)
-	{
-		return static_cast<Device&>(*this->i_nes_);
+		AddressableDevice* addressable_device = dynamic_cast<AddressableDevice*>(devices_[i]);
+		
+		if(addressable_device == nullptr)
+		{
+			continue;
+		}
+
+		if (address >= addressable_device->BaseAddress() && address < addressable_device->BaseAddress() + addressable_device->VirtualSize())
+		{
+			return addressable_device;
+		}
 	}
 
 	throw "Address out of range";

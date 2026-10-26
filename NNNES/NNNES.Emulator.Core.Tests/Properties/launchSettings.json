@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NNNES.Emulator.Core.Tests": {
+      "commandName": "Project",
+      "debugEngines": "managed,native"
+    }
+  }
+}

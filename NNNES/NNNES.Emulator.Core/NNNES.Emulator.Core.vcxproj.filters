@@ -3,39 +3,15 @@
   <ItemGroup>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files\Emulator">
-      <UniqueIdentifier>{910cf719-4c50-4756-b9fd-60d0a35be523}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Emulator">
-      <UniqueIdentifier>{e8ad977a-f3ef-47c1-90f7-428c5feddd6c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Cartridge">
-      <UniqueIdentifier>{4c29725e-e661-4c56-a4aa-4237c12b26f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Cartridge">
-      <UniqueIdentifier>{82a15e47-d48f-4241-8734-8b5794512d2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Utils">
-      <UniqueIdentifier>{4363fc3d-93ca-41d8-b2ca-d16ccceaa13d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Utils">
-      <UniqueIdentifier>{35c498f7-1bcd-48f7-a2f8-d7eaa852e1a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Cartridge\Mappers">
-      <UniqueIdentifier>{c7f3df76-31b3-406c-acbe-9cef90cf4c84}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Cartridge\Mappers">
-      <UniqueIdentifier>{542b6d85-c8ca-4b59-b01d-916c7ccfb8a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -89,13 +65,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bus.cpp">
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+     <ClCompile Include="Bus.cpp">
       <Filter>Source Files\Emulator</Filter>
     </ClCompile>
     <ClCompile Include="Cpu.cpp">

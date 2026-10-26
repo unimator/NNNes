@@ -52,7 +52,7 @@ extern "C" {
 		nes->NextInstruction();
 	}
 	
-	__declspec(dllexport) const InstructionInfo* Disassemble(const NesHandle nes, const uint16_t address_start, const uint16_t address_end, uint32_t& instructions_length)
+	__declspec(dllexport) const InstructionInfo* Disassemble(const NesHandle nes, const uint16_t address_start, const uint16_t address_end, size_t& instructions_length)
 	{
 		const auto disassembled = nes->Disassemble(address_start, address_end);
 		instructions_length = disassembled.size();
@@ -65,7 +65,7 @@ extern "C" {
 		return static_cast<const InstructionInfo*>(data);
 	}
 
-	__declspec(dllexport) const InstructionInfo* DisassembleByCount(const NesHandle nes, const uint16_t address_start, const size_t count, uint32_t& instructions_length)
+	__declspec(dllexport) const InstructionInfo* DisassembleByCount(const NesHandle nes, const uint16_t address_start, const size_t count, size_t& instructions_length)
 	{
 		const auto disassembled = nes->DisassembleByCount(address_start, count);
 		instructions_length = disassembled.size();
@@ -81,5 +81,10 @@ extern "C" {
 	__declspec(dllexport) void DirectBusWrite(const NesHandle nes, const uint16_t address, const uint8_t data)
 	{
 		nes->GetCpu()->Write(address, data);
+	}
+
+	__declspec(dllexport) uint8_t DirectBusRead(const NesHandle nes, const uint16_t address)
+	{
+		return nes->GetCpu()->Read(address);
 	}
 }

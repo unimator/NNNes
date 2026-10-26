@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NNNES.Emulator.Forms": {
+      "commandName": "Project",
+      "debugEngines": "managed,native"
+    }
+  }
+}

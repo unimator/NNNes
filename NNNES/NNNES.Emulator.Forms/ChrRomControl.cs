@@ -1,10 +1,7 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using NNNES.Emulator.Forms.Proxy;
-using OpenTK;
+﻿using NNNES.Emulator.Proxy;
+using OpenTK.GLControl;
 using OpenTK.Graphics.OpenGL;
+using System.ComponentModel;
 
 namespace NNNES.Emulator.Forms
 {
@@ -53,7 +50,8 @@ namespace NNNES.Emulator.Forms
             }
         }
 
-        public NesCartridge NesCartridge
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public NesCartridge Cartridge
         {
             get => _nesCartridge;
             set
@@ -86,7 +84,7 @@ namespace NNNES.Emulator.Forms
 
         private void btnChrRom_Click(object sender, EventArgs e)
         {
-            if (NesCartridge == null)
+            if (Cartridge == null)
             {
                 return;
             }
@@ -119,7 +117,7 @@ namespace NNNES.Emulator.Forms
                 return;
             }
 
-            var chrRom = NesCartridge?.GetChrRom();
+            var chrRom = Cartridge?.GetChrRom();
 
             if (chrRom != null && chrRom.Length >= 0x2000)
             {

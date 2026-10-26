@@ -1,7 +1,6 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-namespace NNNES.Emulator.Forms.Proxy
+namespace NNNES.Emulator.Proxy
 {
     public class NesCartridge
     {

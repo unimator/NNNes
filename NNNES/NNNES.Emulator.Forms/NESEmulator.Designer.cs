@@ -1,4 +1,6 @@
-﻿namespace NNNES.Emulator.Forms
+﻿using OpenTK.GLControl;
+
+namespace NNNES.Emulator.Forms
 {
     partial class NesEmulator
     {
@@ -30,7 +32,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.glNesWindow = new OpenTK.GLControl();
+            this.glNesWindow = new GLControl();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -81,7 +83,6 @@
             this.glNesWindow.Name = "glNesWindow";
             this.glNesWindow.Size = new System.Drawing.Size(512, 480);
             this.glNesWindow.TabIndex = 1;
-            this.glNesWindow.VSync = false;
             this.glNesWindow.Load += new System.EventHandler(this.glNesWindow_Load);
             // 
             // panel1
@@ -245,7 +246,7 @@
             this.chrRomControl.Location = new System.Drawing.Point(0, 325);
             this.chrRomControl.Margin = new System.Windows.Forms.Padding(0);
             this.chrRomControl.Name = "chrRomControl";
-            this.chrRomControl.NesCartridge = null;
+            this.chrRomControl.Cartridge = null;
             this.chrRomControl.Size = new System.Drawing.Size(256, 289);
             this.chrRomControl.TabIndex = 0;
             // 
@@ -317,7 +318,7 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private OpenTK.GLControl glNesWindow;
+        private GLControl glNesWindow;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnLoadRom;

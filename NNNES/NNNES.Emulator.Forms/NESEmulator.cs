@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using NNNES.Emulator.Forms.Proxy;
+using NNNES.Emulator.Proxy;
 using OpenTK.Graphics.OpenGL;
 
 namespace NNNES.Emulator.Forms
@@ -50,7 +50,7 @@ namespace NNNES.Emulator.Forms
                 stream.CopyTo(memoryStream);
                 var bytes = memoryStream.ToArray();
                 _nesCartridge = new NesCartridge(bytes);
-                chrRomControl.NesCartridge = _nesCartridge;
+                chrRomControl.Cartridge = _nesCartridge;
                 txtRomTitle.Text = openFileDialog.SafeFileName;
                 _nes.SetCartridge(_nesCartridge);
             }

@@ -1,35 +1,34 @@
 ﻿#pragma once
-#include "Cpu.h"
-#include "Ppu.h"
+#include <vector>
 #include "INes.h"
-#include "CpuRam.h"
-#include "PpuRam.h"
+
+class Device;
+class AddressableDevice;
 
 class Bus
 {
 private:
-	Cpu& cpu_;
-	Ppu& ppu_;
-	Apu& apu_;
-	CpuRam& cpu_ram_;
-	//PpuRam& ppu_ram_;
 	INes* i_nes_;
 
-	Device& GetDevice(uint16_t address) const;
+	AddressableDevice* GetAddressableDevice(uint16_t address) const;
 
 	uint8_t clock_counter_;
 
+	std::vector<Device*> devices_;
+
 public:
 
-	Bus(Cpu& cpu, Ppu& ppu, Apu& apu, CpuRam& cpu_ram/*, PpuRam& ppu_ram*/);
+	Bus();
 	~Bus();
 
 	void SetINesHandle(INes* i_nes);
 	INes* GetINesHandle() const;
+
+	void AddDevice(Device* device);
+	void RemoveDevice(Device* device);
+	
+	auto GetDevices() const -> const std::vector<Device*>& { return devices_; }
 	
 	void Write(uint16_t address, uint8_t data) const;
 	uint8_t Read(uint16_t address) const;
-
-	void Clock();
-	void Reset();
 };

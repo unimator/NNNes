@@ -1,10 +1,11 @@
 ﻿
+using NNNES.Emulator.Proxy;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using NNNES.Emulator.Forms.Proxy;
+using System.ComponentModel;
 
 namespace NNNES.Emulator.Forms
 {
@@ -12,6 +13,8 @@ namespace NNNES.Emulator.Forms
     {
         private readonly ushort _numberOfInstructions = 0x21;
         private Nes _nes;
+        
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Nes Nes
         {
             get => _nes;

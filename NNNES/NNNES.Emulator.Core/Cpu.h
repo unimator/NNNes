@@ -4,8 +4,9 @@
 #include <map>
 #include "Bus.h"
 #include "CpuRegisters.h"
+#include "InstructionInfo.h"
 
-class Cpu
+class Cpu : public Device
 {
 private:
 	CpuRegisters registers_;
@@ -69,9 +70,6 @@ public:
 	Cpu();
 	~Cpu();
 
-private:
-	Bus* bus_ = nullptr;
-
 public:
 	void SetBus(Bus* bus)
 	{
@@ -80,7 +78,7 @@ public:
 	
 	void Write(uint16_t address, uint8_t data) const;
 	uint8_t Read(uint16_t address);
-	
+		
 	void Clock();
 	void NextInstruction();
 

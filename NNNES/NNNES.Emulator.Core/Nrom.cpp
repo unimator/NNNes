@@ -3,7 +3,7 @@
 
 uint16_t Nrom::CpuReadAddress(uint16_t address)
 {
-	if(address >= 0x8000 && address <= 0xFFFF)
+	if(address >= 0x6000 && address <= 0xFFFF)
 	{
 		return address & (prg_banks_ > 1 ? 0x7FFF : 0x3FFF);
 	}
@@ -13,7 +13,7 @@ uint16_t Nrom::CpuReadAddress(uint16_t address)
 
 uint16_t Nrom::CpuWriteAddress(uint16_t address)
 {
-	if (address >= 0x8000 && address <= 0xFFFF)
+	if (address >= 0x6000 && address <= 0xFFFF)
 	{
 		return address & (prg_banks_ > 1 ? 0x7FFF : 0x3FFF);
 	}
