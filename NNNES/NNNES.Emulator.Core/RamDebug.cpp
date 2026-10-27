@@ -2,15 +2,23 @@
 #include "RamDebug.h"
 
 RamDebug::RamDebug()
-	: AddressableDevice(0, 0xFFFF), physical_size_(0xFFFF)
+	: AddressableDevice(0, 0x10000), physical_size_(0x10000)
 {
 	memory_ = new uint8_t[physical_size_];
 	Clear();
 }
 
+RamDebug::~RamDebug()
+{
+	if (memory_)
+	{
+		delete[] memory_;
+	}
+}
+
 void RamDebug::Clear() const
 {
-	for (uint16_t i = 0x00; i < physical_size_; ++i)
+	for (size_t i = 0x00; i < physical_size_; ++i)
 	{
 		memory_[i] = 0x00;
 	}

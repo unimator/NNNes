@@ -43,7 +43,7 @@ void Nes::NextInstruction() const
 }
 
 
-uint8_t* Nes::GetCpuRam() const
+uint8_t* Nes::GetRam() const
 {
 	return ram_->GetMemory();
 }

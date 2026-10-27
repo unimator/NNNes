@@ -38,11 +38,11 @@ namespace NNNES.Emulator.Core.Tests.Emulator
         {
             public ushort Address { get; set; }
             public byte Value { get; set; }
-            public string Type { get; set; }
+            public string? Type { get; set; }
         }
 
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonProperty("initial")]
         public State InitialState { get; set; }

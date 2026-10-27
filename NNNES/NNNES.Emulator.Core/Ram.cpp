@@ -18,7 +18,7 @@ Ram::~Ram()
 
 void Ram::Clear() const
 {
-	for(uint16_t i = 0x00; i < physical_size_; ++i)
+	for(size_t i = 0x00; i < physical_size_; ++i)
 	{
 		memory_[i] = 0x00;
 	}

@@ -26,7 +26,7 @@ public:
 	Nes();
 	~Nes();
 
-	uint8_t* GetCpuRam() const;
+	uint8_t* GetRam() const;
 	auto GetCpu() const -> Cpu* { return cpu_; }
 
 	void SetINesHandle(INes* i_nes);

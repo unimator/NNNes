@@ -546,6 +546,119 @@ uint8_t Cpu::PLP()
 }
 #pragma endregion 
 
+#pragma region Unofficial
+
+uint8_t Cpu::DCP()
+{
+	const auto argument = Fetch();
+	const auto temp = argument - 1;
+	Write(absolute_address_, temp & 0x00FF);
+	SetFlag(Z, (temp & 0x00FF) == 0x0000);
+	SetFlag(N, temp & 0x0080);
+	const auto result = static_cast<uint16_t>(Accumulator()) - static_cast<uint16_t>(temp);
+	SetFlag(C, Accumulator() >= temp);
+	SetFlag(Z, (result & 0x00FF) == 0x0000);
+	SetFlag(N, result & 0x0080);
+	return 1;
+}
+
+uint8_t Cpu::ISC() 
+{
+	const auto argument = Fetch();
+	const auto temp = argument + 1;
+	Write(absolute_address_, temp & 0x00FF);
+	SetFlag(Z, (temp & 0x00FF) == 0x0000);
+	SetFlag(N, temp & 0x0080);
+	const auto result = static_cast<uint16_t>(Accumulator()) - static_cast<uint16_t>(temp);
+	SetFlag(C, Accumulator() >= temp);
+	SetFlag(Z, (result & 0x00FF) == 0x0000);
+	SetFlag(N, result & 0x0080);
+	return 0;
+}
+
+uint8_t Cpu::SAX()
+{
+	const auto temp = Accumulator() & X();
+	SaveResult(temp);
+	return 0;
+}
+
+uint8_t Cpu::SHA()
+{
+	const auto temp = Accumulator() & X();
+	Write(absolute_address_, temp & ((ProgramCounter()) >> 8));
+	return 0;
+}
+
+uint8_t Cpu::SLO()
+{
+	const auto argument = Fetch();
+	const auto temp = argument | Accumulator();
+	SetFlag(Z, (temp & 0x00FF) == 0x00);
+	SetFlag(N, temp & 0x0080);
+	SaveResult(temp);
+	const auto shifted = static_cast<uint16_t>(argument) << 1;
+	SetFlag(C, (shifted & 0xFF00) > 0);
+	SaveResult(shifted);
+	return 0;
+}
+
+uint8_t Cpu::SRE()
+{
+	const auto argument = Fetch();
+	const auto shifted = argument >> 1;
+	SetFlag(C, argument & 0x0001);
+	SetFlag(Z, (shifted & 0x00FF) == 0x0000);
+	SetFlag(N, shifted & 0x0080);
+	SaveResult(shifted);
+	Accumulator() = Accumulator() ^ shifted;
+	SetFlag(Z, Accumulator() == 0x00);
+	SetFlag(N, Accumulator() & 0x80);
+	return 0;
+}
+
+uint8_t Cpu::RRA()
+{
+	const auto argument = Fetch();
+	const auto shifted = static_cast<uint16_t>(GetFlag(C) << 7) | (argument >> 1);
+	SetFlag(C, argument & 0x01);
+	SetFlag(Z, (shifted & 0x00FF) == 0x00);
+	SetFlag(N, shifted & 0x0080);
+	SaveResult(shifted);
+	const auto temp = static_cast<uint16_t>(Accumulator()) + static_cast<uint16_t>(shifted) + static_cast<uint16_t>(GetFlag(C));
+	SetFlag(C, temp > 255);
+	SetFlag(Z, (temp & 0x00FF) == 0);
+	SetFlag(V, (~(static_cast<uint16_t>(Accumulator()) ^ static_cast<uint16_t>(shifted)) & (static_cast<uint16_t>(shifted) ^ static_cast<uint16_t>(temp))) & 0x0080);
+	SetFlag(N, temp & 0x80);
+	Accumulator() = temp & 0x00FF;
+	return 0;
+}
+
+uint8_t Cpu::RLA()
+{
+	const auto argument = Fetch();
+	const auto shifted = static_cast<uint16_t>(argument << 1) | static_cast<uint16_t>(GetFlag(C));
+	SetFlag(C, shifted & 0xFF00);
+	SetFlag(Z, (shifted & 0x00FF) == 0x0000);
+	SetFlag(N, shifted & 0x0080);
+	SaveResult(shifted);
+	Accumulator() = Accumulator() & shifted;
+	SetFlag(Z, Accumulator() == 0x00);
+	SetFlag(N, Accumulator() & 0x80);
+	return 0;
+}
+
+uint8_t Cpu::TAS()
+{
+	const auto temp = Accumulator() & X();
+	StackPointer() = temp & 0x00FF;
+	const auto address_high = ((absolute_address_ >> 8) & 0x00FF) + 1;
+	Write(absolute_address_, temp & address_high);
+	return 0;
+}
+
+#pragma endregion
+
 uint8_t Cpu::NOP()
 {
 	switch (current_opcode_)

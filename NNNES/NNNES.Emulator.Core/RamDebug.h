@@ -5,7 +5,7 @@ class RamDebug : public AddressableDevice
 {
 private:
 	uint8_t* memory_;
-	uint16_t physical_size_;
+	size_t physical_size_;
 
 public:
 	RamDebug();

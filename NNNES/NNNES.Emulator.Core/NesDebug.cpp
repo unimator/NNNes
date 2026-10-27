@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "NesDebug.h"
 #include "Cpu.h"
 #include "RamDebug.h"
@@ -34,4 +35,8 @@ void NesDebug::NextInstruction() const
 	cpu_->NextInstruction();
 }
 
-typedef NesDebug* NesDebugHandle;
+void NesDebug::Reset() 
+{
+	counter_ = 0;
+	cpu_->Reset();
+}

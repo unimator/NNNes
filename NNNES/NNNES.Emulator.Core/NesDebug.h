@@ -1,9 +1,9 @@
 #pragma once
 #include "Device.h"
 #include "InstructionInfo.h"
+#include "Cpu.h"
 #include <vector>
 
-class Cpu;
 class RamDebug;
 class Bus;
 
@@ -20,7 +20,11 @@ public:
 	NesDebug();
 	~NesDebug();
 
+	auto GetCpu() const -> Cpu* { return cpu_; }
+
 	void Clock();
 	void NextInstruction() const;
 	void Reset();
 };
+
+typedef NesDebug* NesDebugHandle;

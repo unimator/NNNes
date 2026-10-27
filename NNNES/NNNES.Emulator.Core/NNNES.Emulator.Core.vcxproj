@@ -166,11 +166,13 @@
     <ClInclude Include="InstructionInfo.h" />
     <ClInclude Include="Mapper.h" />
     <ClInclude Include="Nes.h" />
+    <ClInclude Include="NesDebug.h" />
     <ClInclude Include="Nrom.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Ppu.h" />
     <ClInclude Include="PpuRam.h" />
     <ClInclude Include="Ram.h" />
+    <ClInclude Include="RamDebug.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AddressableDevice.cpp" />
@@ -187,6 +189,8 @@
     <ClCompile Include="Mapper.cpp" />
     <ClCompile Include="Nes.cpp" />
     <ClCompile Include="NesApi.cpp" />
+    <ClCompile Include="NesDebug.cpp" />
+    <ClCompile Include="NesDebugApi.cpp" />
     <ClCompile Include="Nrom.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -197,6 +201,7 @@
     <ClCompile Include="Ppu.cpp" />
     <ClCompile Include="PpuRam.cpp" />
     <ClCompile Include="Ram.cpp" />
+    <ClCompile Include="RamDebug.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
