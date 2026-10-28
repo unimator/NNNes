@@ -2,6 +2,7 @@
 #include "INes.h"
 #include "Device.h"
 #include "InstructionInfo.h"
+#include "Frame.h"
 #include <vector>
 
 class Cpu;
@@ -21,6 +22,8 @@ private:
 	INes* i_nes_ = nullptr;
 
 	uint64_t counter_ = 0x0;
+
+	Frame frame_;
 		
 public:
 	Nes();
@@ -33,12 +36,15 @@ public:
 	auto GetINesHandle() const -> const INes& { return *this->i_nes_; }
 	
 	void Clock();
-	void NextInstruction() const;
+	void NextInstruction();
 	void Reset();
 
 public:
 	std::vector<InstructionInfo> Disassemble(const uint16_t start_address, const uint16_t end_address);
 	std::vector<InstructionInfo> DisassembleByCount(const uint16_t start_address, size_t count);
+
+public:
+	auto Frame() const -> const Frame* { return &frame_; }
 };
 
 typedef Nes* NesHandle;

@@ -30,288 +30,185 @@ namespace NNNES.Emulator.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.glNesWindow = new GLControl();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.txtRomTitle = new System.Windows.Forms.TextBox();
-            this.btnSingleStep = new System.Windows.Forms.Button();
-            this.btnPause = new System.Windows.Forms.Button();
-            this.btnRun = new System.Windows.Forms.Button();
-            this.btnLoadRom = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.chrRomControl = new NNNES.Emulator.Forms.ChrRomControl();
-            this.cpuControl = new NNNES.Emulator.Forms.CpuControl();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.bwEmulator = new System.ComponentModel.BackgroundWorker();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            glNesWindow = new GLControl();
+            panel1 = new Panel();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            panel3 = new Panel();
+            executionControl = new ExecutionControl();
+            panel2 = new Panel();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            chrRomControl = new ChrRomControl();
+            cpuControl = new CpuControl();
+            bwEmulator = new System.ComponentModel.BackgroundWorker();
+            timer1 = new System.Windows.Forms.Timer(components);
+            tableLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            panel3.SuspendLayout();
+            panel2.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 518F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.glNesWindow, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(14, 14);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 486F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(786, 626);
-            this.tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 776F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(glNesWindow, 0, 0);
+            tableLayoutPanel1.Controls.Add(panel1, 0, 1);
+            tableLayoutPanel1.Controls.Add(panel2, 1, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(16, 16);
+            tableLayoutPanel1.Margin = new Padding(4, 3, 4, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 728F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(1099, 869);
+            tableLayoutPanel1.TabIndex = 0;
             // 
             // glNesWindow
             // 
-            this.glNesWindow.BackColor = System.Drawing.Color.Black;
-            this.glNesWindow.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.glNesWindow.Location = new System.Drawing.Point(3, 3);
-            this.glNesWindow.Name = "glNesWindow";
-            this.glNesWindow.Size = new System.Drawing.Size(512, 480);
-            this.glNesWindow.TabIndex = 1;
-            this.glNesWindow.Load += new System.EventHandler(this.glNesWindow_Load);
+            glNesWindow.API = OpenTK.Windowing.Common.ContextAPI.OpenGL;
+            glNesWindow.APIVersion = new Version(3, 3, 0, 0);
+            glNesWindow.BackColor = Color.Black;
+            glNesWindow.Dock = DockStyle.Fill;
+            glNesWindow.Flags = OpenTK.Windowing.Common.ContextFlags.Default;
+            glNesWindow.IsEventDriven = true;
+            glNesWindow.Location = new Point(4, 3);
+            glNesWindow.Margin = new Padding(4, 3, 4, 3);
+            glNesWindow.Name = "glNesWindow";
+            glNesWindow.Profile = OpenTK.Windowing.Common.ContextProfile.Core;
+            glNesWindow.SharedContext = null;
+            glNesWindow.Size = new Size(768, 722);
+            glNesWindow.TabIndex = 1;
+            glNesWindow.Load += glNesWindow_Load;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.tableLayoutPanel3);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 489);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(512, 134);
-            this.panel1.TabIndex = 2;
+            panel1.Controls.Add(tableLayoutPanel3);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(4, 731);
+            panel1.Margin = new Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(768, 135);
+            panel1.TabIndex = 2;
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel3.Controls.Add(this.panel3, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(512, 134);
-            this.tableLayoutPanel3.TabIndex = 1;
+            tableLayoutPanel3.ColumnCount = 2;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
+            tableLayoutPanel3.Controls.Add(panel3, 1, 0);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(0, 0);
+            tableLayoutPanel3.Margin = new Padding(4, 3, 4, 3);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 1;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.Size = new Size(768, 135);
+            tableLayoutPanel3.TabIndex = 1;
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.txtRomTitle);
-            this.panel3.Controls.Add(this.button1);
-            this.panel3.Controls.Add(this.btnSingleStep);
-            this.panel3.Controls.Add(this.btnPause);
-            this.panel3.Controls.Add(this.btnRun);
-            this.panel3.Controls.Add(this.btnLoadRom);
-            this.panel3.Controls.Add(this.btnExit);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(310, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.panel3.Size = new System.Drawing.Size(199, 128);
-            this.panel3.TabIndex = 0;
+            panel3.Controls.Add(executionControl);
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(464, 3);
+            panel3.Margin = new Padding(4, 3, 4, 3);
+            panel3.Name = "panel3";
+            panel3.RightToLeft = RightToLeft.No;
+            panel3.Size = new Size(300, 129);
+            panel3.TabIndex = 0;
             // 
-            // txtRomTitle
+            // executionControl
             // 
-            this.txtRomTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txtRomTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtRomTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.txtRomTitle.Font = new System.Drawing.Font("Malgun Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRomTitle.ForeColor = System.Drawing.Color.LawnGreen;
-            this.txtRomTitle.Location = new System.Drawing.Point(3, 69);
-            this.txtRomTitle.MaxLength = 32768;
-            this.txtRomTitle.Name = "txtRomTitle";
-            this.txtRomTitle.ReadOnly = true;
-            this.txtRomTitle.Size = new System.Drawing.Size(193, 15);
-            this.txtRomTitle.TabIndex = 1;
-            // 
-            // btnSingleStep
-            // 
-            this.btnSingleStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSingleStep.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnSingleStep.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSingleStep.Font = new System.Drawing.Font("Malgun Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSingleStep.ForeColor = System.Drawing.Color.LawnGreen;
-            this.btnSingleStep.Location = new System.Drawing.Point(85, 28);
-            this.btnSingleStep.Name = "btnSingleStep";
-            this.btnSingleStep.Size = new System.Drawing.Size(35, 35);
-            this.btnSingleStep.TabIndex = 0;
-            this.btnSingleStep.Text = "⤓";
-            this.btnSingleStep.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSingleStep.UseVisualStyleBackColor = true;
-            this.btnSingleStep.Click += new System.EventHandler(this.btnSingleStep_Click);
-            // 
-            // btnPause
-            // 
-            this.btnPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPause.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPause.Font = new System.Drawing.Font("Malgun Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPause.ForeColor = System.Drawing.Color.LawnGreen;
-            this.btnPause.Location = new System.Drawing.Point(44, 28);
-            this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(35, 35);
-            this.btnPause.TabIndex = 0;
-            this.btnPause.Text = "║║";
-            this.btnPause.UseVisualStyleBackColor = false;
-            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
-            // 
-            // btnRun
-            // 
-            this.btnRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRun.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRun.Font = new System.Drawing.Font("Malgun Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRun.ForeColor = System.Drawing.Color.LawnGreen;
-            this.btnRun.Location = new System.Drawing.Point(3, 28);
-            this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(35, 35);
-            this.btnRun.TabIndex = 0;
-            this.btnRun.Text = "▶";
-            this.btnRun.UseVisualStyleBackColor = false;
-            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
-            // 
-            // btnLoadRom
-            // 
-            this.btnLoadRom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLoadRom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnLoadRom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoadRom.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLoadRom.ForeColor = System.Drawing.Color.LawnGreen;
-            this.btnLoadRom.Location = new System.Drawing.Point(3, 90);
-            this.btnLoadRom.Name = "btnLoadRom";
-            this.btnLoadRom.Size = new System.Drawing.Size(94, 35);
-            this.btnLoadRom.TabIndex = 0;
-            this.btnLoadRom.Text = "LOAD ROM";
-            this.btnLoadRom.UseVisualStyleBackColor = false;
-            this.btnLoadRom.Click += new System.EventHandler(this.btnLoadRom_Click);
-            // 
-            // btnExit
-            // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Font = new System.Drawing.Font("Malgun Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.ForeColor = System.Drawing.Color.LawnGreen;
-            this.btnExit.Location = new System.Drawing.Point(102, 90);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(94, 35);
-            this.btnExit.TabIndex = 0;
-            this.btnExit.Text = "QUIT";
-            this.btnExit.UseVisualStyleBackColor = false;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            executionControl.Dock = DockStyle.Fill;
+            executionControl.Location = new Point(0, 0);
+            executionControl.Name = "executionControl";
+            executionControl.Size = new Size(300, 129);
+            executionControl.TabIndex = 0;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.tableLayoutPanel2);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(521, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(3);
-            this.tableLayoutPanel1.SetRowSpan(this.panel2, 2);
-            this.panel2.Size = new System.Drawing.Size(262, 620);
-            this.panel2.TabIndex = 5;
+            panel2.Controls.Add(tableLayoutPanel2);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(780, 3);
+            panel2.Margin = new Padding(4, 3, 4, 3);
+            panel2.Name = "panel2";
+            panel2.Padding = new Padding(4, 3, 4, 3);
+            tableLayoutPanel1.SetRowSpan(panel2, 2);
+            panel2.Size = new Size(315, 863);
+            panel2.TabIndex = 5;
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.chrRomControl, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.cpuControl, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 289F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(256, 614);
-            this.tableLayoutPanel2.TabIndex = 4;
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Controls.Add(chrRomControl, 0, 1);
+            tableLayoutPanel2.Controls.Add(cpuControl, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(4, 3);
+            tableLayoutPanel2.Margin = new Padding(4, 3, 4, 3);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 2;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 333F));
+            tableLayoutPanel2.Size = new Size(307, 857);
+            tableLayoutPanel2.TabIndex = 4;
             // 
             // chrRomControl
             // 
-            this.chrRomControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chrRomControl.Location = new System.Drawing.Point(0, 325);
-            this.chrRomControl.Margin = new System.Windows.Forms.Padding(0);
-            this.chrRomControl.Name = "chrRomControl";
-            this.chrRomControl.Cartridge = null;
-            this.chrRomControl.Size = new System.Drawing.Size(256, 289);
-            this.chrRomControl.TabIndex = 0;
+            chrRomControl.Dock = DockStyle.Fill;
+            chrRomControl.Location = new Point(0, 524);
+            chrRomControl.Margin = new Padding(0);
+            chrRomControl.Name = "chrRomControl";
+            chrRomControl.Size = new Size(307, 333);
+            chrRomControl.TabIndex = 0;
             // 
             // cpuControl
             // 
-            this.cpuControl.BackColor = System.Drawing.Color.Transparent;
-            this.cpuControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cpuControl.ForeColor = System.Drawing.Color.LawnGreen;
-            this.cpuControl.Location = new System.Drawing.Point(3, 3);
-            this.cpuControl.Name = "cpuControl";
-            this.cpuControl.Nes = null;
-            this.cpuControl.Size = new System.Drawing.Size(250, 319);
-            this.cpuControl.TabIndex = 1;
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.Filter = "NES ROMs|*.nes";
+            cpuControl.BackColor = Color.Transparent;
+            cpuControl.Dock = DockStyle.Fill;
+            cpuControl.ForeColor = Color.LawnGreen;
+            cpuControl.Location = new Point(5, 3);
+            cpuControl.Margin = new Padding(5, 3, 5, 3);
+            cpuControl.Name = "cpuControl";
+            cpuControl.Size = new Size(297, 518);
+            cpuControl.TabIndex = 1;
             // 
             // bwEmulator
             // 
-            this.bwEmulator.WorkerReportsProgress = true;
-            this.bwEmulator.WorkerSupportsCancellation = true;
-            this.bwEmulator.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwEmulator_DoWork);
+            bwEmulator.WorkerReportsProgress = true;
+            bwEmulator.WorkerSupportsCancellation = true;
+            bwEmulator.DoWork += bwEmulator_DoWork;
             // 
             // timer1
             // 
-            this.timer1.Interval = 1000;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Malgun Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.LawnGreen;
-            this.button1.Location = new System.Drawing.Point(126, 28);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(35, 35);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "R";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            timer1.Interval = 1000;
             // 
             // NesEmulator
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(83)))), ((int)(((byte)(83)))));
-            this.ClientSize = new System.Drawing.Size(814, 654);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.MaximizeBox = false;
-            this.Name = "NesEmulator";
-            this.Padding = new System.Windows.Forms.Padding(14);
-            this.Text = "NES Emulator";
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(83, 83, 83);
+            ClientSize = new Size(1131, 901);
+            Controls.Add(tableLayoutPanel1);
+            ForeColor = SystemColors.ActiveCaption;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            Margin = new Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            Name = "NesEmulator";
+            Padding = new Padding(16);
+            Text = "NES Emulator";
+            tableLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 
@@ -320,22 +217,15 @@ namespace NNNES.Emulator.Forms
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private GLControl glNesWindow;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.Button btnLoadRom;
-        private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private ChrRomControl chrRomControl;
         private CpuControl cpuControl;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TextBox txtRomTitle;
-        private System.Windows.Forms.Button btnRun;
-        private System.Windows.Forms.Button btnPause;
         private System.ComponentModel.BackgroundWorker bwEmulator;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button btnSingleStep;
-        private System.Windows.Forms.Button button1;
+        private ExecutionControl executionControl;
     }
 }
 

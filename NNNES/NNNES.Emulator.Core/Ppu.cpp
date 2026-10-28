@@ -1,7 +1,8 @@
 ﻿#include "pch.h"
 #include "Ppu.h"
+#include <cstdlib>
 
-Ppu::Ppu() : AddressableDevice(0x2000, 0x2000)
+Ppu::Ppu(Frame* frame_) : AddressableDevice(0x2000, 0x2000), frame_(frame_)
 {
 }
 
@@ -20,6 +21,26 @@ void Ppu::Reset()
 
 void Ppu::Clock()
 {
+	if (scanline_count_ < FRAME_HEIGHT && clock_count_ < FRAME_WIDTH)
+	{
+		auto color = rand() % 0xFF;
+		frame_->pixels[scanline_count_ * FRAME_WIDTH + clock_count_] = color;
+	}
+	
+	clock_count_++;
+	frame_->frame_ready = false;
+
+	if(clock_count_ == 341)
+	{
+		clock_count_ = 0;
+		scanline_count_++;
+
+		if (scanline_count_ == 261)
+		{
+			scanline_count_ = -1;
+			frame_->frame_ready = true;
+		}
+	}
 }
 
 void Ppu::Write(uint16_t address, uint8_t data)

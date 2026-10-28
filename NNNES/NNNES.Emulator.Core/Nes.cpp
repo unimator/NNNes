@@ -8,7 +8,7 @@ Nes::Nes()
 {
 	cpu_ = new Cpu();
 	ram_ = new Ram();
-	ppu_ = new Ppu();
+	ppu_ = new Ppu(&frame_);
 	apu_ = new Apu();
 	bus_ = new Bus();
 
@@ -37,9 +37,13 @@ void Nes::Clock()
 	++counter_;
 }
 
-void Nes::NextInstruction() const
+void Nes::NextInstruction()
 {
-	cpu_->NextInstruction();
+	auto program_counter = cpu_->ProgramCounter();
+	do 
+	{
+		Clock();
+	} while (program_counter == cpu_->ProgramCounter());
 }
 
 

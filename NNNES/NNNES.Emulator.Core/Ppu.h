@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Nes.h"
+#include "Frame.h"
 
 class INes;
 
@@ -53,9 +54,12 @@ private:
 	} ppu_status;
 
 	uint32_t clock_count_ = 0;
-	
+	uint32_t scanline_count_ = 0;
+
+	Frame* frame_;
+
 public:
-	Ppu();
+	Ppu(Frame* frame_);
 	virtual ~Ppu();
 
 	void Reset();
@@ -71,5 +75,4 @@ public:
 
 	void PpuWrite(uint16_t address, uint8_t data);
 	uint8_t PpuRead(uint16_t address, uint8_t data);
-
 };

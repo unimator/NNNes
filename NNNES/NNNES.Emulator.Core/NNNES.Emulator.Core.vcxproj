@@ -161,6 +161,7 @@
     <ClInclude Include="Cpu.h" />
     <ClInclude Include="CpuRegisters.h" />
     <ClInclude Include="Device.h" />
+    <ClInclude Include="Frame.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="INes.h" />
     <ClInclude Include="InstructionInfo.h" />

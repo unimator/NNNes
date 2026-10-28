@@ -100,24 +100,24 @@ void INes::LoadNes20Format(const uint8_t* bytes, const uint32_t length)
 
 void INes::Write(uint16_t address, uint8_t data)
 {
-	const auto real_address = mapper_->CpuWriteAddress(address);
+	const auto real_address = mapper_->CpuMappedAddress(address);
 	prg_rom_[real_address] = data;
 }
 
 uint8_t INes::Read(uint16_t address)
 {
-	const auto real_address = mapper_->CpuReadAddress(address);
+	const auto real_address = mapper_->CpuMappedAddress(address);
 	return prg_rom_[real_address];
 }
 
 void INes::PpuWrite(uint16_t address, uint8_t data) const
 {
-	const auto real_address = mapper_->PpuWriteAddress(address);
+	const auto real_address = mapper_->PpuMappedAddress(address);
 	chr_rom_[real_address] = data;
 }
 
 uint8_t INes::PpuRead(uint16_t address) const
 {
-	const auto real_address = mapper_->PpuReadAddress(address);
+	const auto real_address = mapper_->PpuMappedAddress(address);
 	return chr_rom_[real_address];
 }

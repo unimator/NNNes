@@ -26,12 +26,21 @@ namespace NNNES.Emulator.Proxy
         [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "GetCpuRegisters")]
         private static extern void GetRegisters(IntPtr nesInstance, ref CpuRegisters registers);
 
+        [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "GetRamAddress")]
+        private static extern IntPtr GetRamAddress(IntPtr nesInstance);
+
         [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "SetCartridge")]
         private static extern void SetCartridge(IntPtr nesInstance, IntPtr nesCartridge);
 
         [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "DisassembleByCount")]
         private static extern IntPtr DisassembleByCount(IntPtr nesInstance, ushort addressStart, uint count,
             out uint instructionsLength);
+
+        [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "GetFrameHandle")]
+        private static extern IntPtr GetFrameHandle(IntPtr nesInstance);
+
+        [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "IsFrameReady")]
+        private static extern bool IsFrameReady(IntPtr nesInstance);
 
         private readonly IntPtr _instance;
 
@@ -76,6 +85,25 @@ namespace NNNES.Emulator.Proxy
             var cpuRegisters = new CpuRegisters();
             GetRegisters(_instance, ref cpuRegisters);
             return cpuRegisters;
+        }
+
+        public byte[] GetRam(ushort addressStart, uint size)
+        {
+            var ramAddress = GetRamAddress(_instance);
+            var data = new byte[size];
+            Marshal.Copy(new IntPtr((IntPtr.Size == 4 ? ramAddress.ToInt32() : ramAddress.ToInt64()) + addressStart), data, 0, (int)size);
+            return data;
+        }
+
+        public IntPtr GetFramePtr()
+        {
+            var frameHandle = GetFrameHandle(_instance);
+            return frameHandle;
+        }
+
+        public bool IsFrameReady()
+        {
+            return IsFrameReady(_instance);
         }
 
         public IEnumerable<InstructionInfo> DisassembleByCount(ushort addressStart, uint count)

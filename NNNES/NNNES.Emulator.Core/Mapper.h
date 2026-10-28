@@ -19,11 +19,8 @@ protected:
 public:
 	auto MapperNumber() const -> uint8_t { return mapper_number_; }
 	
-	virtual uint16_t CpuReadAddress(uint16_t address) = 0;
-	virtual uint16_t CpuWriteAddress(uint16_t address) = 0;
-
-	virtual uint16_t PpuReadAddress(uint16_t address) = 0;
-	virtual uint16_t PpuWriteAddress(uint16_t address) = 0;
+	virtual uint16_t CpuMappedAddress(uint16_t address) = 0;
+	virtual uint16_t PpuMappedAddress(uint16_t address) = 0;
 
 	virtual Mirroring GetMirroring() = 0;
 };

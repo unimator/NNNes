@@ -28,433 +28,462 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tblFlagRegisters = new System.Windows.Forms.TableLayoutPanel();
-            this.lblC = new System.Windows.Forms.Label();
-            this.lblZ = new System.Windows.Forms.Label();
-            this.lblI = new System.Windows.Forms.Label();
-            this.lblD = new System.Windows.Forms.Label();
-            this.lblB = new System.Windows.Forms.Label();
-            this.lblUnused = new System.Windows.Forms.Label();
-            this.lblV = new System.Windows.Forms.Label();
-            this.lblN = new System.Windows.Forms.Label();
-            this.tblRegisters = new System.Windows.Forms.TableLayoutPanel();
-            this.panelRegisters1 = new System.Windows.Forms.Panel();
-            this.cbFollowPC = new System.Windows.Forms.CheckBox();
-            this.lblProgramCounter = new System.Windows.Forms.Label();
-            this.lblStackPointer = new System.Windows.Forms.Label();
-            this.lblAccumulator = new System.Windows.Forms.Label();
-            this.panelRegisters2 = new System.Windows.Forms.Panel();
-            this.lblProgramCounterValue = new System.Windows.Forms.Label();
-            this.lblStackPointerValue = new System.Windows.Forms.Label();
-            this.lblAccumulatorValue = new System.Windows.Forms.Label();
-            this.panelRegisters3 = new System.Windows.Forms.Panel();
-            this.lblY = new System.Windows.Forms.Label();
-            this.lblX = new System.Windows.Forms.Label();
-            this.panelRegisters4 = new System.Windows.Forms.Panel();
-            this.lblYValue = new System.Windows.Forms.Label();
-            this.lblXValue = new System.Windows.Forms.Label();
-            this.panelDisassembled = new System.Windows.Forms.Panel();
-            this.vsbDisassembledScroll = new System.Windows.Forms.VScrollBar();
-            this.lblDisassembled = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.tblFlagRegisters.SuspendLayout();
-            this.tblRegisters.SuspendLayout();
-            this.panelRegisters1.SuspendLayout();
-            this.panelRegisters2.SuspendLayout();
-            this.panelRegisters3.SuspendLayout();
-            this.panelRegisters4.SuspendLayout();
-            this.panelDisassembled.SuspendLayout();
-            this.SuspendLayout();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            panel1 = new Panel();
+            tblFlagRegisters = new TableLayoutPanel();
+            lblC = new Label();
+            lblZ = new Label();
+            lblI = new Label();
+            lblD = new Label();
+            lblB = new Label();
+            lblUnused = new Label();
+            lblV = new Label();
+            lblN = new Label();
+            tblRegisters = new TableLayoutPanel();
+            panelRegisters1 = new Panel();
+            cbFollowPC = new CheckBox();
+            lblProgramCounter = new Label();
+            lblStackPointer = new Label();
+            lblAccumulator = new Label();
+            panelRegisters2 = new Panel();
+            lblProgramCounterValue = new Label();
+            lblStackPointerValue = new Label();
+            lblAccumulatorValue = new Label();
+            panelRegisters3 = new Panel();
+            lblY = new Label();
+            lblX = new Label();
+            panelRegisters4 = new Panel();
+            lblYValue = new Label();
+            lblXValue = new Label();
+            panelDisassembled = new Panel();
+            vsbDisassembledScroll = new VScrollBar();
+            lblDisassembled = new Label();
+            tableLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
+            tblFlagRegisters.SuspendLayout();
+            tblRegisters.SuspendLayout();
+            panelRegisters1.SuspendLayout();
+            panelRegisters2.SuspendLayout();
+            panelRegisters3.SuspendLayout();
+            panelRegisters4.SuspendLayout();
+            panelDisassembled.SuspendLayout();
+            SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tblRegisters, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panelDisassembled, 0, 2);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(296, 388);
-            this.tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanel1.BackColor = Color.Transparent;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(panel1, 0, 0);
+            tableLayoutPanel1.Controls.Add(tblRegisters, 0, 1);
+            tableLayoutPanel1.Controls.Add(panelDisassembled, 0, 2);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Margin = new Padding(4, 3, 4, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 87F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 55F));
+            tableLayoutPanel1.Size = new Size(345, 448);
+            tableLayoutPanel1.TabIndex = 0;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.tblFlagRegisters);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(296, 30);
-            this.panel1.TabIndex = 0;
+            panel1.Controls.Add(tblFlagRegisters);
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(345, 35);
+            panel1.TabIndex = 0;
             // 
             // tblFlagRegisters
             // 
-            this.tblFlagRegisters.BackColor = System.Drawing.Color.Transparent;
-            this.tblFlagRegisters.ColumnCount = 8;
-            this.tblFlagRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tblFlagRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tblFlagRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tblFlagRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tblFlagRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tblFlagRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tblFlagRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tblFlagRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tblFlagRegisters.Controls.Add(this.lblC, 7, 0);
-            this.tblFlagRegisters.Controls.Add(this.lblZ, 6, 0);
-            this.tblFlagRegisters.Controls.Add(this.lblI, 5, 0);
-            this.tblFlagRegisters.Controls.Add(this.lblD, 4, 0);
-            this.tblFlagRegisters.Controls.Add(this.lblB, 3, 0);
-            this.tblFlagRegisters.Controls.Add(this.lblUnused, 2, 0);
-            this.tblFlagRegisters.Controls.Add(this.lblV, 1, 0);
-            this.tblFlagRegisters.Controls.Add(this.lblN, 0, 0);
-            this.tblFlagRegisters.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblFlagRegisters.Location = new System.Drawing.Point(0, 0);
-            this.tblFlagRegisters.Name = "tblFlagRegisters";
-            this.tblFlagRegisters.RowCount = 1;
-            this.tblFlagRegisters.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblFlagRegisters.Size = new System.Drawing.Size(296, 30);
-            this.tblFlagRegisters.TabIndex = 1;
+            tblFlagRegisters.BackColor = Color.Transparent;
+            tblFlagRegisters.ColumnCount = 8;
+            tblFlagRegisters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tblFlagRegisters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tblFlagRegisters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tblFlagRegisters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tblFlagRegisters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tblFlagRegisters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tblFlagRegisters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tblFlagRegisters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+            tblFlagRegisters.Controls.Add(lblC, 7, 0);
+            tblFlagRegisters.Controls.Add(lblZ, 6, 0);
+            tblFlagRegisters.Controls.Add(lblI, 5, 0);
+            tblFlagRegisters.Controls.Add(lblD, 4, 0);
+            tblFlagRegisters.Controls.Add(lblB, 3, 0);
+            tblFlagRegisters.Controls.Add(lblUnused, 2, 0);
+            tblFlagRegisters.Controls.Add(lblV, 1, 0);
+            tblFlagRegisters.Controls.Add(lblN, 0, 0);
+            tblFlagRegisters.Dock = DockStyle.Fill;
+            tblFlagRegisters.Location = new Point(0, 0);
+            tblFlagRegisters.Margin = new Padding(4, 3, 4, 3);
+            tblFlagRegisters.Name = "tblFlagRegisters";
+            tblFlagRegisters.RowCount = 1;
+            tblFlagRegisters.RowStyles.Add(new RowStyle());
+            tblFlagRegisters.Size = new Size(345, 35);
+            tblFlagRegisters.TabIndex = 1;
             // 
             // lblC
             // 
-            this.lblC.AutoSize = true;
-            this.lblC.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblC.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblC.ForeColor = System.Drawing.Color.LawnGreen;
-            this.lblC.Location = new System.Drawing.Point(262, 0);
-            this.lblC.Name = "lblC";
-            this.lblC.Size = new System.Drawing.Size(31, 30);
-            this.lblC.TabIndex = 9;
-            this.lblC.Text = "C";
-            this.lblC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblC.AutoSize = true;
+            lblC.Dock = DockStyle.Fill;
+            lblC.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            lblC.ForeColor = Color.LawnGreen;
+            lblC.Location = new Point(305, 0);
+            lblC.Margin = new Padding(4, 0, 4, 0);
+            lblC.Name = "lblC";
+            lblC.Size = new Size(36, 35);
+            lblC.TabIndex = 9;
+            lblC.Text = "C";
+            lblC.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblZ
             // 
-            this.lblZ.AutoSize = true;
-            this.lblZ.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblZ.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblZ.ForeColor = System.Drawing.Color.LawnGreen;
-            this.lblZ.Location = new System.Drawing.Point(225, 0);
-            this.lblZ.Name = "lblZ";
-            this.lblZ.Size = new System.Drawing.Size(31, 30);
-            this.lblZ.TabIndex = 8;
-            this.lblZ.Text = "Z";
-            this.lblZ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblZ.AutoSize = true;
+            lblZ.Dock = DockStyle.Fill;
+            lblZ.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            lblZ.ForeColor = Color.LawnGreen;
+            lblZ.Location = new Point(262, 0);
+            lblZ.Margin = new Padding(4, 0, 4, 0);
+            lblZ.Name = "lblZ";
+            lblZ.Size = new Size(35, 35);
+            lblZ.TabIndex = 8;
+            lblZ.Text = "Z";
+            lblZ.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblI
             // 
-            this.lblI.AutoSize = true;
-            this.lblI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblI.ForeColor = System.Drawing.Color.LawnGreen;
-            this.lblI.Location = new System.Drawing.Point(188, 0);
-            this.lblI.Name = "lblI";
-            this.lblI.Size = new System.Drawing.Size(31, 30);
-            this.lblI.TabIndex = 7;
-            this.lblI.Text = "I";
-            this.lblI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblI.AutoSize = true;
+            lblI.Dock = DockStyle.Fill;
+            lblI.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            lblI.ForeColor = Color.LawnGreen;
+            lblI.Location = new Point(219, 0);
+            lblI.Margin = new Padding(4, 0, 4, 0);
+            lblI.Name = "lblI";
+            lblI.Size = new Size(35, 35);
+            lblI.TabIndex = 7;
+            lblI.Text = "I";
+            lblI.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblD
             // 
-            this.lblD.AutoSize = true;
-            this.lblD.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblD.ForeColor = System.Drawing.Color.LawnGreen;
-            this.lblD.Location = new System.Drawing.Point(151, 0);
-            this.lblD.Name = "lblD";
-            this.lblD.Size = new System.Drawing.Size(31, 30);
-            this.lblD.TabIndex = 6;
-            this.lblD.Text = "D";
-            this.lblD.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblD.AutoSize = true;
+            lblD.Dock = DockStyle.Fill;
+            lblD.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            lblD.ForeColor = Color.LawnGreen;
+            lblD.Location = new Point(176, 0);
+            lblD.Margin = new Padding(4, 0, 4, 0);
+            lblD.Name = "lblD";
+            lblD.Size = new Size(35, 35);
+            lblD.TabIndex = 6;
+            lblD.Text = "D";
+            lblD.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblB
             // 
-            this.lblB.AutoSize = true;
-            this.lblB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblB.ForeColor = System.Drawing.Color.LawnGreen;
-            this.lblB.Location = new System.Drawing.Point(114, 0);
-            this.lblB.Name = "lblB";
-            this.lblB.Size = new System.Drawing.Size(31, 30);
-            this.lblB.TabIndex = 5;
-            this.lblB.Text = "B";
-            this.lblB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblB.AutoSize = true;
+            lblB.Dock = DockStyle.Fill;
+            lblB.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            lblB.ForeColor = Color.LawnGreen;
+            lblB.Location = new Point(133, 0);
+            lblB.Margin = new Padding(4, 0, 4, 0);
+            lblB.Name = "lblB";
+            lblB.Size = new Size(35, 35);
+            lblB.TabIndex = 5;
+            lblB.Text = "B";
+            lblB.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblUnused
             // 
-            this.lblUnused.AutoSize = true;
-            this.lblUnused.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUnused.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblUnused.ForeColor = System.Drawing.Color.LawnGreen;
-            this.lblUnused.Location = new System.Drawing.Point(77, 0);
-            this.lblUnused.Name = "lblUnused";
-            this.lblUnused.Size = new System.Drawing.Size(31, 30);
-            this.lblUnused.TabIndex = 4;
-            this.lblUnused.Text = "-";
-            this.lblUnused.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblUnused.AutoSize = true;
+            lblUnused.Dock = DockStyle.Fill;
+            lblUnused.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            lblUnused.ForeColor = Color.LawnGreen;
+            lblUnused.Location = new Point(90, 0);
+            lblUnused.Margin = new Padding(4, 0, 4, 0);
+            lblUnused.Name = "lblUnused";
+            lblUnused.Size = new Size(35, 35);
+            lblUnused.TabIndex = 4;
+            lblUnused.Text = "-";
+            lblUnused.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblV
             // 
-            this.lblV.AutoSize = true;
-            this.lblV.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblV.ForeColor = System.Drawing.Color.LawnGreen;
-            this.lblV.Location = new System.Drawing.Point(40, 0);
-            this.lblV.Name = "lblV";
-            this.lblV.Size = new System.Drawing.Size(31, 30);
-            this.lblV.TabIndex = 3;
-            this.lblV.Text = "V";
-            this.lblV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblV.AutoSize = true;
+            lblV.Dock = DockStyle.Fill;
+            lblV.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            lblV.ForeColor = Color.LawnGreen;
+            lblV.Location = new Point(47, 0);
+            lblV.Margin = new Padding(4, 0, 4, 0);
+            lblV.Name = "lblV";
+            lblV.Size = new Size(35, 35);
+            lblV.TabIndex = 3;
+            lblV.Text = "V";
+            lblV.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblN
             // 
-            this.lblN.AutoSize = true;
-            this.lblN.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblN.ForeColor = System.Drawing.Color.LawnGreen;
-            this.lblN.Location = new System.Drawing.Point(3, 0);
-            this.lblN.Name = "lblN";
-            this.lblN.Size = new System.Drawing.Size(31, 30);
-            this.lblN.TabIndex = 2;
-            this.lblN.Text = "N";
-            this.lblN.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblN.AutoSize = true;
+            lblN.Dock = DockStyle.Fill;
+            lblN.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 238);
+            lblN.ForeColor = Color.LawnGreen;
+            lblN.Location = new Point(4, 0);
+            lblN.Margin = new Padding(4, 0, 4, 0);
+            lblN.Name = "lblN";
+            lblN.Size = new Size(35, 35);
+            lblN.TabIndex = 2;
+            lblN.Text = "N";
+            lblN.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // tblRegisters
             // 
-            this.tblRegisters.ColumnCount = 4;
-            this.tblRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tblRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tblRegisters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tblRegisters.Controls.Add(this.panelRegisters1, 0, 0);
-            this.tblRegisters.Controls.Add(this.panelRegisters2, 1, 0);
-            this.tblRegisters.Controls.Add(this.panelRegisters3, 2, 0);
-            this.tblRegisters.Controls.Add(this.panelRegisters4, 3, 0);
-            this.tblRegisters.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblRegisters.Location = new System.Drawing.Point(3, 33);
-            this.tblRegisters.Name = "tblRegisters";
-            this.tblRegisters.RowCount = 1;
-            this.tblRegisters.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblRegisters.Size = new System.Drawing.Size(290, 69);
-            this.tblRegisters.TabIndex = 2;
+            tblRegisters.ColumnCount = 4;
+            tblRegisters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tblRegisters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            tblRegisters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+            tblRegisters.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            tblRegisters.Controls.Add(panelRegisters1, 0, 0);
+            tblRegisters.Controls.Add(panelRegisters2, 1, 0);
+            tblRegisters.Controls.Add(panelRegisters3, 2, 0);
+            tblRegisters.Controls.Add(panelRegisters4, 3, 0);
+            tblRegisters.Dock = DockStyle.Fill;
+            tblRegisters.Location = new Point(4, 38);
+            tblRegisters.Margin = new Padding(4, 3, 4, 3);
+            tblRegisters.Name = "tblRegisters";
+            tblRegisters.RowCount = 1;
+            tblRegisters.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tblRegisters.Size = new Size(337, 81);
+            tblRegisters.TabIndex = 2;
             // 
             // panelRegisters1
             // 
-            this.panelRegisters1.Controls.Add(this.cbFollowPC);
-            this.panelRegisters1.Controls.Add(this.lblProgramCounter);
-            this.panelRegisters1.Controls.Add(this.lblStackPointer);
-            this.panelRegisters1.Controls.Add(this.lblAccumulator);
-            this.panelRegisters1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRegisters1.Location = new System.Drawing.Point(3, 3);
-            this.panelRegisters1.Name = "panelRegisters1";
-            this.panelRegisters1.Size = new System.Drawing.Size(139, 63);
-            this.panelRegisters1.TabIndex = 1;
+            panelRegisters1.Controls.Add(cbFollowPC);
+            panelRegisters1.Controls.Add(lblProgramCounter);
+            panelRegisters1.Controls.Add(lblStackPointer);
+            panelRegisters1.Controls.Add(lblAccumulator);
+            panelRegisters1.Dock = DockStyle.Fill;
+            panelRegisters1.Location = new Point(4, 3);
+            panelRegisters1.Margin = new Padding(4, 3, 4, 3);
+            panelRegisters1.Name = "panelRegisters1";
+            panelRegisters1.Size = new Size(160, 75);
+            panelRegisters1.TabIndex = 1;
             // 
             // cbFollowPC
             // 
-            this.cbFollowPC.AutoSize = true;
-            this.cbFollowPC.Location = new System.Drawing.Point(6, 43);
-            this.cbFollowPC.Name = "cbFollowPC";
-            this.cbFollowPC.Size = new System.Drawing.Size(73, 17);
-            this.cbFollowPC.TabIndex = 1;
-            this.cbFollowPC.Text = "Follow PC";
-            this.cbFollowPC.UseVisualStyleBackColor = true;
-            this.cbFollowPC.CheckedChanged += new System.EventHandler(this.cbFollowPC_CheckedChanged);
+            cbFollowPC.AutoSize = true;
+            cbFollowPC.Location = new Point(7, 50);
+            cbFollowPC.Margin = new Padding(4, 3, 4, 3);
+            cbFollowPC.Name = "cbFollowPC";
+            cbFollowPC.Size = new Size(79, 19);
+            cbFollowPC.TabIndex = 1;
+            cbFollowPC.Text = "Follow PC";
+            cbFollowPC.UseVisualStyleBackColor = true;
+            cbFollowPC.CheckedChanged += cbFollowPC_CheckedChanged;
             // 
             // lblProgramCounter
             // 
-            this.lblProgramCounter.AutoSize = true;
-            this.lblProgramCounter.Location = new System.Drawing.Point(3, 26);
-            this.lblProgramCounter.Name = "lblProgramCounter";
-            this.lblProgramCounter.Size = new System.Drawing.Size(88, 13);
-            this.lblProgramCounter.TabIndex = 0;
-            this.lblProgramCounter.Text = "Program counter:";
+            lblProgramCounter.AutoSize = true;
+            lblProgramCounter.Location = new Point(4, 30);
+            lblProgramCounter.Margin = new Padding(4, 0, 4, 0);
+            lblProgramCounter.Name = "lblProgramCounter";
+            lblProgramCounter.Size = new Size(100, 15);
+            lblProgramCounter.TabIndex = 0;
+            lblProgramCounter.Text = "Program counter:";
             // 
             // lblStackPointer
             // 
-            this.lblStackPointer.AutoSize = true;
-            this.lblStackPointer.Location = new System.Drawing.Point(3, 13);
-            this.lblStackPointer.Name = "lblStackPointer";
-            this.lblStackPointer.Size = new System.Drawing.Size(73, 13);
-            this.lblStackPointer.TabIndex = 0;
-            this.lblStackPointer.Text = "Stack pointer:";
+            lblStackPointer.AutoSize = true;
+            lblStackPointer.Location = new Point(4, 15);
+            lblStackPointer.Margin = new Padding(4, 0, 4, 0);
+            lblStackPointer.Name = "lblStackPointer";
+            lblStackPointer.Size = new Size(79, 15);
+            lblStackPointer.TabIndex = 0;
+            lblStackPointer.Text = "Stack pointer:";
             // 
             // lblAccumulator
             // 
-            this.lblAccumulator.AutoSize = true;
-            this.lblAccumulator.Location = new System.Drawing.Point(3, 0);
-            this.lblAccumulator.Name = "lblAccumulator";
-            this.lblAccumulator.Size = new System.Drawing.Size(69, 13);
-            this.lblAccumulator.TabIndex = 0;
-            this.lblAccumulator.Text = "Accumulator:";
+            lblAccumulator.AutoSize = true;
+            lblAccumulator.Location = new Point(4, 0);
+            lblAccumulator.Margin = new Padding(4, 0, 4, 0);
+            lblAccumulator.Name = "lblAccumulator";
+            lblAccumulator.Size = new Size(79, 15);
+            lblAccumulator.TabIndex = 0;
+            lblAccumulator.Text = "Accumulator:";
             // 
             // panelRegisters2
             // 
-            this.panelRegisters2.Controls.Add(this.lblProgramCounterValue);
-            this.panelRegisters2.Controls.Add(this.lblStackPointerValue);
-            this.panelRegisters2.Controls.Add(this.lblAccumulatorValue);
-            this.panelRegisters2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRegisters2.Location = new System.Drawing.Point(148, 3);
-            this.panelRegisters2.Name = "panelRegisters2";
-            this.panelRegisters2.Size = new System.Drawing.Size(52, 63);
-            this.panelRegisters2.TabIndex = 2;
+            panelRegisters2.Controls.Add(lblProgramCounterValue);
+            panelRegisters2.Controls.Add(lblStackPointerValue);
+            panelRegisters2.Controls.Add(lblAccumulatorValue);
+            panelRegisters2.Dock = DockStyle.Fill;
+            panelRegisters2.Location = new Point(172, 3);
+            panelRegisters2.Margin = new Padding(4, 3, 4, 3);
+            panelRegisters2.Name = "panelRegisters2";
+            panelRegisters2.Size = new Size(59, 75);
+            panelRegisters2.TabIndex = 2;
             // 
             // lblProgramCounterValue
             // 
-            this.lblProgramCounterValue.AutoSize = true;
-            this.lblProgramCounterValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProgramCounterValue.ForeColor = System.Drawing.Color.White;
-            this.lblProgramCounterValue.Location = new System.Drawing.Point(3, 26);
-            this.lblProgramCounterValue.Name = "lblProgramCounterValue";
-            this.lblProgramCounterValue.Size = new System.Drawing.Size(0, 13);
-            this.lblProgramCounterValue.TabIndex = 0;
+            lblProgramCounterValue.AutoSize = true;
+            lblProgramCounterValue.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblProgramCounterValue.ForeColor = Color.White;
+            lblProgramCounterValue.Location = new Point(4, 30);
+            lblProgramCounterValue.Margin = new Padding(4, 0, 4, 0);
+            lblProgramCounterValue.Name = "lblProgramCounterValue";
+            lblProgramCounterValue.Size = new Size(0, 13);
+            lblProgramCounterValue.TabIndex = 0;
             // 
             // lblStackPointerValue
             // 
-            this.lblStackPointerValue.AutoSize = true;
-            this.lblStackPointerValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStackPointerValue.ForeColor = System.Drawing.Color.White;
-            this.lblStackPointerValue.Location = new System.Drawing.Point(3, 13);
-            this.lblStackPointerValue.Name = "lblStackPointerValue";
-            this.lblStackPointerValue.Size = new System.Drawing.Size(0, 13);
-            this.lblStackPointerValue.TabIndex = 0;
+            lblStackPointerValue.AutoSize = true;
+            lblStackPointerValue.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStackPointerValue.ForeColor = Color.White;
+            lblStackPointerValue.Location = new Point(4, 15);
+            lblStackPointerValue.Margin = new Padding(4, 0, 4, 0);
+            lblStackPointerValue.Name = "lblStackPointerValue";
+            lblStackPointerValue.Size = new Size(0, 13);
+            lblStackPointerValue.TabIndex = 0;
             // 
             // lblAccumulatorValue
             // 
-            this.lblAccumulatorValue.AutoSize = true;
-            this.lblAccumulatorValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAccumulatorValue.ForeColor = System.Drawing.Color.White;
-            this.lblAccumulatorValue.Location = new System.Drawing.Point(3, 0);
-            this.lblAccumulatorValue.Name = "lblAccumulatorValue";
-            this.lblAccumulatorValue.Size = new System.Drawing.Size(0, 13);
-            this.lblAccumulatorValue.TabIndex = 0;
+            lblAccumulatorValue.AutoSize = true;
+            lblAccumulatorValue.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAccumulatorValue.ForeColor = Color.White;
+            lblAccumulatorValue.Location = new Point(4, 0);
+            lblAccumulatorValue.Margin = new Padding(4, 0, 4, 0);
+            lblAccumulatorValue.Name = "lblAccumulatorValue";
+            lblAccumulatorValue.Size = new Size(0, 13);
+            lblAccumulatorValue.TabIndex = 0;
             // 
             // panelRegisters3
             // 
-            this.panelRegisters3.Controls.Add(this.lblY);
-            this.panelRegisters3.Controls.Add(this.lblX);
-            this.panelRegisters3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRegisters3.Location = new System.Drawing.Point(206, 3);
-            this.panelRegisters3.Name = "panelRegisters3";
-            this.panelRegisters3.Size = new System.Drawing.Size(23, 63);
-            this.panelRegisters3.TabIndex = 2;
+            panelRegisters3.Controls.Add(lblY);
+            panelRegisters3.Controls.Add(lblX);
+            panelRegisters3.Dock = DockStyle.Fill;
+            panelRegisters3.Location = new Point(239, 3);
+            panelRegisters3.Margin = new Padding(4, 3, 4, 3);
+            panelRegisters3.Name = "panelRegisters3";
+            panelRegisters3.Size = new Size(25, 75);
+            panelRegisters3.TabIndex = 2;
             // 
             // lblY
             // 
-            this.lblY.AutoSize = true;
-            this.lblY.Location = new System.Drawing.Point(3, 13);
-            this.lblY.Name = "lblY";
-            this.lblY.Size = new System.Drawing.Size(17, 13);
-            this.lblY.TabIndex = 0;
-            this.lblY.Text = "Y:";
+            lblY.AutoSize = true;
+            lblY.Location = new Point(4, 15);
+            lblY.Margin = new Padding(4, 0, 4, 0);
+            lblY.Name = "lblY";
+            lblY.Size = new Size(17, 15);
+            lblY.TabIndex = 0;
+            lblY.Text = "Y:";
             // 
             // lblX
             // 
-            this.lblX.AutoSize = true;
-            this.lblX.Location = new System.Drawing.Point(3, 0);
-            this.lblX.Name = "lblX";
-            this.lblX.Size = new System.Drawing.Size(17, 13);
-            this.lblX.TabIndex = 0;
-            this.lblX.Text = "X:";
+            lblX.AutoSize = true;
+            lblX.Location = new Point(4, 0);
+            lblX.Margin = new Padding(4, 0, 4, 0);
+            lblX.Name = "lblX";
+            lblX.Size = new Size(17, 15);
+            lblX.TabIndex = 0;
+            lblX.Text = "X:";
             // 
             // panelRegisters4
             // 
-            this.panelRegisters4.Controls.Add(this.lblYValue);
-            this.panelRegisters4.Controls.Add(this.lblXValue);
-            this.panelRegisters4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRegisters4.Location = new System.Drawing.Point(235, 3);
-            this.panelRegisters4.Name = "panelRegisters4";
-            this.panelRegisters4.Size = new System.Drawing.Size(52, 63);
-            this.panelRegisters4.TabIndex = 2;
+            panelRegisters4.Controls.Add(lblYValue);
+            panelRegisters4.Controls.Add(lblXValue);
+            panelRegisters4.Dock = DockStyle.Fill;
+            panelRegisters4.Location = new Point(272, 3);
+            panelRegisters4.Margin = new Padding(4, 3, 4, 3);
+            panelRegisters4.Name = "panelRegisters4";
+            panelRegisters4.Size = new Size(61, 75);
+            panelRegisters4.TabIndex = 2;
             // 
             // lblYValue
             // 
-            this.lblYValue.AutoSize = true;
-            this.lblYValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblYValue.ForeColor = System.Drawing.Color.White;
-            this.lblYValue.Location = new System.Drawing.Point(3, 13);
-            this.lblYValue.Name = "lblYValue";
-            this.lblYValue.Size = new System.Drawing.Size(0, 13);
-            this.lblYValue.TabIndex = 0;
+            lblYValue.AutoSize = true;
+            lblYValue.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblYValue.ForeColor = Color.White;
+            lblYValue.Location = new Point(4, 15);
+            lblYValue.Margin = new Padding(4, 0, 4, 0);
+            lblYValue.Name = "lblYValue";
+            lblYValue.Size = new Size(0, 13);
+            lblYValue.TabIndex = 0;
             // 
             // lblXValue
             // 
-            this.lblXValue.AutoSize = true;
-            this.lblXValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblXValue.ForeColor = System.Drawing.Color.White;
-            this.lblXValue.Location = new System.Drawing.Point(3, 0);
-            this.lblXValue.Name = "lblXValue";
-            this.lblXValue.Size = new System.Drawing.Size(0, 13);
-            this.lblXValue.TabIndex = 0;
+            lblXValue.AutoSize = true;
+            lblXValue.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblXValue.ForeColor = Color.White;
+            lblXValue.Location = new Point(4, 0);
+            lblXValue.Margin = new Padding(4, 0, 4, 0);
+            lblXValue.Name = "lblXValue";
+            lblXValue.Size = new Size(0, 13);
+            lblXValue.TabIndex = 0;
             // 
             // panelDisassembled
             // 
-            this.panelDisassembled.AutoScroll = true;
-            this.panelDisassembled.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelDisassembled.Controls.Add(this.vsbDisassembledScroll);
-            this.panelDisassembled.Controls.Add(this.lblDisassembled);
-            this.panelDisassembled.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDisassembled.Location = new System.Drawing.Point(3, 108);
-            this.panelDisassembled.Name = "panelDisassembled";
-            this.panelDisassembled.Size = new System.Drawing.Size(290, 277);
-            this.panelDisassembled.TabIndex = 3;
+            panelDisassembled.AutoScroll = true;
+            panelDisassembled.BorderStyle = BorderStyle.FixedSingle;
+            panelDisassembled.Controls.Add(vsbDisassembledScroll);
+            panelDisassembled.Controls.Add(lblDisassembled);
+            panelDisassembled.Dock = DockStyle.Fill;
+            panelDisassembled.Location = new Point(4, 125);
+            panelDisassembled.Margin = new Padding(4, 3, 4, 3);
+            panelDisassembled.Name = "panelDisassembled";
+            panelDisassembled.Size = new Size(337, 320);
+            panelDisassembled.TabIndex = 3;
             // 
             // vsbDisassembledScroll
             // 
-            this.vsbDisassembledScroll.Dock = System.Windows.Forms.DockStyle.Right;
-            this.vsbDisassembledScroll.LargeChange = 3;
-            this.vsbDisassembledScroll.Location = new System.Drawing.Point(271, 0);
-            this.vsbDisassembledScroll.Maximum = 65535;
-            this.vsbDisassembledScroll.Name = "vsbDisassembledScroll";
-            this.vsbDisassembledScroll.Size = new System.Drawing.Size(17, 275);
-            this.vsbDisassembledScroll.SmallChange = 3;
-            this.vsbDisassembledScroll.TabIndex = 4;
-            this.vsbDisassembledScroll.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vsbDisassembledScroll_Scroll);
+            vsbDisassembledScroll.Dock = DockStyle.Right;
+            vsbDisassembledScroll.LargeChange = 3;
+            vsbDisassembledScroll.Location = new Point(318, 0);
+            vsbDisassembledScroll.Maximum = 65535;
+            vsbDisassembledScroll.Name = "vsbDisassembledScroll";
+            vsbDisassembledScroll.Size = new Size(17, 318);
+            vsbDisassembledScroll.SmallChange = 3;
+            vsbDisassembledScroll.TabIndex = 4;
+            vsbDisassembledScroll.Scroll += vsbDisassembledScroll_Scroll;
             // 
             // lblDisassembled
             // 
-            this.lblDisassembled.AutoSize = true;
-            this.lblDisassembled.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblDisassembled.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDisassembled.Location = new System.Drawing.Point(0, 0);
-            this.lblDisassembled.Name = "lblDisassembled";
-            this.lblDisassembled.Size = new System.Drawing.Size(0, 11);
-            this.lblDisassembled.TabIndex = 3;
-            this.lblDisassembled.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.lblDisassembled_MouseWheel);
+            lblDisassembled.AutoSize = true;
+            lblDisassembled.Dock = DockStyle.Fill;
+            lblDisassembled.Font = new Font("Lucida Console", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDisassembled.Location = new Point(0, 0);
+            lblDisassembled.Margin = new Padding(4, 0, 4, 0);
+            lblDisassembled.Name = "lblDisassembled";
+            lblDisassembled.Size = new Size(0, 11);
+            lblDisassembled.TabIndex = 3;
+            lblDisassembled.MouseWheel += lblDisassembled_MouseWheel;
             // 
             // CpuControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "CpuControl";
-            this.Size = new System.Drawing.Size(296, 388);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.tblFlagRegisters.ResumeLayout(false);
-            this.tblFlagRegisters.PerformLayout();
-            this.tblRegisters.ResumeLayout(false);
-            this.panelRegisters1.ResumeLayout(false);
-            this.panelRegisters1.PerformLayout();
-            this.panelRegisters2.ResumeLayout(false);
-            this.panelRegisters2.PerformLayout();
-            this.panelRegisters3.ResumeLayout(false);
-            this.panelRegisters3.PerformLayout();
-            this.panelRegisters4.ResumeLayout(false);
-            this.panelRegisters4.PerformLayout();
-            this.panelDisassembled.ResumeLayout(false);
-            this.panelDisassembled.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Transparent;
+            Controls.Add(tableLayoutPanel1);
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "CpuControl";
+            Size = new Size(345, 448);
+            tableLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            tblFlagRegisters.ResumeLayout(false);
+            tblFlagRegisters.PerformLayout();
+            tblRegisters.ResumeLayout(false);
+            panelRegisters1.ResumeLayout(false);
+            panelRegisters1.PerformLayout();
+            panelRegisters2.ResumeLayout(false);
+            panelRegisters2.PerformLayout();
+            panelRegisters3.ResumeLayout(false);
+            panelRegisters3.PerformLayout();
+            panelRegisters4.ResumeLayout(false);
+            panelRegisters4.PerformLayout();
+            panelDisassembled.ResumeLayout(false);
+            panelDisassembled.PerformLayout();
+            ResumeLayout(false);
 
         }
 

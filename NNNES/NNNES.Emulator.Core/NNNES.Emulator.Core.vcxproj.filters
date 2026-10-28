@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Devices">
+      <UniqueIdentifier>{da47941c-f3c0-4d24-8e11-2443637fcece}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Devices">
+      <UniqueIdentifier>{57a6f9d4-788b-4de0-9e89-1f625286f1d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -22,46 +28,55 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bus.h">
-      <Filter>Header Files\Emulator</Filter>
-    </ClInclude>
-    <ClInclude Include="Cpu.h">
-      <Filter>Header Files\Emulator</Filter>
-    </ClInclude>
-    <ClInclude Include="Ram.h">
-      <Filter>Header Files\Emulator</Filter>
-    </ClInclude>
-    <ClInclude Include="Nes.h">
-      <Filter>Header Files\Emulator</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="INes.h">
-      <Filter>Header Files\Cartridge</Filter>
-    </ClInclude>
-    <ClInclude Include="CpuRegisters.h">
-      <Filter>Header Files\Emulator</Filter>
-    </ClInclude>
-    <ClInclude Include="Ppu.h">
-      <Filter>Header Files\Emulator</Filter>
-    </ClInclude>
-    <ClInclude Include="Device.h">
-      <Filter>Header Files\Emulator</Filter>
-    </ClInclude>
-    <ClInclude Include="PpuRam.h">
-      <Filter>Header Files\Emulator</Filter>
-    </ClInclude>
-    <ClInclude Include="CpuRam.h">
-      <Filter>Header Files\Emulator</Filter>
-    </ClInclude>
-    <ClInclude Include="Nrom.h">
-      <Filter>Header Files\Cartridge\Mappers</Filter>
-    </ClInclude>
-    <ClInclude Include="Mapper.h">
-      <Filter>Header Files\Cartridge\Mappers</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InstructionInfo.h">
-      <Filter>Header Files\Utils</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Nes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NesDebug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Nrom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PpuRam.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Device.h">
+      <Filter>Header Files\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="Cpu.h">
+      <Filter>Header Files\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="AddressableDevice.h">
+      <Filter>Header Files\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="Ppu.h">
+      <Filter>Header Files\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="Ram.h">
+      <Filter>Header Files\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="RamDebug.h">
+      <Filter>Header Files\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="CpuRegisters.h">
+      <Filter>Header Files\Devices</Filter>
     </ClInclude>
     <ClInclude Include="Apu.h">
-      <Filter>Header Files\Emulator</Filter>
+      <Filter>Header Files\Devices</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Header Files\Devices</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -71,56 +86,65 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-     <ClCompile Include="Bus.cpp">
-      <Filter>Source Files\Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="Cpu.cpp">
-      <Filter>Source Files\Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="Ram.cpp">
-      <Filter>Source Files\Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="CpuAddressing.cpp">
-      <Filter>Source Files\Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="CpuInstructions.cpp">
-      <Filter>Source Files\Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="Nes.cpp">
-      <Filter>Source Files\Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="INes.cpp">
-      <Filter>Source Files\Cartridge</Filter>
+    <ClCompile Include="Bus.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CartridgeApi.cpp">
-      <Filter>Source Files\Cartridge</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NesApi.cpp">
-      <Filter>Source Files\Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="CpuRam.cpp">
-      <Filter>Source Files\Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="PpuRam.cpp">
-      <Filter>Source Files\Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="Ppu.cpp">
-      <Filter>Source Files\Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="Device.cpp">
-      <Filter>Source Files\Emulator</Filter>
-    </ClCompile>
-    <ClCompile Include="Nrom.cpp">
-      <Filter>Source Files\Cartridge\Mappers</Filter>
-    </ClCompile>
-    <ClCompile Include="Mapper.cpp">
-      <Filter>Source Files\Cartridge\Mappers</Filter>
+    <ClCompile Include="INes.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InstructionInfo.cpp">
-      <Filter>Source Files\Utils</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Nes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NesApi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NesDebug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NesDebugApi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Nrom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PpuRam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AddressableDevice.cpp">
+      <Filter>Source Files\Devices</Filter>
     </ClCompile>
     <ClCompile Include="Apu.cpp">
-      <Filter>Source Files\Emulator</Filter>
+      <Filter>Source Files\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Cpu.cpp">
+      <Filter>Source Files\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="CpuInstructions.cpp">
+      <Filter>Source Files\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="CpuAddressing.cpp">
+      <Filter>Source Files\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Device.cpp">
+      <Filter>Source Files\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Ppu.cpp">
+      <Filter>Source Files\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Ram.cpp">
+      <Filter>Source Files\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="RamDebug.cpp">
+      <Filter>Source Files\Devices</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

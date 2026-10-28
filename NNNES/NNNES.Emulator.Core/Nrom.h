@@ -9,10 +9,8 @@ public:
 	{
 	}
 
-	uint16_t CpuReadAddress(uint16_t address) override;
-	uint16_t CpuWriteAddress(uint16_t address) override;
-	uint16_t PpuReadAddress(uint16_t address) override;
-	uint16_t PpuWriteAddress(uint16_t address) override;
+	uint16_t CpuMappedAddress(uint16_t address) override;
+	uint16_t PpuMappedAddress(uint16_t address) override;
 
 	Mirroring GetMirroring() override;
 };

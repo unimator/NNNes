@@ -352,6 +352,8 @@ void Cpu::NonMaskedInterruptRequest()
 {
 	const auto interrupt_handler = 0xFFFA;
 	Interrupt(interrupt_handler);
+
+	cycles_++;
 }
 
 InstructionInfo Cpu::DisassembleInstruction(uint16_t &address)

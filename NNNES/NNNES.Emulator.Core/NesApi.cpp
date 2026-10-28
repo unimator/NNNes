@@ -34,7 +34,6 @@ extern "C" {
 	__declspec(dllexport) void GetCpuRegisters(const NesHandle nes, CpuRegisters& registers)
 	{
 		registers = nes->GetCpu()->Registers();
-		nes->GetCpu()->StackPointer() = 1;
 	}
 
 	__declspec(dllexport) void SetCartridge(NesHandle nes, const INesHandle iNes)
@@ -50,6 +49,12 @@ extern "C" {
 	__declspec(dllexport) void NextInstruction(const NesHandle nes)
 	{
 		nes->NextInstruction();
+	}
+
+	__declspec(dllexport) uint8_t* GetRamAddress(const NesHandle nes)
+	{
+		const auto ram = nes->GetRam();
+		return ram;
 	}
 	
 	__declspec(dllexport) const InstructionInfo* Disassemble(const NesHandle nes, const uint16_t address_start, const uint16_t address_end, size_t& instructions_length)
@@ -76,5 +81,15 @@ extern "C" {
 			memcpy(data, disassembled.data(), instructions_length * sizeof(InstructionInfo));
 		}
 		return static_cast<const InstructionInfo*>(data);
+	}
+
+	__declspec(dllexport) const uint32_t* GetFrameHandle(const NesHandle nes)
+	{
+		return nes->Frame()->pixels;
+	}
+
+	__declspec(dllexport) bool IsFrameReady(const NesHandle nes)
+	{
+		return nes->Frame()->frame_ready;
 	}
 }

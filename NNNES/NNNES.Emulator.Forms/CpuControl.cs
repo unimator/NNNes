@@ -1,10 +1,6 @@
 ﻿
 using NNNES.Emulator.Proxy;
-using System;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using System.ComponentModel;
 
 namespace NNNES.Emulator.Forms
@@ -21,10 +17,6 @@ namespace NNNES.Emulator.Forms
             set
             {
                 _nes = value;
-                if (value == null)
-                {
-                    return;
-                }
             }
         }
 
