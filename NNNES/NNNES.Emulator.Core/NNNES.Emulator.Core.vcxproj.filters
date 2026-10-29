@@ -19,6 +19,15 @@
     <Filter Include="Source Files\Devices">
       <UniqueIdentifier>{57a6f9d4-788b-4de0-9e89-1f625286f1d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Mappers">
+      <UniqueIdentifier>{928dea73-30a6-4b73-8fb0-fa6b45689452}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mappers">
+      <UniqueIdentifier>{5ea626f5-5af9-47ae-b80b-4120d2f44f9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\API">
+      <UniqueIdentifier>{5167c275-dda6-4e7c-8883-88bd7864bcc5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -36,16 +45,10 @@
     <ClInclude Include="InstructionInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Mapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Nes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NesDebug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Nrom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PpuRam.h">
@@ -78,6 +81,12 @@
     <ClInclude Include="Frame.h">
       <Filter>Header Files\Devices</Filter>
     </ClInclude>
+    <ClInclude Include="Mapper.h">
+      <Filter>Header Files\Mappers</Filter>
+    </ClInclude>
+    <ClInclude Include="Nrom.h">
+      <Filter>Header Files\Mappers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -89,31 +98,16 @@
     <ClCompile Include="Bus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CartridgeApi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="INes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InstructionInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Mapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Nes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NesApi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="NesDebug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NesDebugApi.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Nrom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PpuRam.cpp">
@@ -145,6 +139,21 @@
     </ClCompile>
     <ClCompile Include="RamDebug.cpp">
       <Filter>Source Files\Devices</Filter>
+    </ClCompile>
+    <ClCompile Include="Nrom.cpp">
+      <Filter>Source Files\Mappers</Filter>
+    </ClCompile>
+    <ClCompile Include="Mapper.cpp">
+      <Filter>Source Files\Mappers</Filter>
+    </ClCompile>
+    <ClCompile Include="NesApi.cpp">
+      <Filter>Source Files\API</Filter>
+    </ClCompile>
+    <ClCompile Include="NesDebugApi.cpp">
+      <Filter>Source Files\API</Filter>
+    </ClCompile>
+    <ClCompile Include="CartridgeApi.cpp">
+      <Filter>Source Files\API</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

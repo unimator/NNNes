@@ -1,5 +1,4 @@
 ﻿using NNNES.Emulator.Proxy;
-using OpenTK.GLControl;
 using OpenTK.Graphics.OpenGL;
 using System.ComponentModel;
 
@@ -50,6 +49,54 @@ namespace NNNES.Emulator.Forms
             }
         }
 
+        private int _program;
+        private int _vao;
+        private int _vbo;
+        private bool _glReady;
+        private int _texture;
+        private int _uPixels;
+
+        private const string VertexShaderSource = """
+    #version 330 core
+
+    layout (location = 0) in vec2 aPosition;
+    out vec2 vPosition;
+
+    void main()
+    {
+        vPosition = aPosition;
+        gl_Position = vec4(aPosition, 0.0, 1.0);
+    }
+    """;
+
+        private const string FragmentShaderSource = """
+    #version 330 core
+
+    in vec2 vPosition;
+
+    uniform sampler2D uPixels;
+    uniform vec2 uResolution;
+
+    out vec4 outputColor;
+
+    void main()
+    {
+        vec2 uv = vPosition * 0.5 + 0.5;
+        outputColor = texture(uPixels, uv);
+    }
+    """;
+
+        private static readonly float[] QuadVertices =
+{
+    // x, y
+    -1f, -1f,
+     1f, -1f,
+     1f,  1f,
+    -1f, -1f,
+     1f,  1f,
+    -1f,  1f
+};
+
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public NesCartridge Cartridge
         {
@@ -99,103 +146,207 @@ namespace NNNES.Emulator.Forms
             }
         }
 
-        private void glChrRom_Paint(object sender, PaintEventArgs e)
+        private static int CompileShader(ShaderType type, string source)
         {
-            if (DesignMode)
+            var shader = GL.CreateShader(type);
+            GL.ShaderSource(shader, source);
+            GL.CompileShader(shader);
+
+            GL.GetShader(shader, ShaderParameter.CompileStatus, out var compiled);
+            if (compiled == 0)
+            {
+                var log = GL.GetShaderInfoLog(shader);
+                GL.DeleteShader(shader);
+                throw new InvalidOperationException($"{type} compilation failed:\n{log}");
+            }
+
+            return shader;
+        }
+
+        private static int CreateProgram(string vertexSource, string fragmentSource)
+        {
+            var vertexShader = CompileShader(ShaderType.VertexShader, vertexSource);
+            var fragmentShader = CompileShader(ShaderType.FragmentShader, fragmentSource);
+
+            var program = GL.CreateProgram();
+            GL.AttachShader(program, vertexShader);
+            GL.AttachShader(program, fragmentShader);
+            GL.LinkProgram(program);
+
+            GL.GetProgram(program, GetProgramParameterName.LinkStatus, out var linked);
+            if (linked == 0)
+            {
+                var log = GL.GetProgramInfoLog(program);
+                GL.DeleteProgram(program);
+                throw new InvalidOperationException($"Shader program link failed:\n{log}");
+            }
+
+            GL.DetachShader(program, vertexShader);
+            GL.DetachShader(program, fragmentShader);
+            GL.DeleteShader(vertexShader);
+            GL.DeleteShader(fragmentShader);
+
+            return program;
+        }
+
+        private void glChrRom_Load(object? sender, EventArgs e)
+        {
+            glChrRom.MakeCurrent();
+
+            _program = CreateProgram(VertexShaderSource, FragmentShaderSource);
+
+            _texture = GL.GenTexture();
+            GL.BindTexture(TextureTarget.Texture2D, _texture);
+
+            GL.TexParameter(
+                TextureTarget.Texture2D,
+                TextureParameterName.TextureMinFilter,
+                (int)TextureMinFilter.Nearest);
+            GL.TexParameter(
+                TextureTarget.Texture2D,
+                TextureParameterName.TextureMagFilter,
+                (int)TextureMagFilter.Nearest);
+            GL.TexParameter(
+                TextureTarget.Texture2D,
+                TextureParameterName.TextureWrapS,
+                (int)TextureWrapMode.ClampToEdge);
+            GL.TexParameter(
+                TextureTarget.Texture2D,
+                TextureParameterName.TextureWrapT,
+                (int)TextureWrapMode.ClampToEdge);
+
+            GL.TexImage2D(
+                TextureTarget.Texture2D,
+                0,
+                PixelInternalFormat.Rgba32f,
+                128,
+                128,
+                0,
+                PixelFormat.Rgba,
+                PixelType.Float,
+                IntPtr.Zero);
+
+            _uPixels = GL.GetUniformLocation(_program, "uPixels");
+
+            _vao = GL.GenVertexArray();
+            GL.BindVertexArray(_vao);
+            _vbo = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ArrayBuffer, _vbo);
+            GL.BufferData(
+                BufferTarget.ArrayBuffer,
+                QuadVertices.Length * sizeof(float),
+                QuadVertices,
+                BufferUsageHint.StaticDraw);
+            GL.EnableVertexAttribArray(0);
+            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, 2 * sizeof(float), 0);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+            GL.BindVertexArray(0);
+
+            _glReady = true;
+            glChrRom.Invalidate();
+        }
+
+        private void glChrRom_Paint(object? sender, PaintEventArgs e)
+        {
+            if (DesignMode || !_glReady)
             {
                 return;
             }
 
             glChrRom.MakeCurrent();
+
+            GL.Viewport(0, 0, glChrRom.ClientSize.Width, glChrRom.ClientSize.Height);
             GL.ClearColor(Color.Black);
             GL.Clear(ClearBufferMask.ColorBufferBit);
-            GL.LoadIdentity();
-            GL.Ortho(0, 128, 128, 0, 0, 1);
-            if (CurrentSection == ChrRom.None)
-            {
-                glChrRom.SwapBuffers();
-                return;
-            }
 
             var chrRom = Cartridge?.GetChrRom();
+            var bank = comboBank.SelectedIndex;
 
-            if (chrRom != null && chrRom.Length >= 0x2000)
+            if (CurrentSection != ChrRom.None &&
+                chrRom is { Length: >= 0x2000 } &&
+                bank >= 0)
             {
-                var currentBank = comboBank.SelectedIndex;
-                var bytes = chrRom.Skip(currentBank * 0x2000).Take(0x2000).ToArray();
-                var offset = CurrentSection == ChrRom.Left ? 0 : 256;
-
-                for (var i = 0; i < 16; ++i)
+                var bankStart = bank * 0x2000;
+                if (bankStart + 0x2000 <= chrRom.Length)
                 {
-                    for (var j = 0; j < 16; ++j)
-                    {
-                        var spriteId = i * 16 + j + offset;
-                        var plane0 = bytes.Skip(spriteId * 16).Take(8).ToArray();
-                        var plane1 = bytes.Skip(spriteId * 16 + 8).Take(8).ToArray();
+                    var pixels = BuildPixelBuffer(chrRom, bankStart, CurrentSection);
 
-                        for (var k = 0; k < 8; ++k)
-                        {
-                            var channelA = plane0[k];
-                            var channelB = plane1[k];
+                    GL.UseProgram(_program);
+                    GL.ActiveTexture(TextureUnit.Texture0);
+                    GL.BindTexture(TextureTarget.Texture2D, _texture);
+                    GL.TexSubImage2D(
+                        TextureTarget.Texture2D,
+                        0,
+                        0,
+                        0,
+                        128,
+                        128,
+                        PixelFormat.Rgba,
+                        PixelType.Float,
+                        pixels);
 
-                            for (var l = 0; l < 8; ++l)
-                            {
-                                var colorCode = ((channelA >> l) & 1) | ((channelB >> l) & (1 << 1));
+                    GL.UseProgram(_program);
+                    GL.Uniform1(_uPixels, 0);
 
-                                Color color;
-                                switch (colorCode)
-                                {
-                                    case 0:
-                                        color = Color.Black;
-                                        break;
-                                    case 1:
-                                        color = Color.DimGray;
-                                        break;
-                                    case 2:
-                                        color = Color.DarkGray;
-                                        break;
-                                    case 3:
-                                        color = Color.White;
-                                        break;
-                                    default:
-                                        throw new Exception("Unknown color");
-                                }
-
-                                GL.PointSize(2);
-                                GL.Begin(PrimitiveType.Points);
-                                GL.Color3(color);
-                                var x = j * 8 + 8 - l;
-                                var y = i * 8 + k;
-                                GL.Vertex2(x, y);
-
-                                if (x > 128 || y > 128)
-                                {
-
-                                }
-
-                                GL.End();
-                            }
-                        }
-                    }
+                    GL.BindVertexArray(_vao);
+                    GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
                 }
-
             }
 
             glChrRom.SwapBuffers();
         }
 
+        private static float[] BuildPixelBuffer(byte[] chrRom, int bankStart, ChrRom section)
+        {
+            var pixels = new float[16 * 16 * 8 * 8 * 4];
+            var offset = section == ChrRom.Left ? 0 : 256;
+
+            for (var tileY = 0; tileY < 16; tileY++)
+                for (var tileX = 0; tileX < 16; tileX++)
+                {
+                    var spriteId = offset + tileY * 16 + tileX;
+                    var spriteStartAddress = bankStart + spriteId * 16;
+
+                    for (var row = 0; row < 8; row++)
+                    {
+                        var plane0 = chrRom[spriteStartAddress + row];
+                        var plane1 = chrRom[spriteStartAddress + 8 + row];
+
+                        for (var col = 0; col < 8; col++)
+                        {
+                            var bit = 7 - col;
+                            var colorCode = ((plane0 >> bit) & 1)
+                                          | (((plane1 >> bit) & 1) << 1);
+
+                            var intensity = colorCode switch
+                            {
+                                0 => 0f,
+                                1 => 0.35f,
+                                2 => 0.65f,
+                                _ => 1f
+                            };
+
+                            // 128 RGBA pixels per output row; each pixel has four floats.
+                            var pixelX = tileX * 8 + col;
+                            // OpenGL's first uploaded row is the texture bottom;
+                            // reverse rows so NES row 0 displays at the top.
+                            var pixelY = 127 - (tileY * 8 + row);
+                            var index = (pixelY * 128 + pixelX) * 4;
+                            pixels[index] = intensity;
+                            pixels[index + 1] = intensity;
+                            pixels[index + 2] = intensity;
+                            pixels[index + 3] = 1f;
+
+                        }
+                    }
+                }
+
+            return pixels;
+        }
+
         private void comboBank_SelectedValueChanged(object sender, EventArgs e)
         {
             glChrRom.Invalidate();
-        }
-
-        private void glChrRom_Load(object sender, EventArgs e)
-        {
-            var glChrRomControl = (GLControl)sender;
-            if (sender != null)
-            {
-                glChrRomControl.Invalidate();
-            }
         }
     }
 }

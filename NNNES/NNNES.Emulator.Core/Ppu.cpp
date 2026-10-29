@@ -23,7 +23,7 @@ void Ppu::Clock()
 {
 	if (scanline_count_ < FRAME_HEIGHT && clock_count_ < FRAME_WIDTH)
 	{
-		auto color = rand() % 0xFF;
+		auto color = ((rand() & 0xFF) << 16);
 		frame_->pixels[scanline_count_ * FRAME_WIDTH + clock_count_] = color;
 	}
 	
@@ -131,6 +131,6 @@ uint8_t Ppu::PpuRead(uint16_t address, uint8_t data)
 	}
 	else if (address >= 0x2000 && address <= 0x2FFF)
 	{
-
+		return 0x00;
 	}
 }

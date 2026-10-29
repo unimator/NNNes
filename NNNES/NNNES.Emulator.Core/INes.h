@@ -33,10 +33,10 @@ public:
 	INes(const uint8_t* bytes, const uint32_t length);
 	~INes();
 
-	auto PrgRom() ->  uint8_t*& { return prg_rom_; }
+	auto PrgRom() ->  uint8_t* { return prg_rom_; }
 	auto PrgRomSize() const -> const uint32_t& { return static_cast<uint32_t>(prg_rom_size_) * PRG_ROM_BANK_SIZE; }
 	
-	auto ChrRom() -> uint8_t*& { return chr_rom_; }
+	auto ChrRom() -> uint8_t* { return chr_rom_; }
 	auto ChrRomSize() const -> const uint32_t& { return static_cast<uint32_t>(chr_rom_size_) * CHR_ROM_BANK_SIZE; }
 
 	auto MapperNumber() const -> uint8_t

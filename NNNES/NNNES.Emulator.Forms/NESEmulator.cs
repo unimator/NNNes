@@ -72,6 +72,11 @@ namespace NNNES.Emulator.Forms
 
         private void glNesWindow_Load(object sender, EventArgs e)
         {
+            if (DesignMode)
+            {
+                return;
+            }
+
             glNesWindow.MakeCurrent();
             InitializeFrameRenderer();
 
