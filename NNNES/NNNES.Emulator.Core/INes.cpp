@@ -11,6 +11,7 @@ INes::INes(const uint8_t* bytes, const uint32_t length) : AddressableDevice(0x40
 
 	if ((bytes[7] & 0x0C) == 0x08)
 	{
+		throw "iNes 2.0 not supported";
 		is_nes20_ = true;
 		LoadNes20Format(bytes, length);
 	}
@@ -91,6 +92,9 @@ void INes::LoadNesFormat(const uint8_t* bytes, const uint32_t length)
 	{
 	case 0:
 		mapper_ = new Nrom(prg_rom_size_, chr_rom_size_);
+		break;
+	default:
+		throw "Mapper not supported";
 	}
 }
 

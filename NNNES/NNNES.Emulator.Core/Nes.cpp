@@ -33,17 +33,24 @@ void Nes::Clock()
 	{
 		cpu_->Clock();
 	}
+	
 	ppu_->Clock();
+	if (ppu_->NonMaskableInterrupt())
+	{
+		ppu_->ClearNonMaskableInterrupt();
+		cpu_->NonMaskableInterruptRequest();
+	}
+
 	++counter_;
 }
 
 void Nes::NextInstruction()
 {
-	auto program_counter = cpu_->ProgramCounter();
+	auto instructions_count = cpu_->InstructionsCount();
 	do 
 	{
 		Clock();
-	} while (program_counter == cpu_->ProgramCounter());
+	} while (instructions_count == cpu_->InstructionsCount());
 }
 
 

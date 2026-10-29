@@ -17,7 +17,7 @@ namespace NNNES.Emulator.Forms
             {
                 _nesCartridge = value;
                 _nes.SetCartridge(_nesCartridge);
-                chrRomControl.Cartridge = _nesCartridge;
+                chrRomControl.Nes = _nes;
             }
         }
 
@@ -64,6 +64,7 @@ namespace NNNES.Emulator.Forms
         public void UpdateState()
         {
             cpuControl.UpdateState();
+            chrRomControl.UpdateState();
             if (_nes.IsFrameReady())
             {
                 glNesWindow.Invalidate();
@@ -133,7 +134,7 @@ namespace NNNES.Emulator.Forms
                 lock (_nes)
                 {
                     _nes.Clock();
-                    if(_nes.IsFrameReady())
+                    if (_nes.IsFrameReady())
                     {
                         glNesWindow.Invalidate();
                     }
@@ -210,6 +211,13 @@ namespace NNNES.Emulator.Forms
 
             GL.UseProgram(_shaderProgram);
             GL.Uniform1(GL.GetUniformLocation(_shaderProgram, "frameTexture"), 0);
+        }
+
+        private void glNesWindow_Paint(object sender, PaintEventArgs e)
+        {
+            if (DesignMode)
+            {
+            }
         }
     }
 }

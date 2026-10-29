@@ -28,7 +28,7 @@ public:
 	void RemoveDevice(Device* device);
 	
 	auto GetDevices() const -> const std::vector<Device*>& { return devices_; }
-	
+		
 	void Write(uint16_t address, uint8_t data) const;
 	uint8_t Read(uint16_t address) const;
 };

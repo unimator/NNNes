@@ -16,8 +16,6 @@ namespace NNNES.Emulator.Proxy
         /*[DllImport("NNNES.Emulator.Core.dll", EntryPoint = "GetPrgRomSize")]
         private static extern uint GetPrgRomSize(IntPtr iNesHandle);*/
 
-        [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "GetChrRom")]
-        private static extern void GetChrRom(IntPtr iNesHandle, out IntPtr byteArray, out int size);
 
         /*[DllImport("NNNES.Emulator.Core.dll", EntryPoint = "GetChrRomSize")]
         private static extern uint GetChrRomSize(IntPtr iNesHandle);*/
@@ -27,7 +25,6 @@ namespace NNNES.Emulator.Proxy
         public IntPtr INesHandle => _iNesHandle;
         
         private byte[] _prgRom;
-        private byte[] _chrRom;
         
         public NesCartridge(byte[] bytes)
         {
@@ -49,23 +46,6 @@ namespace NNNES.Emulator.Proxy
             var data = new byte[size];
             Marshal.Copy(byteArray, data, 0, size);
             _prgRom = data;
-            return data;
-        }
-
-        public byte[] GetChrRom()
-        {
-            if (_chrRom != null)
-            {
-                return _chrRom;
-            }
-            GetChrRom(_iNesHandle, out var byteArray, out var size);
-            if (size == 0)
-            {
-                return null;
-            }
-            var data = new byte[size];
-            Marshal.Copy(byteArray, data, 0, size);
-            _chrRom = data;
             return data;
         }
 

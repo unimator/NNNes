@@ -87,6 +87,9 @@
     <ClInclude Include="Nrom.h">
       <Filter>Header Files\Mappers</Filter>
     </ClInclude>
+    <ClInclude Include="ScreenPalette.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -153,6 +156,12 @@
       <Filter>Source Files\API</Filter>
     </ClCompile>
     <ClCompile Include="CartridgeApi.cpp">
+      <Filter>Source Files\API</Filter>
+    </ClCompile>
+    <ClCompile Include="NesDiagnosticApi.cpp">
+      <Filter>Source Files\API</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenApi.cpp">
       <Filter>Source Files\API</Filter>
     </ClCompile>
   </ItemGroup>

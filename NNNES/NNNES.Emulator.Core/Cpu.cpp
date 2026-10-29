@@ -265,6 +265,7 @@ void Cpu::Clock()
 		const auto extra_cycle_operate = (this->*instruction.operate)();
 
 		cycles_ += (extra_cycle_address & extra_cycle_operate);
+		instructions_count_++;
 	}
 
 	cycles_--;
@@ -348,7 +349,7 @@ void Cpu::InterruptRequest()
 	}
 }
 
-void Cpu::NonMaskedInterruptRequest()
+void Cpu::NonMaskableInterruptRequest()
 {
 	const auto interrupt_handler = 0xFFFA;
 	Interrupt(interrupt_handler);

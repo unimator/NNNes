@@ -154,17 +154,17 @@ namespace NNNES.Emulator.Forms
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 2;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 333F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 380F));
             tableLayoutPanel2.Size = new Size(307, 857);
             tableLayoutPanel2.TabIndex = 4;
             // 
             // chrRomControl
             // 
             chrRomControl.Dock = DockStyle.Fill;
-            chrRomControl.Location = new Point(0, 524);
+            chrRomControl.Location = new Point(0, 477);
             chrRomControl.Margin = new Padding(0);
             chrRomControl.Name = "chrRomControl";
-            chrRomControl.Size = new Size(307, 333);
+            chrRomControl.Size = new Size(307, 380);
             chrRomControl.TabIndex = 0;
             // 
             // cpuControl
@@ -175,7 +175,7 @@ namespace NNNES.Emulator.Forms
             cpuControl.Location = new Point(5, 3);
             cpuControl.Margin = new Padding(5, 3, 5, 3);
             cpuControl.Name = "cpuControl";
-            cpuControl.Size = new Size(297, 518);
+            cpuControl.Size = new Size(297, 471);
             cpuControl.TabIndex = 1;
             // 
             // bwEmulator

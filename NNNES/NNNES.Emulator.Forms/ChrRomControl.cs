@@ -1,4 +1,5 @@
-﻿using NNNES.Emulator.Proxy;
+using NNNES.Emulator.Proxy;
+using NNNES.Emulator.Proxy.Proxy;
 using OpenTK.Graphics.OpenGL;
 using System.ComponentModel;
 
@@ -6,7 +7,7 @@ namespace NNNES.Emulator.Forms
 {
     public partial class ChrRomControl : UserControl
     {
-        private NesCartridge _nesCartridge;
+        private Nes _nes;
 
         internal enum ChrRom
         {
@@ -14,6 +15,8 @@ namespace NNNES.Emulator.Forms
             Left = 1,
             Right = 2
         };
+
+        private int _selectedPalleteIndex = 0;
 
         private ChrRom _currentSection = ChrRom.None;
         private ChrRom CurrentSection
@@ -96,19 +99,18 @@ namespace NNNES.Emulator.Forms
      1f,  1f,
     -1f,  1f
 };
-
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public NesCartridge Cartridge
+        public Nes Nes
         {
-            get => _nesCartridge;
+            get => _nes;
             set
             {
-                _nesCartridge = value;
+                _nes = value;
                 CurrentSection = ChrRom.Left;
                 comboBank.Items.Clear();
-                if (_nesCartridge != null)
+                if (_nes != null)
                 {
-                    var chrRomSize = _nesCartridge.GetChrRom()?.Length;
+                    var chrRomSize = _nes.GetChrRom()?.Length;
                     for (var i = 0; i < chrRomSize / 0x2000; ++i)
                     {
                         comboBank.Items.Insert(i, $"Bank {i}");
@@ -119,19 +121,65 @@ namespace NNNES.Emulator.Forms
                         comboBank.SelectedIndex = 0;
                     }
                 }
-                
-                glChrRom.Invalidate();
+
+                UpdateState();
             }
+        }
+
+        public void UpdateState()
+        {
+            UpdatePalettes();
+            glChrRom.Invalidate();
         }
 
         public ChrRomControl()
         {
             InitializeComponent();
+
+            paletteControl1.PaletteSelected += (sender, e) => {
+                _selectedPalleteIndex = 0;
+                UpdateState();
+            };
+
+            paletteControl2.PaletteSelected += (sender, e) => {
+                _selectedPalleteIndex = 1;
+                UpdateState();
+            };
+
+            paletteControl3.PaletteSelected += (sender, e) => {
+                _selectedPalleteIndex = 2;
+                UpdateState();
+            };
+
+            paletteControl4.PaletteSelected += (sender, e) => {
+                _selectedPalleteIndex = 3;
+                UpdateState();
+            };
+
+            paletteControl5.PaletteSelected += (sender, e) => {
+                _selectedPalleteIndex = 4;
+                UpdateState();
+            };
+
+            paletteControl6.PaletteSelected += (sender, e) => {
+                _selectedPalleteIndex = 5;
+                UpdateState();
+            };
+
+            paletteControl7.PaletteSelected += (sender, e) => {
+                _selectedPalleteIndex = 6;
+                UpdateState();
+            };
+
+            paletteControl8.PaletteSelected += (sender, e) => {
+                _selectedPalleteIndex = 7;
+                UpdateState();
+            };
         }
 
         private void btnChrRom_Click(object sender, EventArgs e)
         {
-            if (Cartridge == null)
+            if (Nes == null)
             {
                 return;
             }
@@ -218,12 +266,12 @@ namespace NNNES.Emulator.Forms
             GL.TexImage2D(
                 TextureTarget.Texture2D,
                 0,
-                PixelInternalFormat.Rgba32f,
+                PixelInternalFormat.Rgba,
                 128,
                 128,
                 0,
-                PixelFormat.Rgba,
-                PixelType.Float,
+                PixelFormat.Bgra,
+                PixelType.UnsignedByte,
                 IntPtr.Zero);
 
             _uPixels = GL.GetUniformLocation(_program, "uPixels");
@@ -259,7 +307,7 @@ namespace NNNES.Emulator.Forms
             GL.ClearColor(Color.Black);
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
-            var chrRom = Cartridge?.GetChrRom();
+            var chrRom = Nes?.GetChrRom();
             var bank = comboBank.SelectedIndex;
 
             if (CurrentSection != ChrRom.None &&
@@ -281,8 +329,8 @@ namespace NNNES.Emulator.Forms
                         0,
                         128,
                         128,
-                        PixelFormat.Rgba,
-                        PixelType.Float,
+                        PixelFormat.Bgra,
+                        PixelType.UnsignedInt8888Rev,
                         pixels);
 
                     GL.UseProgram(_program);
@@ -296,9 +344,12 @@ namespace NNNES.Emulator.Forms
             glChrRom.SwapBuffers();
         }
 
-        private static float[] BuildPixelBuffer(byte[] chrRom, int bankStart, ChrRom section)
+        private int[] BuildPixelBuffer(byte[] chrRom, int bankStart, ChrRom section)
         {
-            var pixels = new float[16 * 16 * 8 * 8 * 4];
+            var palettes = Nes?.GetPalletes();
+            var screenColors = ScreenApi.GetScreenPalette();
+
+            var pixels = new int[16 * 16 * 8 * 8];
             var offset = section == ChrRom.Left ? 0 : 256;
 
             for (var tileY = 0; tileY < 16; tileY++)
@@ -318,30 +369,58 @@ namespace NNNES.Emulator.Forms
                             var colorCode = ((plane0 >> bit) & 1)
                                           | (((plane1 >> bit) & 1) << 1);
 
-                            var intensity = colorCode switch
+                            var color = colorCode switch
                             {
-                                0 => 0f,
-                                1 => 0.35f,
-                                2 => 0.65f,
-                                _ => 1f
+                                0 => screenColors[palettes[_selectedPalleteIndex * 4 + 0]],
+                                1 => screenColors[palettes[_selectedPalleteIndex * 4 + 1]],
+                                2 => screenColors[palettes[_selectedPalleteIndex * 4 + 2]],
+                                _ => screenColors[palettes[_selectedPalleteIndex * 4 + 3]]
                             };
 
-                            // 128 RGBA pixels per output row; each pixel has four floats.
                             var pixelX = tileX * 8 + col;
-                            // OpenGL's first uploaded row is the texture bottom;
-                            // reverse rows so NES row 0 displays at the top.
                             var pixelY = 127 - (tileY * 8 + row);
-                            var index = (pixelY * 128 + pixelX) * 4;
-                            pixels[index] = intensity;
-                            pixels[index + 1] = intensity;
-                            pixels[index + 2] = intensity;
-                            pixels[index + 3] = 1f;
+
+                            var index = (pixelY * 128 + pixelX);
+
+                            pixels[index] = color;
 
                         }
                     }
                 }
 
             return pixels;
+        }
+
+        private void UpdatePalettes()
+        {
+            var palettes = Nes?.GetPalletes();
+            var screenColors = ScreenApi.GetScreenPalette();
+
+            var controls = new[]
+            {
+                paletteControl1,
+                paletteControl2,
+                paletteControl3,
+                paletteControl4,
+                paletteControl5,
+                paletteControl6,
+                paletteControl7,
+                paletteControl8
+            };
+
+            var index = 0;
+            foreach(var control in controls)
+            {
+                control.SetColors(new Color[]
+                {
+                    Color.FromArgb(screenColors[palettes[index + 0]]),
+                    Color.FromArgb(screenColors[palettes[index + 1]]),
+                    Color.FromArgb(screenColors[palettes[index + 2]]),
+                    Color.FromArgb(screenColors[palettes[index + 3]])
+                });
+
+                index += 4;
+            }
         }
 
         private void comboBank_SelectedValueChanged(object sender, EventArgs e)

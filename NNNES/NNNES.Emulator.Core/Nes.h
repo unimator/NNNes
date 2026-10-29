@@ -31,6 +31,7 @@ public:
 
 	uint8_t* GetRam() const;
 	auto GetCpu() const -> Cpu* { return cpu_; }
+	auto GetPpu() const -> Ppu* { return ppu_; }
 
 	void SetINesHandle(INes* i_nes);
 	auto GetINesHandle() const -> const INes& { return *this->i_nes_; }
@@ -45,6 +46,9 @@ public:
 
 public:
 	auto Frame() const -> const Frame* { return &frame_; }
+
+	auto ChrRom() const -> const uint8_t* { return i_nes_->ChrRom(); }
+	auto ChrRomSize() const -> const uint32_t { return i_nes_->ChrRomSize(); }
 };
 
 typedef Nes* NesHandle;

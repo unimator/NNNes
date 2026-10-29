@@ -8,7 +8,8 @@ class Ppu : public AddressableDevice
 {
 private:
 
-	uint8_t oam_address, oam_data, ppu_scroll, ppu_address, ppu_data, oam_dma;
+	uint8_t oam_address, oam_data, ppu_scroll, ppu_data, oam_dma;
+	uint16_t ppu_address;
 
 	union PpuCtrl
 	{
@@ -58,6 +59,10 @@ private:
 
 	Frame* frame_;
 
+	uint8_t address_latch_;
+
+	uint8_t palletes[4 * 2 * 4];
+
 public:
 	Ppu(Frame* frame_);
 	virtual ~Ppu();
@@ -74,5 +79,7 @@ public:
 	uint8_t Read(uint16_t address) override;
 
 	void PpuWrite(uint16_t address, uint8_t data);
-	uint8_t PpuRead(uint16_t address, uint8_t data);
+	uint8_t PpuRead(uint16_t address);
+
+	auto Palletes() const -> const uint8_t* { return palletes; }
 };

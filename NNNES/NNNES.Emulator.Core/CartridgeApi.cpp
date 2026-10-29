@@ -27,12 +27,6 @@ extern "C" {
 		return i_nes->PrgRomSize();
 	}*/
 
-	__declspec(dllexport) void GetChrRom(const INesHandle i_nes, uint8_t** out_data, uint32_t* out_size)
-	{
-		*out_data = i_nes->ChrRom();
-		*out_size = i_nes->ChrRomSize();
-	}
-
 	/*__declspec(dllexport) uint8_t GetChrRomSize(const INesHandle i_nes)
 	{
 		return i_nes->ChrRomSize();

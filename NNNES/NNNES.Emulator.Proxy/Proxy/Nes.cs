@@ -42,8 +42,14 @@ namespace NNNES.Emulator.Proxy
         [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "IsFrameReady")]
         private static extern bool IsFrameReady(IntPtr nesInstance);
 
+        [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "GetChrRom")]
+        private static extern void GetChrRom(IntPtr nesInstance, out IntPtr byteArray, out int size);
+
+        [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "GetPalletes")]
+        private static extern void GetPalletes(IntPtr nesInstance, out IntPtr byteArray, out int size);
         private readonly IntPtr _instance;
 
+        private byte[] _chrRom;
 
         public Nes()
         {
@@ -58,11 +64,13 @@ namespace NNNES.Emulator.Proxy
         public void SetCartridge(NesCartridge cartridge)
         {
             SetCartridge(_instance, cartridge.INesHandle);
+            _chrRom = null;
         }
 
         public void Reset()
         {
             ResetState(_instance);
+            _chrRom = null;
         }
 
         public void Clock()
@@ -119,6 +127,35 @@ namespace NNNES.Emulator.Proxy
             }
 
             return result;
+        }
+
+        public byte[]? GetChrRom()
+        {
+            if (_chrRom != null)
+            {
+                return _chrRom;
+            }
+            GetChrRom(_instance, out var byteArray, out var size);
+            if (size == 0)
+            {
+                return null;
+            }
+            var data = new byte[size];
+            Marshal.Copy(byteArray, data, 0, size);
+            _chrRom = data;
+            return data;
+        }
+
+        public byte[]? GetPalletes()
+        {
+            GetPalletes(_instance, out var byteArray, out var size);
+            if (size == 0)
+            {
+                return null;
+            }
+            var data = new byte[size];
+            Marshal.Copy(byteArray, data, 0, size);
+            return data;
         }
     }
 }

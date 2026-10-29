@@ -66,6 +66,8 @@ private:
 	uint8_t Pop();
 
 	void SaveResult(uint8_t result);
+
+	uint32_t instructions_count_ = 0;
 public:
 	Cpu();
 	~Cpu();
@@ -85,7 +87,7 @@ public:
 	void Reset();
 	void Interrupt(uint16_t address);
 	void InterruptRequest();
-	void NonMaskedInterruptRequest();
+	void NonMaskableInterruptRequest();
 			
 	enum Flags
 	{
@@ -101,6 +103,8 @@ public:
 
 	void SetFlag(Flags flag, bool value);
 	bool GetFlag(Flags flag);
+
+	auto InstructionsCount() const -> uint32_t { return instructions_count_; }
 
 private:
 	struct Instruction
