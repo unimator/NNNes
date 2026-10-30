@@ -21,6 +21,4 @@ public:
 	
 	virtual uint16_t CpuMappedAddress(uint16_t address) = 0;
 	virtual uint16_t PpuMappedAddress(uint16_t address) = 0;
-
-	virtual Mirroring GetMirroring() = 0;
 };

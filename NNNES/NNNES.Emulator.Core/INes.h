@@ -43,6 +43,8 @@ public:
 	{
 		return flags7_ & 0xff00 | flags6_ >> 4;
 	}
+
+	Mirroring Mirroring() const;
 	
 	enum Flags6
 	{

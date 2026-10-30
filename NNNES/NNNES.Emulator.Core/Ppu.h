@@ -8,14 +8,30 @@ class Ppu : public AddressableDevice
 {
 private:
 
-	uint8_t oam_address, oam_data, ppu_scroll, ppu_data, oam_dma;
-	uint16_t ppu_address;
+	uint8_t oam_address_, oam_data_, scroll_, data_, oam_dma_;
+
+	union LoopyRegister
+	{
+		struct
+		{
+			uint16_t coarse_x : 5;
+			uint16_t coarse_y : 5;
+			uint16_t nametable : 2;
+			uint16_t fine_y : 3;
+			uint16_t unused : 1;
+		};
+
+		uint16_t value;
+	};
+
+	LoopyRegister vram_address_, tram_address_;
+	uint8_t fine_x_;
 
 	union PpuCtrl
 	{
 		struct
 		{
-			uint8_t nameTable : 2;
+			uint8_t nametable : 2;
 			uint8_t incrementMode : 1;
 			uint8_t spriteSelectMode : 1;
 			uint8_t backgroundPatternTable : 1;
@@ -24,7 +40,7 @@ private:
 			uint8_t generateNMI : 1;	
 		};
 		uint8_t value;
-	} ppu_ctrl;
+	} ctrl_;
 
 	union PpuMask
 	{
@@ -40,7 +56,7 @@ private:
 			uint8_t emphasizeB : 1;
 		};
 		uint8_t value;
-	} ppu_mask;
+	} mask_;
 
 	union PpuStatus
 	{
@@ -52,9 +68,9 @@ private:
 			uint8_t verticalBlank : 1;
 		};
 		uint8_t value;
-	} ppu_status;
+	} status_;
 
-	uint32_t clock_count_ = 0;
+	uint32_t cycle_count_ = 0;
 	uint32_t scanline_count_ = 0;
 
 	Frame* frame_;
@@ -62,6 +78,15 @@ private:
 	uint8_t address_latch_;
 
 	uint8_t palletes[4 * 2 * 4];
+
+	uint8_t nametables_[2][1024];
+
+	uint8_t bg_next_tile_ = 0, bg_next_tile_attribute_ = 0, bg_next_tile_lsb_ = 0, bg_next_tile_msb_ = 0;
+
+	uint16_t bg_shifter_pattern_lo_ = 0x0000,
+		bg_shifter_pattern_hi_ = 0x0000, 
+		bg_shifter_attribute_lo_ = 0x0000, 
+		bg_shifter_attribute_hi_ = 0x0000;
 
 public:
 	Ppu(Frame* frame_);

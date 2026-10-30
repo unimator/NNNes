@@ -125,3 +125,8 @@ uint8_t INes::PpuRead(uint16_t address) const
 	const auto real_address = mapper_->PpuMappedAddress(address);
 	return chr_rom_[real_address];
 }
+
+Mirroring INes::Mirroring() const
+{
+	return  flags6_ & 0x1 ? Horizontal : Vertical;
+}

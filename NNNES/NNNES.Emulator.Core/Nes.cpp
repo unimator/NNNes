@@ -74,6 +74,7 @@ void Nes::Reset()
 {
 	counter_ = 0;
 	cpu_->Reset();
+	ppu_->Reset();
 }
 
 std::vector<InstructionInfo> Nes::Disassemble(const uint16_t start_address, const uint16_t end_address)

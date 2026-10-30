@@ -20,8 +20,3 @@ uint16_t Nrom::PpuMappedAddress(uint16_t address)
 
 	return 0;
 }
-
-Mirroring Nrom::GetMirroring()
-{
-	return Horizontal;
-}
