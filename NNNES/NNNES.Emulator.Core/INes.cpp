@@ -55,7 +55,7 @@ void INes::LoadNesFormat(const uint8_t* bytes, const uint32_t length)
 
 	auto offset = 0x10;
 
-	if (flags6_ & Trainer) {
+	if (flags6_ & Flags6::Trainer) {
 		offset += 0x200;
 		trainer_ = new uint8_t[0x200];
 		memcpy(trainer_, (bytes + 16), 0x200);
@@ -116,17 +116,17 @@ uint8_t INes::Read(uint16_t address)
 
 void INes::PpuWrite(uint16_t address, uint8_t data) const
 {
-	const auto real_address = mapper_->PpuMappedAddress(address);
+	const auto real_address = mapper_->PpuMappedWriteAddress(address);
 	chr_rom_[real_address] = data;
 }
 
 uint8_t INes::PpuRead(uint16_t address) const
 {
-	const auto real_address = mapper_->PpuMappedAddress(address);
+	const auto real_address = mapper_->PpuMappedReadAddress(address);
 	return chr_rom_[real_address];
 }
 
 Mirroring INes::Mirroring() const
 {
-	return  flags6_ & 0x1 ? Horizontal : Vertical;
+	return  (flags6_ & 0x1) ? Mirroring::Vertical : Mirroring::Horizontal;
 }

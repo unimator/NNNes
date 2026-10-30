@@ -20,5 +20,6 @@ public:
 	auto MapperNumber() const -> uint8_t { return mapper_number_; }
 	
 	virtual uint16_t CpuMappedAddress(uint16_t address) = 0;
-	virtual uint16_t PpuMappedAddress(uint16_t address) = 0;
+	virtual uint16_t PpuMappedReadAddress(uint16_t address) = 0;
+	virtual uint16_t PpuMappedWriteAddress(uint16_t address) = 0;
 };

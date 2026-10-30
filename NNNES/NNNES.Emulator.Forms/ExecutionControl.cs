@@ -75,9 +75,15 @@ namespace NNNES.Emulator.Forms
             UpdateControls();
         }
 
+        private void btnNextFrame_Click(object sender, EventArgs e)
+        {
+            _nes.NextFrame();
+            UpdateControls();
+        }
+
         private void btnZPMemory_Click(object sender, EventArgs e)
         {
-            if(_zeroPageMemory != null && _zeroPageMemory.Visible)
+            if (_zeroPageMemory != null && _zeroPageMemory.Visible)
             {
                 _zeroPageMemory.Focus();
             }

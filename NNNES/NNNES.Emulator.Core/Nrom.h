@@ -10,6 +10,7 @@ public:
 	}
 
 	uint16_t CpuMappedAddress(uint16_t address) override;
-	uint16_t PpuMappedAddress(uint16_t address) override;
+	uint16_t PpuMappedReadAddress(uint16_t address) override;
+	uint16_t PpuMappedWriteAddress(uint16_t address) override;
 };
 

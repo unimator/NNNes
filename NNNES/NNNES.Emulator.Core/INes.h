@@ -41,7 +41,7 @@ public:
 
 	auto MapperNumber() const -> uint8_t
 	{
-		return flags7_ & 0xff00 | flags6_ >> 4;
+		return (flags7_ & 0xff00) | flags6_ >> 4;
 	}
 
 	Mirroring Mirroring() const;

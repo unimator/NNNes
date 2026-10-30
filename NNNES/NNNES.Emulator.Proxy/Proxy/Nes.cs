@@ -16,7 +16,10 @@ namespace NNNES.Emulator.Proxy
 
         [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "NextInstruction")]
         private static extern void NextInstruction(IntPtr nesInstance);
-        
+
+        [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "NextFrame")]
+        private static extern void NextFrame(IntPtr nesInstance);
+
         [DllImport("NNNES.Emulator.Core.dll", EntryPoint = "ResetState")]
         private static extern void ResetState(IntPtr nesInstance);
 
@@ -81,6 +84,11 @@ namespace NNNES.Emulator.Proxy
         public void NextInstruction()
         {
             NextInstruction(_instance);
+        }
+
+        public void NextFrame()
+        {
+            NextFrame(_instance);
         }
 
         public void SetRegisters(CpuRegisters registers)

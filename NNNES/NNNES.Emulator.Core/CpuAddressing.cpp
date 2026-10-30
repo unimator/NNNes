@@ -22,7 +22,7 @@ uint8_t Cpu::AbsoluteX()
 
 	absolute_address_ = (higher << 8 | lower) + X();
 
-	if ((absolute_address_ & 0xFF00) != higher << 8)
+	if ((absolute_address_ & 0xFF00) != (higher << 8))
 	{
 		return 1;
 	}
@@ -39,7 +39,7 @@ uint8_t Cpu::AbsoluteY()
 
 	absolute_address_ = (higher << 8 | lower) + Y();
 
-	if ((absolute_address_ & 0xFF00) != higher << 8)
+	if ((absolute_address_ & 0xFF00) != (higher << 8))
 	{
 		return 1;
 	}
@@ -122,10 +122,15 @@ uint8_t Cpu::Indirect()
 	uint16_t higher = Read(ProgramCounter()++);
 
 	const uint16_t target_address = higher << 8 | lower;
-	higher = Read(target_address);
-	lower = Read(target_address + 1);
 
-	absolute_address_ = higher << 8 | lower;
+	if (lower == 0x00FF)
+	{
+		absolute_address_ = Read(target_address & 0xFF00) << 8 | Read(target_address);
+	}
+	else
+	{
+		absolute_address_ = Read(target_address + 1) << 8 | Read(target_address);
+	}
 	
 	return 0;
 }

@@ -149,7 +149,7 @@ uint8_t Cpu::TXA()
 
 uint8_t Cpu::TXS()
 {
-	Accumulator() = StackPointer();
+	StackPointer() = X();
 	return 0;
 }
 
@@ -295,7 +295,7 @@ uint8_t Cpu::AND()
 {
 	Accumulator() = Accumulator() & Fetch();
 	SetFlag(Z, Accumulator() == 0x00);
-	SetFlag(Z, Accumulator() & 0x80);
+	SetFlag(N, Accumulator() & 0x80);
 	return 1;
 }
 
@@ -333,7 +333,7 @@ uint8_t Cpu::CMP()
 {
 	const auto argument = Fetch();
 	const auto temp = static_cast<uint16_t>(Accumulator()) - static_cast<uint16_t>(argument);
-	SetFlag(C, Accumulator() >= temp);
+	SetFlag(C, Accumulator() >= argument);
 	SetFlag(Z, (temp & 0x00FF) == 0x0000);
 	SetFlag(N, temp & 0x0080);
 	return 1;
@@ -412,7 +412,7 @@ uint8_t Cpu::BRK()
 {
 	ProgramCounter()++;
 
-	//SetFlag(I, true);
+	SetFlag(I, true);
 	Write(0x0100 + StackPointer(), (ProgramCounter() >> 8) & 0x00FF);
 	StackPointer()--;
 	Write(0x0100 + StackPointer(), ProgramCounter() & 0x00FF);
@@ -423,7 +423,7 @@ uint8_t Cpu::BRK()
 	StackPointer()--;
 	SetFlag(B, 0);
 
-	ProgramCounter() = static_cast<uint16_t>(Read(0xFFFE)) | static_cast<uint16_t>(Read(0xFFFF)) << 8;
+	ProgramCounter() = static_cast<uint16_t>(Read(0xFFFE)) | (static_cast<uint16_t>(Read(0xFFFF)) << 8);
 	return 0;
 }
 
@@ -540,8 +540,10 @@ uint8_t Cpu::PLA()
 
 uint8_t Cpu::PLP()
 {
+	auto break_flag = Status() & Flags::B;
 	Status() = Pop();
 	SetFlag(U, true);
+	SetFlag(B, break_flag);
 	return 0;
 }
 #pragma endregion 
@@ -551,29 +553,48 @@ uint8_t Cpu::PLP()
 uint8_t Cpu::DCP()
 {
 	const auto argument = Fetch();
-	const auto temp = argument - 1;
-	Write(absolute_address_, temp & 0x00FF);
-	SetFlag(Z, (temp & 0x00FF) == 0x0000);
-	SetFlag(N, temp & 0x0080);
-	const auto result = static_cast<uint16_t>(Accumulator()) - static_cast<uint16_t>(temp);
-	SetFlag(C, Accumulator() >= temp);
-	SetFlag(Z, (result & 0x00FF) == 0x0000);
-	SetFlag(N, result & 0x0080);
+	const auto decremented = static_cast<uint8_t>(argument - 1);
+	
+	Write(absolute_address_, decremented);
+	
+	const auto result = static_cast<uint8_t>(Accumulator() - decremented);
+	
+	SetFlag(C, Accumulator() >= decremented);
+	SetFlag(Z, result == 0x0000);
+	SetFlag(N, result & 0x80);
 	return 1;
 }
 
 uint8_t Cpu::ISC() 
 {
 	const auto argument = Fetch();
-	const auto temp = argument + 1;
-	Write(absolute_address_, temp & 0x00FF);
-	SetFlag(Z, (temp & 0x00FF) == 0x0000);
-	SetFlag(N, temp & 0x0080);
-	const auto result = static_cast<uint16_t>(Accumulator()) - static_cast<uint16_t>(temp);
-	SetFlag(C, Accumulator() >= temp);
-	SetFlag(Z, (result & 0x00FF) == 0x0000);
-	SetFlag(N, result & 0x0080);
+	const auto incremented = static_cast<uint8_t>(argument + 1);
+
+	Write(absolute_address_, incremented);
+
+	const uint16_t temp =
+		static_cast<uint16_t>(Accumulator()) +
+		static_cast<uint16_t>(incremented ^ 0xFF) +
+		static_cast<uint16_t>(GetFlag(C));
+
+	SetFlag(C, temp & 0xFF00);
+	SetFlag(Z, (temp & 0x00FF) == 0);
+	SetFlag(V, (temp ^ Accumulator()) & (temp ^ (incremented ^ 0xFF)) & 0x80);
+	SetFlag(N, temp & 0x80);
+
+	Accumulator() = static_cast<uint8_t>(temp & 0x00FF);
 	return 0;
+}
+
+uint8_t Cpu::LAX()
+{
+	const auto argument = Fetch();
+	X() = argument;
+	Accumulator() = argument;
+	SetFlag(Z, X() == 0x00);
+	SetFlag(N, X() & 0x80);
+
+	return 1;
 }
 
 uint8_t Cpu::SAX()
@@ -592,14 +613,17 @@ uint8_t Cpu::SHA()
 
 uint8_t Cpu::SLO()
 {
-	const auto argument = Fetch();
-	const auto temp = argument | Accumulator();
-	SetFlag(Z, (temp & 0x00FF) == 0x00);
-	SetFlag(N, temp & 0x0080);
-	SaveResult(temp);
-	const auto shifted = static_cast<uint16_t>(argument) << 1;
-	SetFlag(C, (shifted & 0xFF00) > 0);
-	SaveResult(shifted);
+	const uint8_t value = Fetch();
+	const uint16_t shifted = static_cast<uint16_t>(value) << 1;
+	const uint8_t result = static_cast<uint8_t>(shifted);
+
+	SetFlag(C, shifted & 0x0100);
+	Write(absolute_address_, result);
+
+	Accumulator() |= result;
+	SetFlag(Z, Accumulator() == 0);
+	SetFlag(N, Accumulator() & 0x80);
+
 	return 0;
 }
 

@@ -16,7 +16,8 @@ private:
 		{
 			uint16_t coarse_x : 5;
 			uint16_t coarse_y : 5;
-			uint16_t nametable : 2;
+			uint16_t nametable_x : 1;
+			uint16_t nametable_y : 1;
 			uint16_t fine_y : 3;
 			uint16_t unused : 1;
 		};
@@ -31,7 +32,8 @@ private:
 	{
 		struct
 		{
-			uint8_t nametable : 2;
+			uint8_t nametable_x : 1;
+			uint8_t nametable_y : 1;
 			uint8_t incrementMode : 1;
 			uint8_t spriteSelectMode : 1;
 			uint8_t backgroundPatternTable : 1;
@@ -71,15 +73,15 @@ private:
 	} status_;
 
 	uint32_t cycle_count_ = 0;
-	uint32_t scanline_count_ = 0;
+	int32_t scanline_count_ = 0;
 
 	Frame* frame_;
 
 	uint8_t address_latch_;
 
-	uint8_t palletes[4 * 2 * 4];
-
+	uint8_t palletes[32];
 	uint8_t nametables_[2][1024];
+	uint8_t pattern_tables_[2][4096];
 
 	uint8_t bg_next_tile_ = 0, bg_next_tile_attribute_ = 0, bg_next_tile_lsb_ = 0, bg_next_tile_msb_ = 0;
 

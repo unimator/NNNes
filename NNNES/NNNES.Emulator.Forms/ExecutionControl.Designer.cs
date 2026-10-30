@@ -37,6 +37,7 @@
             btnExit = new Button();
             openRomFileDialog = new OpenFileDialog();
             btnZPMemory = new Button();
+            btnNextFrame = new Button();
             SuspendLayout();
             // 
             // txtRomTitle
@@ -151,7 +152,7 @@
             btnZPMemory.FlatStyle = FlatStyle.Flat;
             btnZPMemory.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnZPMemory.ForeColor = Color.LawnGreen;
-            btnZPMemory.Location = new Point(196, 3);
+            btnZPMemory.Location = new Point(196, 74);
             btnZPMemory.Margin = new Padding(4, 3, 4, 3);
             btnZPMemory.Name = "btnZPMemory";
             btnZPMemory.Size = new Size(96, 40);
@@ -160,10 +161,27 @@
             btnZPMemory.UseVisualStyleBackColor = true;
             btnZPMemory.Click += btnZPMemory_Click;
             // 
+            // btnNextFrame
+            // 
+            btnNextFrame.BackColor = Color.FromArgb(64, 64, 64);
+            btnNextFrame.FlatStyle = FlatStyle.Flat;
+            btnNextFrame.Font = new Font("Malgun Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnNextFrame.ForeColor = Color.LawnGreen;
+            btnNextFrame.Location = new Point(196, 3);
+            btnNextFrame.Margin = new Padding(4, 3, 4, 3);
+            btnNextFrame.Name = "btnNextFrame";
+            btnNextFrame.Size = new Size(41, 40);
+            btnNextFrame.TabIndex = 10;
+            btnNextFrame.Text = "F";
+            btnNextFrame.TextAlign = ContentAlignment.MiddleRight;
+            btnNextFrame.UseVisualStyleBackColor = true;
+            btnNextFrame.Click += btnNextFrame_Click;
+            // 
             // ExecutionControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnNextFrame);
             Controls.Add(btnZPMemory);
             Controls.Add(txtRomTitle);
             Controls.Add(btnReset);
@@ -189,5 +207,6 @@
         private Button btnExit;
         private OpenFileDialog openRomFileDialog;
         private Button btnZPMemory;
+        private Button btnNextFrame;
     }
 }

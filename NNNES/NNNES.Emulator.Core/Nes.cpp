@@ -29,12 +29,13 @@ Nes::~Nes()
 
 void Nes::Clock()
 {
+	ppu_->Clock();
+
 	if(counter_ % 3 == 0)
 	{
 		cpu_->Clock();
 	}
 	
-	ppu_->Clock();
 	if (ppu_->NonMaskableInterrupt())
 	{
 		ppu_->ClearNonMaskableInterrupt();

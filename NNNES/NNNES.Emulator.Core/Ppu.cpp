@@ -46,7 +46,7 @@ void Ppu::Clock()
 			if (vram_address_.coarse_x == 31)
 			{
 				vram_address_.coarse_x = 0;
-				vram_address_.nametable = (vram_address_.nametable & 0b10) | ~(vram_address_.nametable & 0b01);
+				vram_address_.nametable_x = ~vram_address_.nametable_x;
 			}
 			else
 			{
@@ -70,7 +70,7 @@ void Ppu::Clock()
 				if (vram_address_.coarse_y == 29)
 				{
 					vram_address_.coarse_y = 0;
-					vram_address_.nametable = ~(vram_address_.nametable & 0b10) | (vram_address_.nametable & 0b01);
+					vram_address_.nametable_y = ~vram_address_.nametable_y;
 				}
 				else if (vram_address_.coarse_y == 31)
 				{
@@ -88,7 +88,7 @@ void Ppu::Clock()
 	{
 		if (mask_.showBackground || mask_.showSprites)
 		{
-			vram_address_.nametable = (vram_address_.nametable & 0b10) & (tram_address_.nametable & 0b01);
+			vram_address_.nametable_x = tram_address_.nametable_x;
 			vram_address_.coarse_x = tram_address_.coarse_x;
 		}
 	};
@@ -98,7 +98,7 @@ void Ppu::Clock()
 		if (mask_.showBackground || mask_.showSprites)
 		{
 			vram_address_.fine_y = tram_address_.fine_y;
-			vram_address_.nametable = (tram_address_.nametable & 0b10) & (vram_address_.nametable & 0b01);
+			vram_address_.nametable_y = tram_address_.nametable_y;
 			vram_address_.coarse_y = tram_address_.coarse_y;
 		}
 	};
@@ -149,8 +149,9 @@ void Ppu::Clock()
 				break;
 			case 2:
 				bg_next_tile_attribute_ = PpuRead(
-					0x23C0 | ((vram_address_.nametable & 0b10) << 11)
-					| ((vram_address_.nametable & 0b01) << 10)
+					0x23C0 
+					| (vram_address_.nametable_y << 11)
+					| (vram_address_.nametable_x << 10)
 					| ((vram_address_.coarse_y >> 2) << 3)
 					| (vram_address_.coarse_x >> 2)
 				);
@@ -252,7 +253,7 @@ void Ppu::Clock()
 		cycle_count_ = 0;
 		scanline_count_++;
 
-		if (scanline_count_ == 261)
+		if (scanline_count_ >= 261)
 		{
 			scanline_count_ = -1;
 			frame_->frame_ready = true;
@@ -262,100 +263,92 @@ void Ppu::Clock()
 
 void Ppu::Write(uint16_t address, uint8_t data)
 {
-	if (address >= 0x2000 && address < 0x4000)
+	const auto id = address & 7;
+	switch (id)
 	{
-		const auto id = address & 7;
-		switch (id)
+	case 0:
+		ctrl_.value = data;
+		tram_address_.nametable_x = ctrl_.nametable_x;
+		tram_address_.nametable_y = ctrl_.nametable_y;
+		break;
+	case 1:
+		mask_.value = data;
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:
+		if (address_latch_ == 0)
 		{
-		case 0:
-			ctrl_.value = data;
-			tram_address_.nametable = ctrl_.nametable;
-;			break;
-		case 1:
-			mask_.value = data;
-			break;
-		case 2:
-			break;
-		case 3:
-			oam_address_ = data;
-			break;
-		case 4:
-			oam_data_ = data;
-			break;
-		case 5:
-			if (address_latch_ == 0)
-			{
-				fine_x_ = data & 0x07;
-				tram_address_.coarse_x = data >> 3;
-				address_latch_ = 1;
-			}
-			else
-			{
-				tram_address_.fine_y = data & 0x07;
-				tram_address_.coarse_y = data >> 3;
-				address_latch_ = 0;
-			}
-			break;
-		case 6:
-			if (address_latch_ == 0)
-			{
-				tram_address_.value = (uint16_t)((tram_address_.value & 0x00FF) | (data & 0x3F << 8));
-				address_latch_ = 1;
-			}
-			else
-			{
-				tram_address_.value = (tram_address_.value & 0xFF00) | data;
-				vram_address_ = tram_address_;
-				address_latch_ = 0;
-			}
-			break;
-		case 7:
-			PpuWrite(vram_address_.value, data);
-			vram_address_.value += ctrl_.incrementMode ? 32 : 1;
-			break;
-		default:
-			break;
+			fine_x_ = data & 0x07;
+			tram_address_.coarse_x = data >> 3;
+			address_latch_ = 1;
 		}
+		else
+		{
+			tram_address_.fine_y = data & 0x07;
+			tram_address_.coarse_y = data >> 3;
+			address_latch_ = 0;
+		}
+		break;
+	case 6:
+		if (address_latch_ == 0)
+		{
+			tram_address_.value = (uint16_t)((data & 0x3F) << 8) | (tram_address_.value & 0x00FF);
+			address_latch_ = 1;
+		}
+		else
+		{
+			tram_address_.value = (tram_address_.value & 0xFF00) | data;
+			vram_address_ = tram_address_;
+			address_latch_ = 0;
+		}
+		break;
+	case 7:
+		PpuWrite(vram_address_.value, data);
+		vram_address_.value += (ctrl_.incrementMode ? 32 : 1);
+		break;
+	default:
+		break;
 	}
 }
 
 uint8_t Ppu::Read(uint16_t address)
 {
 	uint8_t data = 0x00;
-	if (address >= 0x2000 && address < 0x4000)
-	{
-		const auto id = address & 7;
-		switch (id)
-		{
-		case 0:
-			return ctrl_.value;
-		case 1:
-			return mask_.value;
-		case 2:
-			data = (status_.value & 0xE0) | (data_ & 0x1F);
-			status_.verticalBlank = 0;
-			address_latch_ = 0;
-			return data;
-		case 3:
-			return oam_address_;
-		case 4:
-			return oam_data_;
-		case 5:
-			return scroll_;
-		case 6:
-			break;
-		case 7:
-			data = data_;
-			data_ = PpuRead(vram_address_.value);
+	const auto id = address & 7;
 
-			if (vram_address_.value > 0x3F00) {
-				data = data_;
-			}
-			vram_address_.value += ctrl_.incrementMode ? 32 : 1;
-			break;
-		default:
-			return 0x00;
+	switch (id)
+	{
+	case 0:
+		break;
+	case 1:
+		break;
+	case 2:
+		data = (status_.value & 0xE0) | (data_ & 0x1F);
+		status_.verticalBlank = 0;
+		address_latch_ = 0;
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	case 6:
+		break;
+	case 7:
+		data = data_;
+		data_ = PpuRead(vram_address_.value);
+
+		if (vram_address_.value > 0x3F00) {
+			data = data_;
 		}
+		vram_address_.value += (ctrl_.incrementMode ? 32 : 1);
+		break;;
 	}
 
 	return data;
@@ -366,11 +359,12 @@ void Ppu::PpuWrite(uint16_t address, uint8_t data)
 	if(address >= 0 && address <=0x1FFF)
 	{
 		bus_->GetINesHandle()->PpuWrite(address, data);
+		//pattern_tables_[(address & 0x1000) >> 12][address & 0x0FFF] = data;
 	}
 	else if (address >= 0x2000 && address <= 0x3EFF)
 	{
 		auto mirroring = bus_->GetINesHandle()->Mirroring();
-
+		address &= 0x0FFF;
 		if (mirroring == Mirroring::Vertical)
 		{
 			if (address >= 0x0000 && address <= 0x03FF)
@@ -380,7 +374,7 @@ void Ppu::PpuWrite(uint16_t address, uint8_t data)
 
 			if (address >= 0x0400 && address <= 0x07FF)
 			{
-				nametables_[1][address & 0x03FF + 0x03C0] = data;
+				nametables_[1][address & 0x03FF] = data;
 			}
 
 			if (address >= 0x0800 && address <= 0x0BFF)
@@ -390,7 +384,7 @@ void Ppu::PpuWrite(uint16_t address, uint8_t data)
 
 			if (address >= 0x0C00 && address <= 0x0FFF)
 			{
-				nametables_[1][address & 0x03FF + 0x03C0] = data;
+				nametables_[1][address & 0x03FF] = data;
 			}
 		}
 		else if (mirroring == Mirroring::Horizontal)
@@ -407,12 +401,12 @@ void Ppu::PpuWrite(uint16_t address, uint8_t data)
 
 			if (address >= 0x0800 && address <= 0x0BFF)
 			{
-				nametables_[1][address & 0x03FF + 0x03C0] = data;
+				nametables_[1][address & 0x03FF] = data;
 			}
 
 			if (address >= 0x0C00 && address <= 0x0FFF)
 			{
-				nametables_[1][address & 0x03FF + 0x03C0] = data;
+				nametables_[1][address & 0x03FF] = data;
 			}
 		}
 	}
@@ -423,7 +417,12 @@ void Ppu::PpuWrite(uint16_t address, uint8_t data)
 		if (address == 0x0014) address = 0x0004;
 		if (address == 0x0018) address = 0x0008;
 		if (address == 0x001C) address = 0x000C;
+		if (data > 0x40)
+		{
+			palletes[address] = data;
+		}
 		palletes[address] = data;
+		
 	}
 }
 
@@ -432,11 +431,12 @@ uint8_t Ppu::PpuRead(uint16_t address)
 	if (address >= 0 && address <= 0x1FFF)
 	{
 		return bus_->GetINesHandle()->PpuRead(address);
+		//return pattern_tables_[(address & 0x1000) >> 12][address & 0x0FFF];
 	}
 	else if (address >= 0x2000 && address <= 0x3EFF)
 	{
 		auto mirroring = bus_->GetINesHandle()->Mirroring();
-
+		address &= 0x0FFF;
 		if (mirroring == Mirroring::Vertical)
 		{
 			if (address >= 0x0000 && address <= 0x03FF)

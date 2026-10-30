@@ -12,6 +12,13 @@ extern "C" {
 		return nes->Frame()->frame_ready;
 	}
 
+	__declspec(dllexport) void NextFrame(const NesHandle nes)
+	{
+		do
+			nes->Clock();
+		while (!nes->Frame()->frame_ready);
+	}
+
 	__declspec(dllexport) const InstructionInfo* Disassemble(const NesHandle nes, const uint16_t address_start, const uint16_t address_end, size_t& instructions_length)
 	{
 		const auto disassembled = nes->Disassemble(address_start, address_end);

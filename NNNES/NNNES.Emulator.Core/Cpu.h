@@ -208,6 +208,7 @@ private:
 	uint8_t RRA();
 	uint8_t RLA();
 	uint8_t TAS();
+	uint8_t LAX();
 
 	uint8_t Fetch();
 
