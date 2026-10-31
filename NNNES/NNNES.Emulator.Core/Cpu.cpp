@@ -367,7 +367,7 @@ void Cpu::Interrupt(uint16_t address)
 	Push(Status());
 
 	const auto interrupt_handler = address;
-	ProgramCounter() = Read(interrupt_handler << 8) | Read(interrupt_handler);
+	ProgramCounter() = (Read(interrupt_handler + 1) << 8) | Read(interrupt_handler);
 
 	cycles_ = 7;
 }
